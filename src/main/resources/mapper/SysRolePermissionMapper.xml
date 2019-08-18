@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jc.springboot.dao.SysRolePermissionMapper">
+
+    <resultMap id="sysrolepermission" type="com.jc.springboot.entity.SysRolePermission">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <id column="role_id" property="role_id" jdbcType="INTEGER"/>
+        <id column="permission_id" property="permission_id" jdbcType="INTEGER"/>
+        <result column="create_time" property="create_time" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="update_time" jdbcType="TIMESTAMP"/>
+        <result column="delete_status" property="delete_status" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+
+        id, role_id, permission_id, create_time, update_time, delete_status
+
+    </sql>
+
+    <select id="selectSysPermissionIDByRoleId" parameterType="java.lang.Integer" resultMap="sysrolepermission">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_role_permission
+        WHERE 1=1
+        <if test="role_id !=null and role_id != ''">
+            and role_id=#{role_id}
+        </if>
+    </select>
+
+    <insert id="save" parameterType="com.jc.springboot.entity.SysRolePermission" >
+        INSERT INTO sys_role_permission (role_id, permission_id)
+        VALUES (#{role_id}, #{permission_id})
+    </insert>
+</mapper>
