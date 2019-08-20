@@ -9,7 +9,7 @@ import com.alibaba.fastjson.JSONObject;
  */
 public interface LoginService {
 
-    JSONObject getInfo();
+    JSONObject listInfo();
 
     JSONObject logout();
 }

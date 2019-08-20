@@ -30,7 +30,7 @@
 
     </sql>
 
-    <select id="selectSysPermissionByPermissionId" parameterType="java.lang.Integer" resultMap="syspermission">
+    <select id="listSysPermissionByPermissionId" parameterType="java.lang.Integer" resultMap="syspermission">
         SELECT
         <include refid="Base_Column_List"/>
         FROM sys_permission
@@ -46,7 +46,7 @@
         FROM sys_permission
     </select>
 
-    <select id="getUserPermission" resultMap="All">
+    <select id="loadUserPermission" resultMap="All">
         SELECT
             u.id              userId,
             u.nickname        nickname,
@@ -62,12 +62,12 @@
           AND u.delete_status = '1'
     </select>
 
-    <select id="getAllPermission" resultType="String">
+    <select id="listAllPermission" resultType="String">
         SELECT p.permission_code permissionCode
         FROM sys_permission p
         ORDER BY p.id
     </select>
-    <select id="getAllMenu" resultType="String">
+    <select id="loadAllMenu" resultType="String">
         SELECT p.menu_code menuCode
         FROM sys_permission p
         ORDER BY p.id

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import 'normalize.css/normalize.css'// A modern alternative to CSS resets
-import ElementUI from 'element-ui'
+import ElementUI, {Message} from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import locale from 'element-ui/lib/locale/lang/zh-CN'
 import App from './App'
@@ -15,6 +15,8 @@ import axios from 'axios'
 Vue.prototype.$reqs = axios
 Vue.use(ElementUI, {locale})
 Vue.prototype.api = api
+Vue.component(Message)
+Vue.prototype.$message = Message
 
 //全局的常量
 

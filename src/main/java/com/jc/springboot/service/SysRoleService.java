@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface SysRoleService {
 
-    List<SysRole> selectSysRoleByRoleId(Integer role_id);
+    List<SysRole> listSysRoleByRoleId(Integer role_id);
 
     List<SysRole> list();
 

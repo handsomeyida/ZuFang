@@ -50,7 +50,7 @@ public class ShiroUtils {
      * @CreateTime 2019/8/3 11:37
      * @Return user 用户信息
      */
-    public static SysUser getUserInfo() {
+    public static SysUser listUserInfo() {
         return (SysUser) SecurityUtils.getSubject().getPrincipal();
     }
 

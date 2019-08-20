@@ -26,6 +26,7 @@
       <el-table-column align="center" label="菜单&权限" width="420">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.roleName==adminName" type="success">全部</el-tag>
+          <el-tag v-else-if="scope.row.roleName==shadiao" type="success">沙雕三公专属</el-tag>
           <div v-else>
             <div v-for="menu in scope.row.menus" style="text-align: left">
               <span style="width: 100px;display: inline-block;text-align: right ">{{menu.menuName}}</span>
@@ -102,7 +103,8 @@
           roleId: '',
           permissions: [],
         },
-        adminName: '管理员'
+        adminName: '管理员',
+        shadiao: '傻屌'
       }
     },
     created() {

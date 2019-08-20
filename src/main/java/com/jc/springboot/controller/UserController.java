@@ -34,13 +34,13 @@ public class UserController {
 
     @RequiresPermissions("user:add")
     @RequestMapping("/addUser")
-    public JSONObject addUser(@RequestBody JSONObject requestJson) {
+    public JSONObject insertUser(@RequestBody JSONObject requestJson) {
         String loginword = (String)requestJson.get("password");
         String password = SHA256Util.sha256(loginword, null);
         requestJson.remove("password");
         requestJson.put("password",password);
         LoginUtil.hasAllRequired(requestJson, "username, password, nickname, roleId");
-        return userService.addUser(requestJson);
+        return userService.insertUser(requestJson);
     }
 
     @RequiresPermissions("user:update")

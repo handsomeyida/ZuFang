@@ -30,8 +30,8 @@ public class SysUserServiceImpl implements SysUserService {
     SysUserMapper sysUserMapper;
 
     @Override
-    public SysUser selectUserByName(String username, String password) {
-        return sysUserMapper.selectUserByName(username, password);
+    public SysUser listUserByName(String username, String password) {
+        return sysUserMapper.listUserByName(username, password);
     }
 
     @Override
@@ -40,8 +40,8 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public JSONObject getUser(String username, String password) {
-        return sysUserMapper.getUser(username, password);
+    public JSONObject loadUser(String username, String password) {
+        return sysUserMapper.loadUser(username, password);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Transactional(rollbackFor = Exception.class)
     @SuppressWarnings("unchecked")
     @Override
-    public JSONObject addRole(JSONObject jsonObject) {
+    public JSONObject insertRole(JSONObject jsonObject) {
         sysUserMapper.insertRole(jsonObject);
         sysUserMapper.insertRolePermission(jsonObject.getString("roleId"), (List<Integer>) jsonObject.get("permissions"));
         return LoginUtil.successJson();
@@ -149,12 +149,12 @@ public class SysUserServiceImpl implements SysUserService {
      * 添加用户
      */
     @Override
-    public JSONObject addUser(JSONObject jsonObject) {
-        int exist = sysUserMapper.queryExistUsername(jsonObject);
+    public JSONObject insertUser(JSONObject jsonObject) {
+        int exist = sysUserMapper.loadExistUsername(jsonObject);
         if (exist > 0) {
             return LoginUtil.errorJson(ErrorEnum.E_10009);
         }
-        sysUserMapper.addUser(jsonObject);
+        sysUserMapper.insertUser(jsonObject);
         return LoginUtil.successJson();
     }
 
@@ -164,7 +164,7 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     public JSONObject getAllRoles() {
-        List<JSONObject> roles = sysUserMapper.getAllRoles();
+        List<JSONObject> roles = sysUserMapper.listAllRoles();
         return LoginUtil.successPage(roles);
     }
 
@@ -174,9 +174,11 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public JSONObject updateUser(JSONObject jsonObject) {
         String loginword = (String)jsonObject.get("password");
-        String password = SHA256Util.sha256(loginword, null);
-        jsonObject.remove("password");
-        jsonObject.put("password",password);
+        if (loginword != null){
+            String password = SHA256Util.sha256(loginword, null);
+            jsonObject.remove("password");
+            jsonObject.put("password",password);
+        }
         sysUserMapper.updateUser(jsonObject);
         return LoginUtil.successJson();
     }

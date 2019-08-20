@@ -18,7 +18,7 @@
         <result column="update_time" property="update_time" jdbcType="TIMESTAMP"/>
         <result column="delete_status" property="delete_status" jdbcType="VARCHAR"/>
     </resultMap>
-    <select id="selectUserByName" parameterType="java.lang.String" resultMap="sysuser">
+    <select id="listUserByName" parameterType="java.lang.String" resultMap="sysuser">
         SELECT
         <include refid="Base_Column_List"/>
         FROM sys_user
@@ -37,7 +37,7 @@
         FROM sys_user
     </select>
 
-    <select id="getUser" resultType="com.alibaba.fastjson.JSONObject">
+    <select id="loadUser" resultType="com.alibaba.fastjson.JSONObject">
         SELECT
             u.id       userId,
             u.username username,
@@ -220,14 +220,14 @@
         ORDER BY u.userId
     </select>
 
-    <select id="queryExistUsername" resultType="int">
+    <select id="loadExistUsername" resultType="int">
         select count(0)
          from sys_user
          WHERE username=#{username}
          AND delete_status='1';
     </select>
 
-    <insert id="addUser" useGeneratedKeys="true" keyProperty="userId">
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId">
         INSERT INTO sys_user
         (username, password, nickname, role_id) VALUES
             (#{username}, #{password}, #{nickname}, #{roleId})
@@ -246,7 +246,7 @@
         WHERE id = #{userId} and id != 10001
     </update>
 
-    <select id="getAllRoles" resultType="com.alibaba.fastjson.JSONObject">
+    <select id="listAllRoles" resultType="com.alibaba.fastjson.JSONObject">
         SELECT
             id        roleId,
             role_name roleName

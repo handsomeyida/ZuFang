@@ -13,6 +13,9 @@
     data() {
       return {}
     },
+    methods: {
+
+    }
   }
 </script>
 

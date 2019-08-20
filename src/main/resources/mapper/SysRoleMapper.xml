@@ -17,7 +17,7 @@
 
     </sql>
 
-    <select id="selectSysRoleByRoleId" parameterType="java.lang.Integer" resultMap="sysrole">
+    <select id="listSysRoleByRoleId" parameterType="java.lang.Integer" resultMap="sysrole">
         SELECT
         <include refid="Base_Column_List"/>
         FROM sys_role

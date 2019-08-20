@@ -16,11 +16,11 @@ import java.util.List;
 @Repository
 public interface SysUserMapper{
 
-    SysUser selectUserByName(@Param(value="username")String username, @Param("password") String password);
+    SysUser listUserByName(@Param(value="username")String username, @Param("password") String password);
 
     List<SysUser> list();
 
-    JSONObject getUser(@Param("username") String username, @Param("password") String password);
+    JSONObject loadUser(@Param("username") String username, @Param("password") String password);
 
     //查询所有权限, 给角色分配权限
     List<JSONObject> listAllPermission();
@@ -57,13 +57,13 @@ public interface SysUserMapper{
 
     //查询所有的角色
     //在添加/修改用户的时候要使用此方法
-    List<JSONObject> getAllRoles();
+    List<JSONObject> listAllRoles();
 
     //校验用户名是否已存在
-    int queryExistUsername(JSONObject jsonObject);
+    int loadExistUsername(JSONObject jsonObject);
 
     //新增用户
-    int addUser(JSONObject jsonObject);
+    int insertUser(JSONObject jsonObject);
 
     //修改用户
     int updateUser(JSONObject jsonObject);

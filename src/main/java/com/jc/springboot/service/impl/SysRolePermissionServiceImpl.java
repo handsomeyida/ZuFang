@@ -22,8 +22,8 @@ public class SysRolePermissionServiceImpl implements SysRolePermissionService {
     SysRolePermissionMapper sysRolePermissionMapper;
 
     @Override
-    public List<SysRolePermission> selectSysPermissionIDByRoleId(Integer role_id) {
-        return sysRolePermissionMapper.selectSysPermissionIDByRoleId(role_id);
+    public List<SysRolePermission> listSysPermissionIDByRoleId(Integer role_id) {
+        return sysRolePermissionMapper.loadSysPermissionIDByRoleId(role_id);
     }
 
     @Override

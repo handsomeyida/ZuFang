@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface SysRoleMapper {
 
-    List<SysRole> selectSysRoleByRoleId(@Param(value="role_id")Integer role_id);
+    List<SysRole> listSysRoleByRoleId(@Param(value="role_id")Integer role_id);
 
     List<SysRole> list();
 }

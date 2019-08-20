@@ -41,7 +41,23 @@
         loading: false
       }
     },
+    destroyed () {
+      this.gonggao();
+    },
     methods: {
+      gonggao() {
+        this.$confirm('这是益达的基于ElementUI的后台管理系统', '公告', {
+          confirmButtonText: '确定',
+          // cancelButtonText: '取消',
+          type: 'warning',
+          center: true
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '欢迎!!'
+          });
+        });
+      },
       handleLogin() {
         this.$refs.loginForm.validate(valid => {
           if (valid) {

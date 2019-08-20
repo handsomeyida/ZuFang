@@ -24,8 +24,8 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     SysPermissionMapper sysPermissionMapper;
 
     @Override
-    public SysPermission selectSysPermissionByPermissionId(Integer permission_id) {
-        return sysPermissionMapper.selectSysPermissionByPermissionId(permission_id);
+    public SysPermission listSysPermissionByPermissionId(Integer permission_id) {
+        return sysPermissionMapper.listSysPermissionByPermissionId(permission_id);
     }
 
     @Override
@@ -34,16 +34,16 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     }
 
     @Override
-    public JSONObject getUserPermission(String username) {
-        JSONObject userPermission = sysPermissionMapper.getUserPermission(username);
+    public JSONObject loadUserPermission(String username) {
+        JSONObject userPermission = sysPermissionMapper.loadUserPermission(username);
         //管理员角色ID为1
         int adminRoleId = 1;
         //如果是管理员
         String roleIdKey = "roleId";
         if (adminRoleId == userPermission.getIntValue(roleIdKey)) {
             //查询所有菜单  所有权限
-            Set<String> menuList = sysPermissionMapper.getAllMenu();
-            Set<String> permissionList = sysPermissionMapper.getAllPermission();
+            Set<String> menuList = sysPermissionMapper.loadAllMenu();
+            Set<String> permissionList = sysPermissionMapper.listAllPermission();
             userPermission.put("menuList", menuList);
             userPermission.put("permissionList", permissionList);
         }

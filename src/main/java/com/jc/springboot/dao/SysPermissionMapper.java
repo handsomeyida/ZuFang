@@ -15,13 +15,13 @@ import java.util.Set;
 @Repository
 public interface SysPermissionMapper {
 
-    com.jc.springboot.entity.SysPermission selectSysPermissionByPermissionId(@Param(value="permission_id")Integer permission_id);
+    com.jc.springboot.entity.SysPermission listSysPermissionByPermissionId(@Param(value="permission_id")Integer permission_id);
 
     List<com.jc.springboot.entity.SysPermission> list();
 
-    JSONObject getUserPermission(String username);
+    JSONObject loadUserPermission(String username);
 
-    Set<String> getAllMenu();
+    Set<String> loadAllMenu();
 
-    Set<String> getAllPermission();
+    Set<String> listAllPermission();
 }

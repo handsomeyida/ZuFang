@@ -80,8 +80,8 @@ public class UserLoginController {
      * 获取用户登录信息
      */
     @RequestMapping("/getinfo")
-    public JSONObject getInfo() {
-        return loginService.getInfo();
+    public JSONObject listInfo() {
+        return loginService.listInfo();
     }
 
     @RequestMapping("/logout")

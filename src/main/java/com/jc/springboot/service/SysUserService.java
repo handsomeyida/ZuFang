@@ -13,12 +13,12 @@ import java.util.List;
  */
 public interface SysUserService {
 
-    SysUser selectUserByName(String username, String password);
+    SysUser listUserByName(String username, String password);
 
     List<SysUser> list();
 
     //登陆获取用户信息
-    JSONObject getUser(@Param("username") String username, @Param("password") String password);
+    JSONObject loadUser(@Param("username") String username, @Param("password") String password);
 
     //查询所有权限, 给角色分配权限时调用
     JSONObject listAllPermission();
@@ -27,7 +27,7 @@ public interface SysUserService {
     JSONObject listRole();
 
     //添加角色权限
-    JSONObject addRole(JSONObject jsonObject);
+    JSONObject insertRole(JSONObject jsonObject);
 
     // 修改角色权限
     JSONObject updateRole(JSONObject jsonObject);
@@ -43,7 +43,7 @@ public interface SysUserService {
     JSONObject getAllRoles();
 
     //添加用户
-    JSONObject addUser(JSONObject jsonObject);
+    JSONObject insertUser(JSONObject jsonObject);
 
     //修改用户
     JSONObject updateUser(JSONObject jsonObject);

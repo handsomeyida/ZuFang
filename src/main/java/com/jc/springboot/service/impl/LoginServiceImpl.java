@@ -26,12 +26,12 @@ public class LoginServiceImpl implements LoginService {
     SysPermissionService permissionService;
 
     @Override
-    public JSONObject getInfo() {
+    public JSONObject listInfo() {
         Session session = SecurityUtils.getSubject().getSession();
         JSONObject userInfo = (JSONObject) session.getAttribute(Constants.SESSION_USER_INFO);
         String username = userInfo.getString("username");
         JSONObject info = new JSONObject();
-        JSONObject userPermission = permissionService.getUserPermission(username);
+        JSONObject userPermission = permissionService.loadUserPermission(username);
         session.setAttribute(Constants.SESSION_USER_PERMISSION, userPermission);
         info.put("userPermission", userPermission);
         return LoginUtil.successJson(info);

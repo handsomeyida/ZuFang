@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface SysRolePermissionMapper {
 
-    List<SysRolePermission> selectSysPermissionIDByRoleId(@Param(value="role_id")Integer role_id);
+    List<SysRolePermission> loadSysPermissionIDByRoleId(@Param(value="role_id")Integer role_id);
 
     boolean save(SysRolePermission sysRolePermission);
 

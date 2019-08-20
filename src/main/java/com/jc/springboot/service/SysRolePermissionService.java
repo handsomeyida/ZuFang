@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface SysRolePermissionService {
 
-    List<SysRolePermission> selectSysPermissionIDByRoleId(Integer role_id);
+    List<SysRolePermission> listSysPermissionIDByRoleId(Integer role_id);
 
     boolean save(SysRolePermission sysRolePermission);
 }

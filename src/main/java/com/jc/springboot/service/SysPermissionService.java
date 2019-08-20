@@ -12,9 +12,9 @@ import java.util.List;
  */
 public interface SysPermissionService {
 
-    SysPermission selectSysPermissionByPermissionId(Integer permission_id);
+    SysPermission listSysPermissionByPermissionId(Integer permission_id);
 
     List<SysPermission> list();
 
-    JSONObject getUserPermission(String username);
+    JSONObject loadUserPermission(String username);
 }

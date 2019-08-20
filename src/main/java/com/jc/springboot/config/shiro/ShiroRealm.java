@@ -121,8 +121,8 @@ public class ShiroRealm extends AuthorizingRealm {
         String loginword = new String((char[]) authenticationToken.getCredentials());
         String password = SHA256Util.sha256(loginword, null);
         //实际项目中,这里可以根据实际情况做缓存,如果不做,Shiro自己也是有时间间隔机制,2分钟内不会重复执行该方法
-        JSONObject user = sysUserService.getUser(username,password);
-        SysUser sysUser = sysUserService.selectUserByName(username, password);
+        JSONObject user = sysUserService.loadUser(username,password);
+        SysUser sysUser = sysUserService.listUserByName(username, password);
         //判断账号是否存在
         if (sysUser == null) {
             throw new AuthenticationException();
@@ -157,12 +157,12 @@ public class ShiroRealm extends AuthorizingRealm {
         Set<String> rolesSet = new HashSet<>();
         Set<String> permsSet = new HashSet<>();
         //查询角色和权限(这里根据业务自行查询)
-        List<SysRolePermission> sysRolePermissionList = sysRolePermissionService.selectSysPermissionIDByRoleId(role_id);
+        List<SysRolePermission> sysRolePermissionList = sysRolePermissionService.listSysPermissionIDByRoleId(role_id);
         for (SysRolePermission sysRolePermission:sysRolePermissionList) {
             Integer permission_id = sysRolePermission.getPermission_id();
-            SysPermission sysPermission = sysPermissionService.selectSysPermissionByPermissionId(permission_id);
+            SysPermission sysPermission = sysPermissionService.listSysPermissionByPermissionId(permission_id);
             permsSet.add(sysPermission.getPermission_code());
-            List<SysRole> sysRoleList = sysRoleService.selectSysRoleByRoleId(sysRolePermission.getRole_id());
+            List<SysRole> sysRoleList = sysRoleService.listSysRoleByRoleId(sysRolePermission.getRole_id());
             for (SysRole sysRole :sysRoleList) {
                 rolesSet.add(sysRole.getRole_name());
             }

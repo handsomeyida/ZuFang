@@ -41,9 +41,9 @@ public class UserRoleController {
     //添加角色权限
     @RequiresPermissions("role:add")
     @RequestMapping("/addRole")
-    public JSONObject addRole(@RequestBody JSONObject requestJson) {
+    public JSONObject insertRole(@RequestBody JSONObject requestJson) {
         LoginUtil.hasAllRequired(requestJson, "roleName,permissions");
-        return userService.addRole(requestJson);
+        return userService.insertRole(requestJson);
     }
 
     //修改角色权限
