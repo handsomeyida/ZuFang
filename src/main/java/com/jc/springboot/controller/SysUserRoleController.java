@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/role")
-public class UserRoleController {
+public class SysUserRoleController {
 
     @Resource
     SysUserService userService;

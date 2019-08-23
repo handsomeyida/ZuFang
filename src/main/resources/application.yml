@@ -5,6 +5,13 @@ server:
     max-http-header-size: 8192
 
 spring:
+  #url访问图片路径
+  mvc:
+    static-path-pattern: /image/**
+  #图片存放真实路径
+  resources:
+    static-locations: file:D:/0Study/IntelliJ IDEA 2019.1.3/MyIdea/springboot/src/main/resources/static/
+
   # 配置数据源
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -47,10 +54,4 @@ mybatis-plus:
     # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-#url访问图片路径
-  mvc:
-    static-path-pattern: /image/**
 
-#图片存放真实路径
-  resources:
-    static-locations: file:D:/1MyFile/image

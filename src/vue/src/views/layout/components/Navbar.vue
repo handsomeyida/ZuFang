@@ -14,6 +14,9 @@
           </el-dropdown-item>
         </router-link>
         <el-dropdown-item divided>
+          <span @click="Jump" style="display:block;">查看收到的消息</span>
+        </el-dropdown-item>
+        <el-dropdown-item divided>
           <span @click="logout" style="display:block;">退出当前用户</span>
         </el-dropdown-item>
       </el-dropdown-menu>
@@ -44,6 +47,12 @@ export default {
     logout() {
       this.$store.dispatch('LogOut').then(() => {
         location.reload() // 为了重新实例化vue-router对象 避免bug
+      })
+    },
+    Jump() {
+      let _vue = this;
+      _vue.$router.push({
+        name: '收到的消息',
       })
     }
   }

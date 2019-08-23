@@ -18,7 +18,7 @@ public interface SysUserMapper{
 
     SysUser listUserByName(@Param(value="username")String username, @Param("password") String password);
 
-    List<SysUser> list();
+    List<JSONObject> list();
 
     JSONObject loadUser(@Param("username") String username, @Param("password") String password);
 

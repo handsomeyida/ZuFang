@@ -15,7 +15,7 @@ public interface SysUserService {
 
     SysUser listUserByName(String username, String password);
 
-    List<SysUser> list();
+    JSONObject list();
 
     //登陆获取用户信息
     JSONObject loadUser(@Param("username") String username, @Param("password") String password);

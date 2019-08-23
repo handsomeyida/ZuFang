@@ -11,9 +11,56 @@
   export default {
     name: 'dashboard',
     data() {
-      return {}
+      return {
+        userId: '',
+        message: [],
+        username: [],
+        AllMesg: [],
+        notifyPromise:Promise.resolve(),
+      }
+    },
+    created() {
+      this.getMesg();
     },
     methods: {
+      getMesg() {
+        this.userId = this.$store.state.user.userId;
+        this.api({
+          url: '/information/loadUserMsg',
+          method: "post",
+          data: {
+            userId: this.userId
+          }
+        }).then((data)=> {
+          // console.log(data);
+          this.AllMesg = data.list;
+          for (let a=0; a<this.AllMesg.length; a++){
+            if (this.AllMesg[a].IS_DEL == 0) {
+              this.message.push(this.AllMesg[a].CONTENT);
+              this.username.push(this.AllMesg[a].START_ID);
+            }
+          }
+          // console.log(this.message);
+          if (this.message.length > 3) {
+            let msgcount = '你有'+this.message.length+'条未读消息';
+            this.showWords(msgcount);
+          } else {
+            for (let a=0; a<this.message.length; a++){
+              this.showWords(this.username[a]+":"+this.message[a]);
+            }
+          }
+        });
+      },
+      showWords(data) {
+        this.notifyPromise = this.notifyPromise.then(this.$nextTick).then(()=> {
+          this.$notify({
+            type: 'warning',
+            title: '未读消息',
+            message: data,
+            duration: 5000,
+          });
+        });
+      },
 
     }
   }

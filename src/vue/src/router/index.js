@@ -30,33 +30,31 @@ export const asyncRouterMap = [
     path: '/basics',
     component: Layout,
     redirect: '/basics/',
-    name: '基础模块',
     meta: {title: '基础模块', icon: 'table'},
+    menu: 'basics',
     children: [
       {
-        path: '',
-        name: '后台用户管理',
+        path: 'backstageuser',
         component: _import('basics/user'),
-        meta: {title: '后台用户管理', icon: 'user'}, menu: 'backstageuser'
+        meta: {title: '后台用户管理', icon: 'user'},
+        menu: 'backstageuser'
       },
       {
         path: 'role',
-        name: '菜单管理',
         component: _import('basics/role'),
-        meta: {title: '菜单&权限管理', icon: 'check'}, menu: 'menu'
+        meta: {title: '菜单&权限管理', icon: 'check'},
+        menu: 'menu'
       }
     ]
   },
   {
-    path: '/system',
+    path: '/user',
     component: Layout,
-    redirect: '/system/article',
-    name: '用户管理',
+    redirect: '/user/',
     meta: {title: '用户管理', icon: 'tree'},
     children: [
       {
         path: 'user',
-        name: '用户管理',
         component: _import('article/article'),
         meta: {title: '用户管理', icon: 'user'},
         menu: 'user'
@@ -66,13 +64,11 @@ export const asyncRouterMap = [
   {
     path: '/system',
     component: Layout,
-    redirect: '/system/advert',
-    name: '广告管理',
+    redirect: '/system/advert/',
     meta: {title: '广告管理', icon: 'tree'},
     children: [
       {
         path: 'advert',
-        name: '广告管理',
         component: _import('advert/advert'),
         meta: {title: '广告管理', icon: 'new'},
         menu: 'advert'
@@ -80,36 +76,31 @@ export const asyncRouterMap = [
     ]
   },
   {
-    path: '/car',
+    path: '/labels',
     component: Layout,
-    redirect: '/car/',
-    name: '平台管理',
+    redirect: '/labels/',
     meta: {title: '平台管理', icon: 'house'},
     children: [
       {
-        path: '',
-        name: '帖子类别管理',
-        component: _import('basics/user'),
-        meta: {title: '帖子类别管理', icon: 'server'}, menu: 'user'
+        path: 'category',
+        component: _import('labels/category'),
+        meta: {title: '帖子类别管理', icon: 'server'}, menu: 'posts'
       },
       {
         path: 'label',
-        name: '帖子标签管理',
         component: _import('basics/role'),
-        meta: {title: '帖子标签管理', icon: 'check'}, menu: 'user'
+        meta: {title: '帖子标签管理', icon: 'check'}, menu: 'posts'
       }
     ]
   },
   {
     path: '/system',
     component: Layout,
-    redirect: '/system/article',
-    name: '帖子管理',
+    redirect: '/system/posts/',
     meta: {title: '帖子管理', icon: 'tree'},
     children: [
       {
         path: 'posts',
-        name: '帖子管理',
         component: _import('article/article'),
         meta: {title: '帖子管理', icon: 'contract'},
         menu: 'posts'
@@ -119,13 +110,11 @@ export const asyncRouterMap = [
   {
     path: '/system',
     component: Layout,
-    redirect: '/system/article',
-    name: '统计模块',
+    redirect: '/system/statistics/',
     meta: {title: '统计模块', icon: 'tree'},
     children: [
       {
         path: 'statistics',
-        name: '统计模块',
         component: _import('article/article'),
         meta: {title: '统计模块', icon: 'analysis'},
         menu: 'statistics'
@@ -133,29 +122,34 @@ export const asyncRouterMap = [
     ]
   },
   {
-    path: '/system',
+    path: '/message',
     component: Layout,
-    redirect: '/system/',
-    name: '系统信息',
-    meta: {title: '系统信息', icon: 'mansion'},
+    redirect: '/message/',
+    meta: {title: '信息管理', icon: 'mansion'},
     children: [
       {
         path: 'template',
-        name: '模版管理',
-        component: _import('basics/user'),
-        meta: {title: '模版管理', icon: 'folder'}, menu: 'template'
+        component: _import('template/MsgTemplate'),
+        meta: {title: '模版管理', icon: 'folder'},
+        menu: 'message'
       },
       {
         path: 'guide',
-        name: '引导语设置',
-        component: _import('basics/user'),
-        meta: {title: '引导语设置', icon: 'group'}, menu: 'guide'
+        component: _import('message/LeadingWords'),
+        meta: {title: '引导语设置', icon: 'group'},
+        menu: 'guide'
       },
       {
         path: 'groupsending',
-        name: '群发系统消息',
-        component: _import('basics/user'),
-        meta: {title: '群发系统消息', icon: 'email'}, menu: 'groupsending'
+        component: _import('message/AllSendMsg'),
+        meta: {title: '群发系统消息', icon: 'email'},
+        menu: 'groupsending'
+      },
+      {
+        path: 'myMessage',
+        component: _import('message/myMessage'),
+        meta: {title: '收到的消息', icon: 'chat'},
+        menu: 'myMessage'
       }
     ]
   },

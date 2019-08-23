@@ -14,8 +14,8 @@
             　</el-upload>
             </el-form-item>
             <el-form-item style="padding-top:20px;" >
-              <el-button type="primary" @click="onSubmit2">立即创建</el-button>
-              <el-button>取消</el-button>
+              <el-button type="primary" @click="onSubmit2" v-if="hasPerm('adver:add')">立即创建</el-button>
+              <el-button class="test">取消</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -42,7 +42,7 @@
       onchange2(file,filesList){
         this.param2 = new FormData();
         if (filesList.length >= 5) {
-          this.$message.error("上传图片已达到5张,若要继续上传请删除某张图片!!");
+          this.$message.warning("上传图片已达到5张,若要继续上传请删除某张图片!!");
         }
         else {
           this.fileList2 = filesList;
@@ -57,7 +57,6 @@
         if(this.fileList2.length>0){
           var names = this.form2.name;
           this.param2.append('AdvertTitle', names);
-
           let config = {
             headers: {
               'Content-Type': 'multipart/form-data'
@@ -90,8 +89,8 @@
   }
 </script>
 
-<style scoped>
-  .el-upload-list--picture .el-upload-list__item{
+<style scoped type="text/css">
+  .upload-demo{
     width: 360px;
   }
 </style>

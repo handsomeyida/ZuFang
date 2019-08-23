@@ -38,17 +38,32 @@
           username: [{required: true, trigger: 'blur', message: "请输入用户名"}],
           password: [{required: true, trigger: 'blur', message: "请输入密码"}]
         },
-        loading: false
+        loading: false,
+        information: '',
+        userId: '',
       }
+    },
+    created () {
+
     },
     destroyed () {
       this.gonggao();
     },
     methods: {
       gonggao() {
-        this.$confirm('这是益达的基于ElementUI的后台管理系统', '公告', {
+        let _vue = this;
+        _vue.api({
+          url: '/information/loadInformation',
+          method: "get",
+        }).then((data)=>{
+          this.information = data.loadInformation.CONTENT;
+          _vue.showMsg();
+        });
+      },
+      showMsg(){
+        this.$confirm( this.information, '公告', {
           confirmButtonText: '确定',
-          // cancelButtonText: '取消',
+          cancelButtonText: '取消',
           type: 'warning',
           center: true
         }).then(() => {
@@ -56,8 +71,23 @@
             type: 'success',
             message: '欢迎!!'
           });
+          this.userId = this.$store.state.user.userId;
+          // this.loadandshowMsg();
         });
+        /*console.log(this.$store.state.user.userId);*/
+        // console.log(this.userId);
       },
+      // loadandshowMsg() {
+      //   this.api({
+      //     url: '/information/loadMsg',
+      //     method: "post",
+      //     data: {
+      //       userId: this.userId
+      //     }
+      //   }).then((data)=> {
+      //     // console.log(data)
+      //   });
+      // },
       handleLogin() {
         this.$refs.loginForm.validate(valid => {
           if (valid) {

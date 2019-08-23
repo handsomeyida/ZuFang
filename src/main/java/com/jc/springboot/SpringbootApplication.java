@@ -15,9 +15,4 @@ public class SpringbootApplication {
         SpringApplication.run(SpringbootApplication.class, args);
     }
 
-//    @RequestMapping
-//    public String hello(){
-//        return "益达帅气";
-//    }
-
 }

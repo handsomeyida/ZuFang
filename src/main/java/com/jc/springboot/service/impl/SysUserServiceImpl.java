@@ -35,8 +35,11 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public List<SysUser> list() {
-        return sysUserMapper.list();
+    public JSONObject list() {
+        JSONObject info = new JSONObject();
+        List<JSONObject> list = sysUserMapper.list();
+        info.put("list", list);
+        return LoginUtil.successJson(info);
     }
 
     @Override

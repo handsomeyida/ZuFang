@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/backstageuser")
-public class UserController {
+public class SysUserController {
 
     @Resource
     SysUserService userService;
@@ -30,6 +30,12 @@ public class UserController {
     @RequestMapping("/list")
     public JSONObject listUser(HttpServletRequest request) {
         return userService.listUser(LoginUtil.request2Json(request));
+    }
+
+    @RequiresPermissions("user:list")
+    @RequestMapping("/loadlist")
+    public JSONObject loadlistUser(){
+        return userService.list();
     }
 
     @RequiresPermissions("user:add")

@@ -26,7 +26,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/Login")
-public class UserLoginController {
+public class SysUserLoginController {
 
     @Resource
     private SysUserService sysUserService;
