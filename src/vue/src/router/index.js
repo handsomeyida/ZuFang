@@ -84,12 +84,13 @@ export const asyncRouterMap = [
       {
         path: 'category',
         component: _import('labels/category'),
-        meta: {title: '帖子类别管理', icon: 'server'}, menu: 'posts'
+        meta: {title: '帖子类别管理', icon: 'server'}, menu: 'posts',
       },
       {
         path: 'label',
-        component: _import('basics/role'),
-        meta: {title: '帖子标签管理', icon: 'check'}, menu: 'posts'
+        component: _import('labels/category'),
+        meta: {title: '帖子标签管理', icon: 'check'},
+        menu: 'posts',
       }
     ]
   },
