@@ -147,6 +147,7 @@ export const asyncRouterMap = [
       },
       {
         path: 'myMessage',
+        name: '收到的消息',
         component: _import('message/myMessage'),
         meta: {title: '收到的消息', icon: 'chat'},
         menu: 'myMessage'
