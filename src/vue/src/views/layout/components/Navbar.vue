@@ -52,7 +52,7 @@ export default {
     Jump() {
       let _vue = this;
       _vue.$router.push({
-        path: 'myMessage',
+        name: '收到的消息',
       })
     }
   }
