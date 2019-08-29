@@ -17,6 +17,10 @@ public interface SysTempletMapper {
 
     int countTemplate(JSONObject jsonObject);
 
+    List<JSONObject> listalltemplet(JSONObject jsonObject);
+
+    int countallTemplate(JSONObject jsonObject);
+
     //检查模板标题是否已存在
     int loadExistTitle(JSONObject jsonObject);
 

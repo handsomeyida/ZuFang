@@ -13,6 +13,8 @@ public interface SysTempletService {
 
     JSONObject listtemplet(JSONObject jsonObject);
 
+    JSONObject listalltemplet(JSONObject jsonObject);
+
     JSONObject insertTemplate(JSONObject jsonObject);
 
     JSONObject updateTemplate(JSONObject jsonObject);

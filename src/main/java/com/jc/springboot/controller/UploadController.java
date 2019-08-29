@@ -1,21 +1,18 @@
 package com.jc.springboot.controller;
 
-import com.jc.springboot.dao.PostTypeMapper;
+import com.jc.springboot.dao.TPostTypeMapper;
 import com.jc.springboot.dao.TAdvertBannerMapper;
-import com.jc.springboot.entity.PostType;
+import com.jc.springboot.entity.TPostType;
 import com.jc.springboot.entity.TAdvertBanner;
 import com.jc.springboot.util.FileUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -41,7 +38,7 @@ public class UploadController {
     private TAdvertBannerMapper advertBannerMapper;
 
     @Resource
-    private PostTypeMapper postTypeMapper;
+    private TPostTypeMapper postTypeMapper;
 
     //文件上传接口
     @RequiresPermissions("upload:imgupload")
@@ -74,7 +71,7 @@ public class UploadController {
 
     @RequiresPermissions("upload:imgupload")
     @RequestMapping(value = "/typeimgUpload", method = RequestMethod.POST)
-    public String TypeimgUpload(@RequestParam("file") MultipartFile file, PostType postType){
+    public String TypeimgUpload(@RequestParam("file") MultipartFile file, TPostType postType){
         String message = "";
         if (file != null) {
             //1定义要上传文件 的存放路径
@@ -86,7 +83,7 @@ public class UploadController {
             if(FileUtils.upload(file, localPath, fileName)){
                 //上传成功
                 String IMG_URL = "api/image/"+fileName;
-                PostType postType2 = new PostType(postType.getId(),IMG_URL,postType.getType_name());
+                TPostType postType2 = new TPostType(postType.getId(),IMG_URL,postType.getType_name());
                 postTypeMapper.update(postType2);
                 warning="上传成功";
                 message=warning;
@@ -95,7 +92,7 @@ public class UploadController {
                 message=warning;
             }
         } else {
-            PostType postType2 = new PostType(postType.getId(),postType.getType_name());
+            TPostType postType2 = new TPostType(postType.getId(),postType.getType_name());
             postTypeMapper.update(postType2);
             message="上传成功";
         }

@@ -34,6 +34,16 @@ public class SysTempletServiceImpl implements SysTempletService {
     }
 
     @Override
+    public JSONObject listalltemplet(JSONObject jsonObject) {
+        LoginUtil.fillPageParam(jsonObject);
+        JSONObject info = new JSONObject();
+        int count = templetMapper.countallTemplate(jsonObject);
+        List<JSONObject> list = templetMapper.listalltemplet(jsonObject);
+        info.put("list", list);
+        return LoginUtil.successPage(jsonObject, list, count);
+    }
+
+    @Override
     public JSONObject insertTemplate(JSONObject jsonObject) {
         int exist = templetMapper.loadExistTitle(jsonObject);
         if (exist > 0) {

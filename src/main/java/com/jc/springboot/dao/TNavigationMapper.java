@@ -7,13 +7,12 @@ import java.util.List;
 
 /**
  * @Auther: 帅气的达
- * @Date: 2019/8/23 14:38
+ * @Date: 2019/8/28 14:19
  * @Description:
  */
 @Repository
-public interface PostMapper {
+public interface TNavigationMapper {
 
-    List<JSONObject> listType(JSONObject jsonObject);
+    List<JSONObject> listnavigation();
 
-    int countType(JSONObject jsonObject);
 }

@@ -1,6 +1,6 @@
 package com.jc.springboot.dao;
 
-import com.jc.springboot.entity.PostType;
+import com.jc.springboot.entity.TPostType;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  * @Description:
  */
 @Repository
-public interface PostTypeMapper {
+public interface TPostTypeMapper {
 
-    Boolean update(PostType postType);
+    Boolean update(TPostType postType);
 }

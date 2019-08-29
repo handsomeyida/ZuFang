@@ -4,10 +4,11 @@ import com.alibaba.fastjson.JSONObject;
 
 /**
  * @Auther: 帅气的达
- * @Date: 2019/8/23 14:34
+ * @Date: 2019/8/28 14:20
  * @Description:
  */
-public interface PostService {
+public interface TNavigationService {
 
-    JSONObject listType(JSONObject jsonObject);
+    JSONObject listnavigation();
+
 }

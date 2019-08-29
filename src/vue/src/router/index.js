@@ -87,10 +87,19 @@ export const asyncRouterMap = [
         meta: {title: '帖子类别管理', icon: 'server'}, menu: 'posts',
       },
       {
-        path: 'label',
-        component: _import('labels/category'),
-        meta: {title: '帖子标签管理', icon: 'check'},
-        menu: 'posts',
+        path: 'home',
+        component: _import('labels/home'),
+        meta: {title: '家用设备管理', icon: 'home'}, menu: 'posts',
+      },
+      {
+        path: 'shop',
+        component: _import('labels/shop'),
+        meta: {title: '热门商圈管理', icon: 'shop'}, menu: 'posts',
+      },
+      {
+        path: 'subway',
+        component: _import('labels/subway'),
+        meta: {title: '地铁周边管理', icon: 'subway'}, menu: 'posts',
       }
     ]
   },
@@ -148,6 +157,7 @@ export const asyncRouterMap = [
       },
       {
         path: 'myMessage',
+        name: '收到的消息',
         component: _import('message/myMessage'),
         meta: {title: '收到的消息', icon: 'chat'},
         menu: 'myMessage'

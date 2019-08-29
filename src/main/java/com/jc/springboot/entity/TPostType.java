@@ -12,7 +12,7 @@ import java.util.Date;
  * @Description:
  */
 @Data
-public class PostType implements Serializable {
+public class TPostType implements Serializable {
 
     private int id;
 
@@ -25,15 +25,15 @@ public class PostType implements Serializable {
 
     private int is_del;
 
-    public PostType() {
+    public TPostType() {
     }
 
-    public PostType(int id, String type_name) {
+    public TPostType(int id, String type_name) {
         this.id = id;
         this.type_name = type_name;
     }
 
-    public PostType(int id, String type_imtg_url, String type_name) {
+    public TPostType(int id, String type_imtg_url, String type_name) {
         this.id = id;
         this.type_imtg_url = type_imtg_url;
         this.type_name = type_name;

@@ -29,6 +29,12 @@ public class SysTempletController {
         return templetService.listtemplet(LoginUtil.request2Json(request));
     }
 
+    @RequiresPermissions("guide:list")
+    @RequestMapping("/listalltemplet")
+    public JSONObject listalltemplet(HttpServletRequest request){
+        return templetService.listalltemplet(LoginUtil.request2Json(request));
+    }
+
     @RequiresPermissions("template:add")
     @RequestMapping("/addTemplate")
     public JSONObject insertTemplate(@RequestBody JSONObject requestJson){
