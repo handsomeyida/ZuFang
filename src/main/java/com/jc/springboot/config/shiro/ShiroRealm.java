@@ -67,7 +67,7 @@ public class ShiroRealm extends AuthorizingRealm {
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(sysUser, password, getName());
         user.remove("password");
         //进行验证
-        //验证成功开始踢人(清除缓存和Session)
+        //验证成功
         SecurityUtils.getSubject().getSession().setAttribute(Constants.SESSION_USER_INFO, user);
         ShiroUtils.deleteCache(username,true);
         return authenticationInfo;
