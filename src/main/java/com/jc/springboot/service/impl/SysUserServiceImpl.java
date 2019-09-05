@@ -28,12 +28,12 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Resource
     SysUserMapper sysUserMapper;
-
+    //根据用户名和密码查询用户信息
     @Override
     public SysUser listUserByName(String username, String password) {
         return sysUserMapper.listUserByName(username, password);
     }
-
+    //获取用户信息
     @Override
     public JSONObject list() {
         JSONObject info = new JSONObject();
@@ -41,25 +41,23 @@ public class SysUserServiceImpl implements SysUserService {
         info.put("list", list);
         return LoginUtil.successJson(info);
     }
-
+    //根据用户名和密码获取户信息
     @Override
     public JSONObject loadUser(String username, String password) {
         return sysUserMapper.loadUser(username, password);
     }
-
+    //获取用户所有权限
     @Override
     public JSONObject listAllPermission() {
         List<JSONObject> permissions = sysUserMapper.listAllPermission();
         return LoginUtil.successPage(permissions);
     }
-
+    //获取所有角色
     @Override
     public JSONObject listRole() {
         List<JSONObject> roles = sysUserMapper.listRole();
         return LoginUtil.successPage(roles);
     }
-
-
     //添加角色权限
     @Transactional(rollbackFor = Exception.class)
     @SuppressWarnings("unchecked")
@@ -69,7 +67,6 @@ public class SysUserServiceImpl implements SysUserService {
         sysUserMapper.insertRolePermission(jsonObject.getString("roleId"), (List<Integer>) jsonObject.get("permissions"));
         return LoginUtil.successJson();
     }
-
     //修改角色权限
     @Transactional(rollbackFor = Exception.class)
     @SuppressWarnings("unchecked")
@@ -87,7 +84,6 @@ public class SysUserServiceImpl implements SysUserService {
         removeOldPermission(roleId, newPerms, oldPerms);
         return LoginUtil.successJson();
     }
-
     //修改角色权限名称
     private void dealRoleName(JSONObject paramJson, JSONObject roleInfo) {
         String roleName = paramJson.getString("roleName");
@@ -95,7 +91,6 @@ public class SysUserServiceImpl implements SysUserService {
             sysUserMapper.updateRoleName(paramJson);
         }
     }
-
     //为角色添加新权限
     private void saveNewPermission(String roleId, Collection<Integer> newPerms, Collection<Integer> oldPerms) {
         List<Integer> waitInsert = new ArrayList<>();
@@ -108,7 +103,6 @@ public class SysUserServiceImpl implements SysUserService {
             sysUserMapper.insertRolePermission(roleId, waitInsert);
         }
     }
-
     //删除角色,旧的角色不再拥有的权限
     private void removeOldPermission(String roleId, Collection<Integer> newPerms, Collection<Integer> oldPerms) {
         List<Integer> waitRemove = new ArrayList<>();
@@ -121,7 +115,6 @@ public class SysUserServiceImpl implements SysUserService {
             sysUserMapper.removeOldPermission(roleId, waitRemove);
         }
     }
-
     //删除角色权限
     @Transactional(rollbackFor = Exception.class)
     @SuppressWarnings("unchecked")
@@ -136,7 +129,6 @@ public class SysUserServiceImpl implements SysUserService {
         sysUserMapper.removeRoleAllPermission(jsonObject);
         return LoginUtil.successJson();
     }
-
     /**
      * 用户列表
      */
@@ -147,7 +139,6 @@ public class SysUserServiceImpl implements SysUserService {
         List<JSONObject> list = sysUserMapper.listUser(jsonObject);
         return LoginUtil.successPage(jsonObject, list, count);
     }
-
     /**
      * 添加用户
      */

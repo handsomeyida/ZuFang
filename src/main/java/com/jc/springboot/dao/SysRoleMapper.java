@@ -13,8 +13,8 @@ import java.util.List;
  */
 @Repository
 public interface SysRoleMapper {
-
+    //获取对应的角色
     List<SysRole> listSysRoleByRoleId(@Param(value="role_id")Integer role_id);
-
+    //获取所有角色
     List<SysRole> list();
 }

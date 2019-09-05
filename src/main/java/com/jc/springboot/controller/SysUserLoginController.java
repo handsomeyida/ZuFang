@@ -33,7 +33,6 @@ public class SysUserLoginController {
 
     @Resource
     LoginService loginService;
-
     /**
      * 登录
      * @Author 帅气的达
@@ -65,7 +64,6 @@ public class SysUserLoginController {
         }
         return LoginUtil.successJson(info);
     }
-
     /**
      * 未登录
      * @Author 帅气的达
@@ -75,7 +73,6 @@ public class SysUserLoginController {
 
         return LoginUtil.errorJson(ErrorEnum.E_20011);
     }
-
     /**
      * 获取用户登录信息
      */
@@ -83,7 +80,7 @@ public class SysUserLoginController {
     public JSONObject listInfo() {
         return loginService.listInfo();
     }
-
+    //登出
     @RequestMapping("/logout")
     public JSONObject logout() {
         return loginService.logout();

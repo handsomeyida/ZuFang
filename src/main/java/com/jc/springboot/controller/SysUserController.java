@@ -31,13 +31,13 @@ public class SysUserController {
     public JSONObject listUser(HttpServletRequest request) {
         return userService.listUser(LoginUtil.request2Json(request));
     }
-
+    //获取用户信息
     @RequiresPermissions("user:list")
     @RequestMapping("/loadlist")
     public JSONObject loadlistUser(){
         return userService.list();
     }
-
+    //添加用户
     @RequiresPermissions("user:add")
     @RequestMapping("/addUser")
     public JSONObject insertUser(@RequestBody JSONObject requestJson) {
@@ -48,7 +48,7 @@ public class SysUserController {
         LoginUtil.hasAllRequired(requestJson, "username, password, nickname, roleId");
         return userService.insertUser(requestJson);
     }
-
+    //修改用户
     @RequiresPermissions("user:update")
     @RequestMapping("/updateUser")
     public JSONObject updateUser(@RequestBody JSONObject requestJson) {
@@ -60,7 +60,7 @@ public class SysUserController {
     public JSONObject updateuser(@RequestBody JSONObject requestJson) {
         return userService.updateuser(requestJson);
     }
-
+    //用户有添加和修改的权限
     @RequiresPermissions(value = {"user:add", "user:update"}, logical = Logical.OR)
     @RequestMapping("/getAllRoles")
     public JSONObject getAllRoles() {

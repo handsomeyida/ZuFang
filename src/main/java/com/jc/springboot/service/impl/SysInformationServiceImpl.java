@@ -23,7 +23,7 @@ public class SysInformationServiceImpl implements SysInformationService {
     @Resource
     SysInformationMapper informationMapper;
 
-
+    //获取公告信息
     @Override
     public JSONObject loadInformation() {
         JSONObject info = new JSONObject();
@@ -31,7 +31,7 @@ public class SysInformationServiceImpl implements SysInformationService {
         info.put("loadInformation", loadInformation);
         return LoginUtil.successJson(info);
     }
-
+    //获取用户收到的消息(弹框)
     @Override
     public JSONObject loadMsg(JSONObject jsonObject) {
         LoginUtil.hasAllRequired(jsonObject, "userId");
@@ -40,7 +40,7 @@ public class SysInformationServiceImpl implements SysInformationService {
         info.put("loadMsg", loadMsg);
         return LoginUtil.successJson(info);
     }
-
+    //获取指定用户的信息详情
     @Override
     public JSONObject loadUserMsg(JSONObject jsonObject) {
         LoginUtil.hasAllRequired(jsonObject, "userId");
@@ -49,7 +49,7 @@ public class SysInformationServiceImpl implements SysInformationService {
         info.put("list", loadUserMsg);
         return LoginUtil.successJson(info);
     }
-
+    //获取指定用户的信息详情(有分页)
     @Override
     public JSONObject listUserMsg(JSONObject jsonObject) {
         LoginUtil.hasAllRequired(jsonObject, "userId");
@@ -60,14 +60,14 @@ public class SysInformationServiceImpl implements SysInformationService {
         info.put("list", loadUserMsg);
         return LoginUtil.successPage(jsonObject, loadUserMsg, count);
     }
-
+    //修改公告显示信息
     @Override
     public JSONObject saveWords(JSONObject jsonObject) {
         String content = jsonObject.getString("content");
         informationMapper.saveWords(content);
         return LoginUtil.successJson();
     }
-
+    //群发消息
     @Override
     public JSONObject insertAllInformation(JSONObject jsonObject) {
         Date createTime2 = new Date();
@@ -80,7 +80,7 @@ public class SysInformationServiceImpl implements SysInformationService {
         informationMapper.insertUserInformation(userId,userIds,content,createTime);
         return LoginUtil.successJson();
     }
-
+    //像指定用户发送信息
     @Override
     public JSONObject insertInformation(JSONObject jsonObject) {
         Date createTime2 = new Date();
@@ -92,7 +92,7 @@ public class SysInformationServiceImpl implements SysInformationService {
         informationMapper.insertOneUserInformation(userId,userIds,content,createTime);
         return LoginUtil.successJson();
     }
-
+    //把消息设为已读
     @Override
     public JSONObject deleteMsg(JSONObject jsonObject) {
         informationMapper.deleteMsg(jsonObject);

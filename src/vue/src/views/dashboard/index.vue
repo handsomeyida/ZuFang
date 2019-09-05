@@ -49,6 +49,7 @@
                     })
                 }
             },
+            //获取用户收到的消息并弹框显示
             getMesg() {
                 this.userId = this.$store.state.user.userId;
                 this.nickname = this.$store.state.user.nickname;
@@ -79,6 +80,7 @@
                     }
                 });
             },
+            //显示公告
             showWords(data) {
                 this.notifyPromise = this.notifyPromise.then(this.$nextTick).then(() => {
                     this.$notify({

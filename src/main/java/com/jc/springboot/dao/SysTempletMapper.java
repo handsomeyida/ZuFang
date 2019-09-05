@@ -12,21 +12,18 @@ import java.util.List;
  */
 @Repository
 public interface SysTempletMapper {
-
+    //获取系统模板(分页, 没有公告模板)
     List<JSONObject> listtemplet(JSONObject jsonObject);
-
     int countTemplate(JSONObject jsonObject);
-
+    //获取全部系统模板
     List<JSONObject> listalltemplet(JSONObject jsonObject);
-
     int countallTemplate(JSONObject jsonObject);
-
     //检查模板标题是否已存在
     int loadExistTitle(JSONObject jsonObject);
-
+    //添加系统模板
     int insertTemplate(JSONObject jsonObject);
-
+    //修改系统模板
     int updateTemplate(JSONObject jsonObject);
-
+    //删除系统模板
     int deleteTemplate(JSONObject jsonObject);
 }

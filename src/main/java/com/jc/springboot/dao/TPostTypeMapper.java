@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface TPostTypeMapper {
-
+    //修改帖子类型
     Boolean update(TPostType postType);
 }

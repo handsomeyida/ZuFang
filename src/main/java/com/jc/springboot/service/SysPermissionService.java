@@ -11,10 +11,10 @@ import java.util.List;
  * @Description:
  */
 public interface SysPermissionService {
-
+    //根据用户id获取用户所有权限
     SysPermission listSysPermissionByPermissionId(Integer permission_id);
-
+    //获取所有权限
     List<SysPermission> list();
-
+    //获取用户的所有权限
     JSONObject loadUserPermission(String username);
 }

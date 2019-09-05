@@ -21,7 +21,7 @@ public class TStatisticsServiceImpl implements TStatisticsService {
 
     @Resource
     TStatisticsMapper tStatisticsMapper;
-
+    //获取微信用户的信息
     @Override
     public JSONObject listwxuser() {
         JSONObject info = new JSONObject();
@@ -29,7 +29,7 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         info.put("list", list);
         return LoginUtil.successJson(info);
     }
-
+    //按周获取点赞统计
     @Override
     public JSONObject listweeksresonate() {
         JSONObject info = new JSONObject();
@@ -37,7 +37,7 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         info.put("list", list);
         return LoginUtil.successJson(info);
     }
-
+    //按月获取点赞统计
     @Override
     public JSONObject listmonthsresonate() {
         JSONObject info = new JSONObject();
@@ -45,7 +45,7 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         info.put("list", list);
         return LoginUtil.successJson(info);
     }
-
+    //按周获取评论统计
     @Override
     public JSONObject listweekscomment() {
         JSONObject info = new JSONObject();
@@ -53,7 +53,7 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         info.put("list", list);
         return LoginUtil.successJson(info);
     }
-
+    //按月获取评论统计
     @Override
     public JSONObject listmonthscomment() {
         JSONObject info = new JSONObject();
@@ -61,7 +61,7 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         info.put("list", list);
         return LoginUtil.successJson(info);
     }
-
+    //按周获取收藏统计
     @Override
     public JSONObject listweekscollection() {
         JSONObject info = new JSONObject();
@@ -69,7 +69,7 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         info.put("list", list);
         return LoginUtil.successJson(info);
     }
-
+    //按月获取收藏统计
     @Override
     public JSONObject listmonthscollection() {
         JSONObject info = new JSONObject();
@@ -77,7 +77,7 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         info.put("list", list);
         return LoginUtil.successJson(info);
     }
-
+    //按周获取关注统计
     @Override
     public JSONObject listweeksfans() {
         JSONObject info = new JSONObject();
@@ -85,7 +85,7 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         info.put("list", list);
         return LoginUtil.successJson(info);
     }
-
+    //按月获取关注统计
     @Override
     public JSONObject listmonthsfans() {
         JSONObject info = new JSONObject();
@@ -93,7 +93,7 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         info.put("list", list);
         return LoginUtil.successJson(info);
     }
-
+    //按周获取最大价位统计
     @Override
     public JSONObject listWeekMAXPriceCount(JSONObject jsonObject) {
         int maxprice = tStatisticsMapper.loadmaxprice();
@@ -103,7 +103,7 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         info.put("maxlist", list);
         return LoginUtil.successJson(info);
     }
-
+    //按周获取最小价位统计
     @Override
     public JSONObject listWeekMINPriceCount(JSONObject jsonObject) {
         int maxprice = tStatisticsMapper.loadmaxprice();
@@ -113,7 +113,7 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         info.put("minlist", list);
         return LoginUtil.successJson(info);
     }
-
+    //按月获取最大价位统计
     @Override
     public JSONObject listMonthMAXPriceCount(JSONObject jsonObject) {
         int maxprice = tStatisticsMapper.loadmaxprice();
@@ -123,7 +123,7 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         info.put("maxlist", list);
         return LoginUtil.successJson(info);
     }
-
+    //按月获取最小价位统计
     @Override
     public JSONObject listMonthMINPriceCount(JSONObject jsonObject) {
         int maxprice = tStatisticsMapper.loadmaxprice();
@@ -131,6 +131,38 @@ public class TStatisticsServiceImpl implements TStatisticsService {
         List<JSONObject> list = tStatisticsMapper.listMonthMINPriceCount(jsonObject);
         JSONObject info = new JSONObject();
         info.put("minlist", list);
+        return LoginUtil.successJson(info);
+    }
+    //按周获取商圈帖子统计
+    @Override
+    public JSONObject listweekshopping() {
+        JSONObject info = new JSONObject();
+        List<JSONObject> list = tStatisticsMapper.listweekshopping();
+        info.put("list", list);
+        return LoginUtil.successJson(info);
+    }
+    //按月获取商圈帖子统计
+    @Override
+    public JSONObject listmonthshopping() {
+        JSONObject info = new JSONObject();
+        List<JSONObject> list = tStatisticsMapper.listmonthshopping();
+        info.put("list", list);
+        return LoginUtil.successJson(info);
+    }
+    //按周获取地铁帖子统计
+    @Override
+    public JSONObject listweeksubway() {
+        JSONObject info = new JSONObject();
+        List<JSONObject> list = tStatisticsMapper.listweeksubway();
+        info.put("list", list);
+        return LoginUtil.successJson(info);
+    }
+    //按月获取地铁帖子统计
+    @Override
+    public JSONObject listmonthsubway() {
+        JSONObject info = new JSONObject();
+        List<JSONObject> list = tStatisticsMapper.listmonthsubway();
+        info.put("list", list);
         return LoginUtil.successJson(info);
     }
 }

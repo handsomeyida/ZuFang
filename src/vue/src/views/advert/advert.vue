@@ -65,7 +65,7 @@
           for (var i = 0; i < this.fileList2.length; i++) {
             this.param2.append('file', this.fileList2[i].raw, this.fileList2[i].name);
           }
-
+          //上传文件
           let _vue = this;
           _vue.$reqs.post("api/upload/imgUpload", this.param2, config).then(function(data) {
             if (data.data == "上传成功") {

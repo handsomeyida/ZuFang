@@ -105,6 +105,7 @@
       this.getList();
     },
     methods: {
+        //获取帖子类型
       getList() {
         this.listLoading = true;
         this.api({

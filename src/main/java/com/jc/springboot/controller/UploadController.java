@@ -18,7 +18,7 @@ import java.util.Date;
 /**
  * @Auther: 帅气的达
  * @Date: 2019/8/18 17:11
- * @Description:
+ * @Description: 文件上传
  */
 @RestController
 @RequestMapping("/upload")
@@ -40,7 +40,7 @@ public class UploadController {
     @Resource
     private TPostTypeMapper postTypeMapper;
 
-    //文件上传接口
+    //多文件上传接口
     @RequiresPermissions("upload:imgupload")
     @RequestMapping(value = "/imgUpload", method = RequestMethod.POST)
     public String imgUpload(@RequestParam("file") MultipartFile[] file, String AdvertTitle){
@@ -69,6 +69,7 @@ public class UploadController {
         return message;
     }
 
+    //单文件上传接口
     @RequiresPermissions("upload:imgupload")
     @RequestMapping(value = "/typeimgUpload", method = RequestMethod.POST)
     public String TypeimgUpload(@RequestParam("file") MultipartFile file, TPostType postType){

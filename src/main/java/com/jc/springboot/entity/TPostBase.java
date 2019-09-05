@@ -39,6 +39,7 @@ public class TPostBase implements Serializable {
     private String weeks;
     private String count;
     private String money;
+    private String around;
 
     public TPostBase() {
     }

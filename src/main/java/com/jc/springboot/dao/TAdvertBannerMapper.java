@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface TAdvertBannerMapper {
-
+    //添加广告栏信息
     Boolean insert(TAdvertBanner tAdvertBanner);
 
 }

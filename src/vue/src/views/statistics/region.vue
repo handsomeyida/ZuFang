@@ -1,7 +1,15 @@
 <template>
   <div class="block">
-    <h2 class="text-left" style="color: #409eff;">地区统计</h2>
+    <h2 class="text-left" style="color: #409eff;">{{Title[checked]}}</h2>
     <div class="top">
+      <el-select @change="checkoption" v-model="checked" placeholder="请选择">
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
       <span class="demonstration">周</span>
       <el-date-picker @change="theweek" v-model="datatime" type="week" format="yyyy年第WW周"
                       placeholder="选择周"></el-date-picker>
@@ -10,8 +18,10 @@
                       placeholder="选择月"></el-date-picker>
     </div>
     <div>
-      <!--  地区统计  -->
-      <div id="regionCart" class="resonateCart" :style="{width: '1200px', height: '600px'}"></div>
+      <!--  商圈周边统计  -->
+      <div v-if="checked == 'shopping'" id="shoppingCart" class="resonateCart" :style="{width: '1200px', height: '600px'}"></div>
+      <!--  地铁周边统计  -->
+      <div v-if="checked == 'subway'" id="subwayCart" class="resonateCart" :style="{width: '1200px', height: '600px'}"></div>
     </div>
   </div>
 </template>
@@ -24,7 +34,6 @@
                 listLoading: false,//数据加载等待动画
                 listtitle: [],
                 listresonate: [],
-
                 week: '',
                 weeks: '',
                 month: '',
@@ -32,6 +41,18 @@
                 time: '',
                 datatime: '',
                 Status: 'weeks',
+                Title: {
+                    shopping: '商圈周边统计',
+                    subway: '地铁周边统计'
+                },
+                checked: 'shopping',
+                options: [{
+                    value: 'shopping',
+                    label: '商圈周边统计'
+                }, {
+                    value: 'subway',
+                    label: '地铁周边统计'
+                }]
             }
         },
         create() {
@@ -58,15 +79,25 @@
                 let result = Math.ceil(d / 7);
                 let zhou = result + 1;
                 this.weeks = val.getFullYear() + "年第" + zhou + "周";
+
+                if (this.checked == 'shopping') {
+                    this.getWeeksShopping();
+                } else if (this.checked == 'subway') {
+                    this.getWeeksSubway();
+                }
             },
             themonths() {
-
+                if (this.checked == 'shopping') {
+                    this.getMonthsShopping();
+                } else if (this.checked == 'subway') {
+                    this.getMonthsSubway();
+                }
             },
-            getWeeksResonate() {
+            getWeeksShopping() {
                 this.Status = 'weeks';
                 this.listLoading = true;
                 this.api({
-                    url: "/statistics/listweeksresonate",
+                    url: "/statistics/listweekshopping",
                     method: "get",
                 }).then(data => {
                     this.listLoading = false;
@@ -76,21 +107,21 @@
                     this.time = this.weeks;
                     for (var a = 0; a < data.list.length; a++) {
                         if (data.list[a].weeks == this.weeks) {
-                            this.listresonate.push(data.list[a].dev_resonate);
+                            this.listresonate.push(data.list[a].count);
                             this.listtitle.push(data.list[a].title);
                         }
                     }
-                    if (this.listresonate.length == 0 && this.checked == 'good') {
-                        this.$message.error('当前周无点赞数据')
+                    if (this.listresonate.length == 0 && this.checked == 'shopping') {
+                        this.$message.error('当前周无浏览量数据')
                     }
                     this.drawLine();
                 })
             },
-            getMonthsResonate() {
+            getMonthsShopping() {
                 this.Status = 'months';
                 this.listLoading = true;
                 this.api({
-                    url: "/statistics/listmonthsresonate",
+                    url: "/statistics/listmonthshopping",
                     method: "get",
                 }).then(data => {
                     this.listLoading = false;
@@ -100,22 +131,74 @@
                     this.time = this.months;
                     for (var a = 0; a < data.list.length; a++) {
                         if (data.list[a].weeks == this.months) {
-                            this.listresonate.push(data.list[a].dev_resonate);
+                            this.listresonate.push(data.list[a].count);
                             this.listtitle.push(data.list[a].title);
                         }
                     }
-                    if (this.listresonate.length == 0 && this.checked == 'good') {
-                        this.$message.error('当前月无点赞数据')
+                    if (this.listresonate.length == 0 && this.checked == 'shopping') {
+                        this.$message.error('当前月无浏览量数据')
+                    }
+                    this.drawLine();
+                })
+            },
+            getWeeksSubway() {
+                this.Status = 'weeks';
+                this.listLoading = true;
+                this.api({
+                    url: "/statistics/listweeksubway",
+                    method: "get",
+                }).then(data => {
+                    this.listLoading = false;
+                    this.listtitle = [];
+                    this.listresonate = [];
+                    this.week = this.weeks;
+                    this.time = this.weeks;
+                    for (var a = 0; a < data.list.length; a++) {
+                        if (data.list[a].weeks == this.weeks) {
+                            this.listresonate.push(data.list[a].count);
+                            this.listtitle.push(data.list[a].title);
+                        }
+                    }
+                    if (this.listresonate.length == 0 && this.checked == 'subway') {
+                        this.$message.error('当前周无浏览量数据')
+                    }
+                    this.drawLine();
+                })
+            },
+            getMonthsSubway() {
+                this.Status = 'months';
+                this.listLoading = true;
+                this.api({
+                    url: "/statistics/listmonthsubway",
+                    method: "get",
+                }).then(data => {
+                    this.listLoading = false;
+                    this.listtitle = [];
+                    this.listresonate = [];
+                    this.month = this.months;
+                    this.time = this.months;
+                    for (var a = 0; a < data.list.length; a++) {
+                        if (data.list[a].weeks == this.months) {
+                            this.listresonate.push(data.list[a].count);
+                            this.listtitle.push(data.list[a].title);
+                        }
+                    }
+                    if (this.listresonate.length == 0 && this.checked == 'subway') {
+                        this.$message.error('当前月无浏览量数据')
                     }
                     this.drawLine();
                 })
             },
             drawLine() {
-                var myChart = this.$echarts.init(document.getElementById('regionCart'))
+                if (this.checked == 'shopping') {
+                  var myChart = this.$echarts.init(document.getElementById('shoppingCart'))
+                } else if (this.checked == 'subway') {
+                    var myChart = this.$echarts.init(document.getElementById('subwayCart'))
+                }
                 myChart.setOption({
                     color: ['#37a2da', '#32c5e9', '#67e0e3', '#9fe6b8', '#ffdb5c', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'],
                     title: {
-                        text: this.time + this.Title[this.checked] + '排名',
+                        text: this.time + this.Title[this.checked] + '帖子浏览量排名',
                         subtext: '数据来自益达的数据库'
                     },
                     tooltip: {
@@ -175,7 +258,7 @@
   }
 
   .top {
-    margin-left: 37%;
+    margin-left: 32%;
     margin-top: 20px;
   }
 </style>

@@ -52,11 +52,12 @@
         <result column="WEEKS" property="weeks" jdbcType="VARCHAR"/>
         <result column="COUNTS" property="count" jdbcType="VARCHAR"/>
         <result column="MONEYS" property="money" jdbcType="VARCHAR"/>
+        <result column="AROUND" property="around" jdbcType="VARCHAR"/>
     </resultMap>
     <select id="listweeksresonate" resultMap="resonate">
         select
             DATE_FORMAT(ba.CREATE_TIME,'%Y年第%u周') WEEKS,
-            CONCAT(wx.WX_NICK_NAME, ba.CREATE_TIME) TITLE,
+            CONCAT(wx.WX_NICK_NAME, ba.CREATE_TIME)  TITLE,
             ba.DEV_RESONATE
         from t_post_base ba
         left join t_wx_user wx on ba.USER_ID = wx.USER_ID
@@ -67,7 +68,7 @@
 
     <select id="listmonthsresonate" resultMap="resonate">
         select
-            DATE_FORMAT(ba.CREATE_TIME,'%Y年%m月') WEEKS,
+            DATE_FORMAT(ba.CREATE_TIME,'%Y年%m月')  WEEKS,
             CONCAT(wx.WX_NICK_NAME, ba.CREATE_TIME) TITLE,
             ba.DEV_RESONATE
         from t_post_base ba
@@ -80,8 +81,8 @@
     <select id="listweekscomment" resultMap="resonate">
         select
             DATE_FORMAT(co.CREATE_TIME,'%Y年第%u周') WEEKS,
-            CONCAT(wx.WX_NICK_NAME, ba.CREATE_TIME) TITLE,
-        COUNT(0) COUNTS
+            CONCAT(wx.WX_NICK_NAME, ba.CREATE_TIME)  TITLE,
+        COUNT(0)                                     COUNTS
         from t_comment co
         left join t_post_base ba on co.POST_ID = ba.ID
         left join t_wx_user wx on ba.USER_ID = wx.USER_ID
@@ -91,9 +92,9 @@
     </select>
     <select id="listmonthscomment" resultMap="resonate">
         select
-            DATE_FORMAT(co.CREATE_TIME,'%Y年%m月') WEEKS,
+            DATE_FORMAT(co.CREATE_TIME,'%Y年%m月')  WEEKS,
             CONCAT(wx.WX_NICK_NAME, ba.CREATE_TIME) TITLE,
-        COUNT(0) COUNTS
+        COUNT(0)                                    COUNTS
         from t_comment co
         left join t_post_base ba on co.POST_ID = ba.ID
         left join t_wx_user wx on ba.USER_ID = wx.USER_ID
@@ -104,9 +105,9 @@
 
     <select id="listweekscollection" resultMap="resonate">
         select
-            DATE_FORMAT(co.CREATE_TIME,'%Y年第%u周') WEEKS,
-            CONCAT(wx.WX_NICK_NAME, ba.CREATE_TIME) TITLE,
-        COUNT(0) COUNTS
+            DATE_FORMAT(co.CREATE_TIME,'%Y年第%u周')    WEEKS,
+            CONCAT(wx.WX_NICK_NAME, ba.CREATE_TIME)     TITLE,
+        COUNT(0)                                        COUNTS
         from t_user_collection co
         left join t_post_base ba on co.POST_ID = ba.ID
         left join t_wx_user wx on ba.USER_ID = wx.USER_ID
@@ -116,9 +117,9 @@
     </select>
     <select id="listmonthscollection" resultMap="resonate">
         select
-            DATE_FORMAT(co.CREATE_TIME,'%Y年%m月') WEEKS,
-            CONCAT(wx.WX_NICK_NAME, ba.CREATE_TIME) TITLE,
-            COUNT(0) COUNTS
+            DATE_FORMAT(co.CREATE_TIME,'%Y年%m月')    WEEKS,
+            CONCAT(wx.WX_NICK_NAME, ba.CREATE_TIME)   TITLE,
+            COUNT(0)                                  COUNTS
         from t_user_collection co
         left join t_post_base ba on co.POST_ID = ba.ID
         left join t_wx_user wx on ba.USER_ID = wx.USER_ID
@@ -129,9 +130,9 @@
 
     <select id="listweeksfans" resultMap="resonate">
         select
-            DATE_FORMAT(fans.CREATE_TIME,'%Y年第%u周') weeks,
-            wx.WX_NICK_NAME TITLE,
-        count(0) COUNTS
+            DATE_FORMAT(fans.CREATE_TIME,'%Y年第%u周')  weeks,
+            wx.WX_NICK_NAME                             TITLE,
+        count(0)                                        COUNTS
         from t_wx_user wx
         left join t_user_follow fans on fans.FOLLOW_ID = wx.USER_ID
         where fans.IS_DEL = 0
@@ -140,9 +141,9 @@
     </select>
     <select id="listmonthsfans" resultMap="resonate">
         select
-            DATE_FORMAT(fans.CREATE_TIME,'%Y年%m月') weeks,
-            wx.WX_NICK_NAME TITLE,
-        count(0) COUNTS
+            DATE_FORMAT(fans.CREATE_TIME,'%Y年%m月')    weeks,
+            wx.WX_NICK_NAME                             TITLE,
+        count(0)                                        COUNTS
         from t_wx_user wx
         left join t_user_follow fans on fans.FOLLOW_ID = wx.USER_ID
         where fans.IS_DEL = 0
@@ -171,5 +172,59 @@
     </select>
     <select id="listMonthMINPriceCount" resultMap="resonate">
         {call ListMonthMINMoneyCount(#{MaxPrice,mode=IN},#{Prices})}
+    </select>
+
+    <select id="listweekshopping" resultMap="resonate">
+        select
+            DATE_FORMAT(ba.CREATE_TIME,'%Y年第%u周')    WEEKS,
+            CONCAT(wx.WX_NICK_NAME, ba.CREATE_TIME)     TITLE,
+            ba.TOTAL_BROWSE                             COUNTS
+        from t_post_base ba
+        left join t_wx_user wx on ba.USER_ID = wx.USER_ID
+        where
+        ba.IS_MALL = 1
+        and ba.IS_DEL = 0
+        group by WEEKS, ID
+        order by WEEKS desc, COUNTS desc
+    </select>
+    <select id="listmonthshopping" resultMap="resonate">
+        select
+            DATE_FORMAT(ba.CREATE_TIME,'%Y年%m月')      WEEKS,
+            CONCAT(wx.WX_NICK_NAME, ba.CREATE_TIME)     TITLE,
+            ba.TOTAL_BROWSE                             COUNTS
+        from t_post_base ba
+        left join t_wx_user wx on ba.USER_ID = wx.USER_ID
+        where
+        ba.IS_MALL = 1
+        and ba.IS_DEL = 0
+        group by WEEKS, ID
+        order by WEEKS desc, COUNTS desc
+    </select>
+
+    <select id="listweeksubway" resultMap="resonate">
+        select
+            DATE_FORMAT(ba.CREATE_TIME,'%Y年第%u周')    WEEKS,
+            CONCAT(wx.WX_NICK_NAME, ba.CREATE_TIME)     TITLE,
+            ba.TOTAL_BROWSE                             COUNTS
+        from t_post_base ba
+        left join t_wx_user wx on ba.USER_ID = wx.USER_ID
+        where
+        ba.IS_SUB = 1
+        and ba.IS_DEL = 0
+        group by WEEKS, ID
+        order by WEEKS desc, COUNTS desc
+    </select>
+    <select id="listmonthsubway" resultMap="resonate">
+        select
+            DATE_FORMAT(ba.CREATE_TIME,'%Y年%m月')      WEEKS,
+            CONCAT(wx.WX_NICK_NAME, ba.CREATE_TIME)     TITLE,
+            ba.TOTAL_BROWSE                             COUNTS
+        from t_post_base ba
+        left join t_wx_user wx on ba.USER_ID = wx.USER_ID
+        where
+        ba.IS_SUB = 1
+        and ba.IS_DEL = 0
+        group by WEEKS, ID
+        order by WEEKS desc, COUNTS desc
     </select>
 </mapper>
