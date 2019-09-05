@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jc.springboot.dao.TStatisticsMapper">
+
+    <resultMap id="wxuser" type="com.jc.springboot.entity.TWXUser">
+        <id column="USER_ID" property="user_id" jdbcType="VARCHAR"/>
+        <result column="OPEN_ID" property="open_id" jdbcType="VARCHAR"/>
+        <result column="UNION_ID" property="union_id" jdbcType="VARCHAR"/>
+        <result column="WX_AVATAR_URL" property="wx_avatar_url" jdbcType="VARCHAR"/>
+        <result column="WX_NICK_NAME" property="wx_nick_name" jdbcType="VARCHAR"/>
+        <result column="WX_GENDER" property="wx_gender" jdbcType="VARCHAR"/>
+        <result column="WX_CITY" property="wx_city" jdbcType="VARCHAR"/>
+        <result column="WX_PROVINCE" property="wx_province" jdbcType="VARCHAR"/>
+        <result column="WX_COUNTRY" property="wx_country" jdbcType="VARCHAR"/>
+        <result column="DEV_FANS" property="dev_fans" jdbcType="INTEGER"/>
+        <result column="CREATE_TIME" property="create_time" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME" property="update_time" jdbcType="TIMESTAMP"/>
+        <result column="IS_DEL" property="IS_DEL" jdbcType="TINYINT"/>
+    </resultMap>
+    <select id="listwxuser" resultMap="wxuser">
+        select
+        WX_GENDER
+        from
+        t_wx_user
+        where
+        IS_DEL = 0
+    </select>
+
+
+    <resultMap id="resonate" type="com.jc.springboot.entity.TPostBase">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="USER_ID" property="user_id" jdbcType="VARCHAR"/>
+        <result column="CONTENT" property="content" jdbcType="LONGVARCHAR"/>
+        <result column="MIN_PRICE" property="min_price" jdbcType="VARCHAR"/>
+        <result column="MAX_PRICE" property="max_price" jdbcType="VARCHAR"/>
+        <result column="PHONE" property="phone" jdbcType="VARCHAR"/>
+        <result column="ADDRESS" property="address" jdbcType="VARCHAR"/>
+        <result column="LABELS" property="labels" jdbcType="VARCHAR"/>
+        <result column="TOTAL_BROWSE" property="total_browse" jdbcType="INTEGER"/>
+        <result column="TOTAL_RESONATE" property="total_resonate" jdbcType="INTEGER"/>
+        <result column="DEV_BROWSE" property="dev_browse" jdbcType="INTEGER"/>
+        <result column="DEV_RESONATE" property="dev_resonate" jdbcType="INTEGER"/>
+        <result column="ACTIVE_TIME" property="active_time" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_TIME" property="create_time" jdbcType="TIMESTAMP"/>
+        <result column="IS_LOWER_SHELF" property="is_lower_shelf" jdbcType="INTEGER"/>
+        <result column="IS_DEL" property="is_del" jdbcType="TINYINT"/>
+        <result column="TOTAL_COLLECTION" property="total_collection" jdbcType="INTEGER"/>
+        <result column="TOTAL_COMMENTS" property="total_comments" jdbcType="INTEGER"/>
+        <result column="FEE" property="fee" jdbcType="INTEGER"/>
+        <result column="TITLE" property="title" jdbcType="VARCHAR"/>
+        <result column="WEEKS" property="weeks" jdbcType="VARCHAR"/>
+        <result column="COUNTS" property="count" jdbcType="VARCHAR"/>
+        <result column="MONEYS" property="money" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="listweeksresonate" resultMap="resonate">
+        select
+            DATE_FORMAT(ba.CREATE_TIME,'%Y年第%u周') WEEKS,
+            CONCAT(wx.WX_NICK_NAME, ba.CREATE_TIME) TITLE,
+            ba.DEV_RESONATE
+        from t_post_base ba
+        left join t_wx_user wx on ba.USER_ID = wx.USER_ID
+        where ba.IS_DEL = 0
+        group by WEEKS, DEV_RESONATE, ID
+        order by WEEKS desc, DEV_RESONATE desc
+    </select>
+
+    <select id="listmonthsresonate" resultMap="resonate">
+        select
+            DATE_FORMAT(ba.CREATE_TIME,'%Y年%m月') WEEKS,
+            CONCAT(wx.WX_NICK_NAME, ba.CREATE_TIME) TITLE,
+            ba.DEV_RESONATE
+        from t_post_base ba
+        left join t_wx_user wx on ba.USER_ID = wx.USER_ID
+        where ba.IS_DEL = 0
+        group by WEEKS, DEV_RESONATE, ID
+        order by WEEKS desc, DEV_RESONATE desc
+    </select>
+
+    <select id="listweekscomment" resultMap="resonate">
+        select
+            DATE_FORMAT(co.CREATE_TIME,'%Y年第%u周') WEEKS,
+            CONCAT(wx.WX_NICK_NAME, ba.CREATE_TIME) TITLE,
+        COUNT(0) COUNTS
+        from t_comment co
+        left join t_post_base ba on co.POST_ID = ba.ID
+        left join t_wx_user wx on ba.USER_ID = wx.USER_ID
+        where co.IS_DEL = 0
+        group by WEEKS, TITLE
+        order by WEEKS desc, COUNTS desc
+    </select>
+    <select id="listmonthscomment" resultMap="resonate">
+        select
+            DATE_FORMAT(co.CREATE_TIME,'%Y年%m月') WEEKS,
+            CONCAT(wx.WX_NICK_NAME, ba.CREATE_TIME) TITLE,
+        COUNT(0) COUNTS
+        from t_comment co
+        left join t_post_base ba on co.POST_ID = ba.ID
+        left join t_wx_user wx on ba.USER_ID = wx.USER_ID
+        where co.IS_DEL = 0
+        group by WEEKS, TITLE
+        order by WEEKS desc, COUNTS desc
+    </select>
+
+    <select id="listweekscollection" resultMap="resonate">
+        select
+            DATE_FORMAT(co.CREATE_TIME,'%Y年第%u周') WEEKS,
+            CONCAT(wx.WX_NICK_NAME, ba.CREATE_TIME) TITLE,
+        COUNT(0) COUNTS
+        from t_user_collection co
+        left join t_post_base ba on co.POST_ID = ba.ID
+        left join t_wx_user wx on ba.USER_ID = wx.USER_ID
+        where co.IS_DEL = 0
+        group by WEEKS, TITLE
+        order by WEEKS desc, COUNTS desc
+    </select>
+    <select id="listmonthscollection" resultMap="resonate">
+        select
+            DATE_FORMAT(co.CREATE_TIME,'%Y年%m月') WEEKS,
+            CONCAT(wx.WX_NICK_NAME, ba.CREATE_TIME) TITLE,
+            COUNT(0) COUNTS
+        from t_user_collection co
+        left join t_post_base ba on co.POST_ID = ba.ID
+        left join t_wx_user wx on ba.USER_ID = wx.USER_ID
+        where co.IS_DEL = 0
+        group by WEEKS, TITLE
+        order by WEEKS desc, COUNTS desc
+    </select>
+
+    <select id="listweeksfans" resultMap="resonate">
+        select
+            DATE_FORMAT(fans.CREATE_TIME,'%Y年第%u周') weeks,
+            wx.WX_NICK_NAME TITLE,
+        count(0) COUNTS
+        from t_wx_user wx
+        left join t_user_follow fans on fans.FOLLOW_ID = wx.USER_ID
+        where fans.IS_DEL = 0
+        group by weeks, USER_ID
+        order by weeks desc, COUNTS desc
+    </select>
+    <select id="listmonthsfans" resultMap="resonate">
+        select
+            DATE_FORMAT(fans.CREATE_TIME,'%Y年%m月') weeks,
+            wx.WX_NICK_NAME TITLE,
+        count(0) COUNTS
+        from t_wx_user wx
+        left join t_user_follow fans on fans.FOLLOW_ID = wx.USER_ID
+        where fans.IS_DEL = 0
+        group by weeks, USER_ID
+        order by weeks desc, COUNTS desc
+    </select>
+
+    <select id="loadmaxprice" resultType="Integer">
+        select
+            MAX(MAX_PRICE)
+        from
+        t_post_base ba
+        where
+        ba.IS_DEL = 0
+    </select>
+
+    <select id="listWeekMAXPriceCount" resultMap="resonate">
+        {call ListWeekMAXMoneyCount(#{MaxPrice,mode=IN},#{Prices})}
+    </select>
+    <select id="listWeekMINPriceCount" resultMap="resonate">
+        {call ListWeekMINMoneyCount(#{MaxPrice,mode=IN},#{Prices})}
+    </select>
+
+    <select id="listMonthMAXPriceCount" resultMap="resonate">
+        {call ListMonthMAXMoneyCount(#{MaxPrice,mode=IN},#{Prices})}
+    </select>
+    <select id="listMonthMINPriceCount" resultMap="resonate">
+        {call ListMonthMINMoneyCount(#{MaxPrice,mode=IN},#{Prices})}
+    </select>
+</mapper>

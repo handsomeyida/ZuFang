@@ -124,10 +124,28 @@ export const asyncRouterMap = [
     meta: {title: '统计模块', icon: 'tree'},
     children: [
       {
-        path: 'statistics',
-        component: _import('article/article'),
-        meta: {title: '统计模块', icon: 'analysis'},
-        menu: 'statistics'
+        path: 'sex',
+        component: _import('statistics/sex'),
+        meta: {title: '性别统计', icon: 'analysis'},
+        menu: 'sex'
+      },
+      {
+        path: 'bases',
+        component: _import('statistics/bases'),
+        meta: {title: '帖子统计', icon: 'analysis'},
+        menu: 'bases'
+      },
+      {
+        path: 'follow',
+        component: _import('statistics/follow'),
+        meta: {title: '关注统计', icon: 'analysis'},
+        menu: 'follow'
+      },
+      {
+        path: 'region',
+        component: _import('statistics/region'),
+        meta: {title: '地区统计', icon: 'analysis'},
+        menu: 'region'
       },
     ]
   },

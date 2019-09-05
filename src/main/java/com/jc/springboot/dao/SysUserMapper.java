@@ -67,5 +67,6 @@ public interface SysUserMapper{
 
     //修改用户
     int updateUser(JSONObject jsonObject);
+    int updateuser(JSONObject jsonObject);
 
 }

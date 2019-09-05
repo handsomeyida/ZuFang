@@ -245,6 +245,12 @@
         , delete_status = #{deleteStatus}
         WHERE id = #{userId} and id != 10001
     </update>
+    <update id="updateuser">
+        UPDATE sys_user
+        SET
+        role_id = 2
+        WHERE id = #{userId} and id != 10001
+    </update>
 
     <select id="listAllRoles" resultType="com.alibaba.fastjson.JSONObject">
         SELECT

@@ -11,6 +11,8 @@ import '@/permission' // 权限
 import {default as api} from './utils/api'
 import {hasPermission} from "./utils/hasPermission";
 import axios from 'axios'
+import echarts from 'echarts' //引入echarts
+Vue.prototype.$echarts = echarts //引入组件
 
 Vue.prototype.$reqs = axios
 Vue.use(ElementUI, {locale})

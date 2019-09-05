@@ -186,4 +186,10 @@ public class SysUserServiceImpl implements SysUserService {
         return LoginUtil.successJson();
     }
 
+    @Override
+    public JSONObject updateuser(JSONObject jsonObject) {
+        Integer userId = (Integer)jsonObject.get("userId");
+        sysUserMapper.updateuser(jsonObject);
+        return LoginUtil.successJson();
+    }
 }

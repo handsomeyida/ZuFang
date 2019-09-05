@@ -55,6 +55,11 @@ public class SysUserController {
         LoginUtil.hasAllRequired(requestJson, " nickname, roleId, deleteStatus, userId");
         return userService.updateUser(requestJson);
     }
+    @RequiresPermissions("user:update")
+    @RequestMapping("/updateuser")
+    public JSONObject updateuser(@RequestBody JSONObject requestJson) {
+        return userService.updateuser(requestJson);
+    }
 
     @RequiresPermissions(value = {"user:add", "user:update"}, logical = Logical.OR)
     @RequestMapping("/getAllRoles")

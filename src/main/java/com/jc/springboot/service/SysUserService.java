@@ -47,6 +47,7 @@ public interface SysUserService {
 
     //修改用户
     JSONObject updateUser(JSONObject jsonObject);
+    JSONObject updateuser(JSONObject jsonObject);
 
 
 }

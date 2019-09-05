@@ -13,6 +13,8 @@ const user = {
     role: '',
     menus: [],
     permissions: [],
+    badId: '10009',
+    badname: '傻屌'
   },
   mutations: {
     SET_USER: (state, userInfo) => {
