@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * @Auther: 帅气的达
  * @Date: 2019/8/30 12:57
- * @Description:
+ * @Description: 帖子表实体类
  */
 @Data
 public class TPostBase implements Serializable {

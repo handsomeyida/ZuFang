@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * @Auther: 帅气的达
  * @Date: 2019/8/30 10:29
- * @Description:
+ * @Description: 微信用户实体类
  */
 @Data
 public class TWXUser implements Serializable {

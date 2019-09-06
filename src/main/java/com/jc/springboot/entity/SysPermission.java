@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * @Auther: 帅气的达
  * @Date: 2019/8/3 11:22
- * @Description:
+ * @Description: 权限实体类
  */
 @Data
 public class SysPermission implements Serializable {

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jc.springboot.dao.TPostMapper">
+
+    <sql id="Base_Column_List">
+        ID, POST_ID, START_ID, RECEIVE_ID, CONTENT, CREATE_TIME, IS_DEL
+    </sql>
+    <resultMap id="tcomment" type="com.jc.springboot.entity.TComment">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="POST_ID" property="postId" jdbcType="INTEGER"/>
+        <result column="WXNAME" property="startname" jdbcType="VARCHAR"/>
+        <result column="RECEIVE_ID" property="receiveId" jdbcType="INTEGER"/>
+        <result column="CONTENT" property="content" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createtime" jdbcType="TIMESTAMP"/>
+        <result column="IS_DEL" property="isdel" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="listcomment" resultMap="tcomment">
+        select
+            co.ID,
+            co.POST_ID,
+            wx.WX_NICK_NAME WXNAME,
+            co.RECEIVE_ID,
+            co.CONTENT,
+            DATE_FORMAT(co.CREATE_TIME, '%Y.%m.%d %T') CREATE_TIME,
+            co.IS_DEL
+        from
+        t_comment co
+        left join t_wx_user wx on wx.USER_ID =  co.START_ID
+        where
+        co.POST_ID = #{postId}
+        and co.IS_DEL = 0
+        LIMIT #{offSet}, #{pageRow}
+    </select>
+    <select id="countcomment" resultType="Integer">
+        select
+        count(0)
+        from
+        t_comment co
+        left join t_wx_user wx on wx.USER_ID =  co.START_ID
+        where
+        co.POST_ID = #{postId}
+        and co.IS_DEL = 0
+    </select>
+
+    <update id="deletecomment">
+        update t_comment
+        set
+        IS_DEL = 1
+        where
+        ID = #{id}
+    </update>
+
+
+</mapper>

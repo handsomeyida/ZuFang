@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * @Auther: 帅气的达
  * @Date: 2019/8/21 09:41
- * @Description:
+ * @Description: 系统模板实体类
  */
 @Data
 public class SysTemplet implements Serializable {

@@ -119,7 +119,7 @@
                 } else if (this.checked == 'collection') {
                     this.getWeeksCollection();
                 } else if (this.checked == 'money') {
-                    if (this.Prices == null || this.Prices.length == 0 || this.Prices == ''){
+                    if (this.Prices == null || this.Prices.length == 0 || this.Prices == '') {
                         // console.log(this.Prices)
                         this.$message.error('请输入价格范围')
                     } else {
@@ -143,7 +143,7 @@
                 } else if (this.checked == 'collection') {
                     this.getMonthsCollection();
                 } else if (this.checked == 'money') {
-                    if (this.Prices == null || this.Prices.length == 0 || this.Prices == ''){
+                    if (this.Prices == null || this.Prices.length == 0 || this.Prices == '') {
                         // console.log(this.Prices)
                         this.$message.error('请输入价格范围')
                     } else {
@@ -515,12 +515,12 @@
             },
             loadline(data) {
                 var serie = [];
-                    var item = {
-                        name: '最高价格数量',
-                        type: 'line',
-                        data: data
-                    };
-                    serie.push(item);
+                var item = {
+                    name: '最高价格数量',
+                    type: 'line',
+                    data: data
+                };
+                serie.push(item);
                 return serie;
             },
         }

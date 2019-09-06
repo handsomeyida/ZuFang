@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * @Auther: 帅气的达
  * @Date: 2019/8/20 14:29
- * @Description:
+ * @Description: 信息实体类
  */
 @Data
 public class SysInformation implements Serializable {

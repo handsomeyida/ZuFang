@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 /**
  * @Auther: 帅气的达
  * @Date: 2019/8/3 11:12
- * @Description:
+ * @Description: 用户实体类
  */
 @Data
 public class SysUser implements Serializable {

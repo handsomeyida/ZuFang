@@ -19,9 +19,11 @@
     </div>
     <div>
       <!--  商圈周边统计  -->
-      <div v-if="checked == 'shopping'" id="shoppingCart" class="resonateCart" :style="{width: '1200px', height: '600px'}"></div>
+      <div v-if="checked == 'shopping'" id="shoppingCart" class="resonateCart"
+           :style="{width: '1200px', height: '600px'}"></div>
       <!--  地铁周边统计  -->
-      <div v-if="checked == 'subway'" id="subwayCart" class="resonateCart" :style="{width: '1200px', height: '600px'}"></div>
+      <div v-if="checked == 'subway'" id="subwayCart" class="resonateCart"
+           :style="{width: '1200px', height: '600px'}"></div>
     </div>
   </div>
 </template>
@@ -191,7 +193,7 @@
             },
             drawLine() {
                 if (this.checked == 'shopping') {
-                  var myChart = this.$echarts.init(document.getElementById('shoppingCart'))
+                    var myChart = this.$echarts.init(document.getElementById('shoppingCart'))
                 } else if (this.checked == 'subway') {
                     var myChart = this.$echarts.init(document.getElementById('subwayCart'))
                 }

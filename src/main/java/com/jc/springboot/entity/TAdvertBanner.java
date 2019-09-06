@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * @Auther: 帅气的达
  * @Date: 2019/8/19 12:00
- * @Description:
+ * @Description: 广告栏实体类
  */
 @Data
 public class TAdvertBanner implements Serializable {

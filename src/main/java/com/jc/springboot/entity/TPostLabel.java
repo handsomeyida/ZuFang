@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * @Auther: 帅气的达
  * @Date: 2019/8/27 13:59
- * @Description:
+ * @Description: 标签实体类
  */
 @Data
 public class TPostLabel implements Serializable {
