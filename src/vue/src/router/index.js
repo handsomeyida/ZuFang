@@ -104,16 +104,22 @@ export const asyncRouterMap = [
     ]
   },
   {
-    path: '/system',
+    path: '/posts',
     component: Layout,
-    redirect: '/system/posts/',
-    meta: {title: '帖子管理', icon: 'tree'},
+    redirect: '/posts/posts/',
+    meta: {title: '帖子管理', icon: 'contract'},
     children: [
       {
         path: 'posts',
-        component: _import('article/article'),
+        component: _import('posts/collection'),
         meta: {title: '帖子管理', icon: 'contract'},
         menu: 'posts'
+      },
+      {
+        path: 'collection',
+        component: _import('posts/collection'),
+        meta: {title: '收藏的帖', icon: 'contract'},
+        menu: 'collection'
       },
     ]
   },

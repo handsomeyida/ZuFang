@@ -50,128 +50,160 @@
 </template>
 
 <script>
-  export default {
-    name: "AllSendMsg",
-    data() {
-      return {
-        textarea: '',
-        userId: '',
-        user: [],//角色列表
-        template: [],//模板列表
-        dialogStatus: 'select',
-        dialogFormVisible: false,
-        textMap: {
-          select: '选择模板',
-          send: '发送消息'
-        },
-        MsgUser: {
-          userId: '',
-          username: '',
-          nickname: '',
-        },
-        MsgTemplate: {
-          ID: '',
-          TITLE: '',
-          CONTENT: '',
-          IS_NOT_GUIDE: '',
-        },
-      }
-    },
-    created() {
-      this.GetAllUser();
-      this.GetAllTemplet();
-    },
-    methods: {
-      useTemplate() {
-        //显示新增对话框
-        this.dialogStatus = "select"
-        this.dialogFormVisible = true
-      },
-      loadMessage() {
-        this.dialogStatus = "send"
-        this.dialogFormVisible = true
-      },
-      AllsendMessage() {
-        let userIds=[];
-        let users=this.user;
-        for (let a=0;a<users.length;a++) {
-          userIds.push(users[a].id);
-        }
-        this.userId = this.$store.state.user.userId;
-        this.MsgTemplate.CONTENT = this.textarea;
-        this.api({
-          url: "/information/insertAllInformation",
-          method: "post",
-          data: {
-            userIds: userIds,
-            userId: this.userId,
-            targetId: "system_info",
-            content: this.MsgTemplate.CONTENT
-          }
-        }).then(() => {
-          this.dialogFormVisible = false;
-          this.$message({
-            message: '发送消息成功',
-            type: 'success',
-            onClose: function () {
-              location.reload();
+    export default {
+        name: "AllSendMsg",
+        data() {
+            return {
+                textarea: '',
+                userId: '',
+                user: [],//角色列表
+                template: [],//模板列表
+                dialogStatus: 'select',
+                dialogFormVisible: false,
+                textMap: {
+                    select: '选择模板',
+                    send: '发送消息'
+                },
+                MsgUser: {
+                    userId: '',
+                    username: '',
+                    nickname: '',
+                },
+                MsgTemplate: {
+                    ID: '',
+                    TITLE: '',
+                    CONTENT: '',
+                    IS_NOT_GUIDE: '',
+                },
+                endtime: '',
+                success: ''
             }
-          });
-        })
-      },
-      sendMessage() {
-        this.userId = this.$store.state.user.userId;
-        this.MsgTemplate.CONTENT = this.textarea;
-        // console.log(this.MsgUser.userId);
-        // console.log(this.userId);
-        // console.log(this.MsgTemplate.CONTENT);
-        this.api({
-          url: "/information/insertInformation",
-          method: "post",
-          data: {
-            userIds: this.MsgUser.userId,
-            userId: this.userId,
-            targetId: this.MsgUser.userId,
-            content: this.MsgTemplate.CONTENT
-          }
-        }).then(() => {
-          this.dialogFormVisible = false;
-          this.$message({
-            message: '发送消息成功',
-            type: 'success',
-            onClose: function () {
-              location.reload();
-            }
-          });
-        })
-      },
-      loadtextarea(selVal) {
-        let templates = this.template
-        for (let a=0;a<templates.length;a++){
-          if (templates[a].ID==selVal) {
-            // console.log(templates[a].CONTENT)
-            this.textarea = templates[a].CONTENT;
-          }
+        },
+        created() {
+            this.GetAllUser();
+            this.GetAllTemplet();
+        },
+        methods: {
+            loadendtime() {
+                this.userId = this.$store.state.user.userId;
+                let _vue = this;
+                _vue.api({
+                    url: "/comment/loadendtime",
+                    method: "post",
+                    data: {
+                        userId:  this.userId
+                    }
+                }).then((data) => {
+                    this.success = data.success;
+                    if (data.success != "success") {
+                        this.endtime = data.endtime;
+                        this.open();
+                    }
+                })
+            },
+            open() {
+                this.$confirm('你已经被禁言!!禁言到期时间为'+this.endtime, '警告', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'error',
+                    center: true
+                }).then(() => {
+                    this.$router.push({path: '/'});
+                }).catch(() => {
+                    this.$router.push({path: '/'});
+                });
+            },
+            useTemplate() {
+                //显示新增对话框
+                this.dialogStatus = "select"
+                this.dialogFormVisible = true
+            },
+            loadMessage() {
+                if (this.success != "success") {
+                    this.loadendtime();
+                } else {
+                    this.dialogStatus = "send"
+                    this.dialogFormVisible = true
+                }
+            },
+            AllsendMessage() {
+                let userIds = [];
+                let users = this.user;
+                for (let a = 0; a < users.length; a++) {
+                    userIds.push(users[a].id);
+                }
+                this.userId = this.$store.state.user.userId;
+                this.MsgTemplate.CONTENT = this.textarea;
+                this.api({
+                    url: "/information/insertAllInformation",
+                    method: "post",
+                    data: {
+                        userIds: userIds,
+                        userId: this.userId,
+                        targetId: "system_info",
+                        content: this.MsgTemplate.CONTENT
+                    }
+                }).then(() => {
+                    this.dialogFormVisible = false;
+                    this.$message({
+                        message: '发送消息成功',
+                        type: 'success',
+                        onClose: function () {
+                            location.reload();
+                        }
+                    });
+                })
+            },
+            sendMessage() {
+                this.userId = this.$store.state.user.userId;
+                this.MsgTemplate.CONTENT = this.textarea;
+                this.api({
+                    url: "/information/insertInformation",
+                    method: "post",
+                    data: {
+                        userIds: this.MsgUser.userId,
+                        userId: this.userId,
+                        targetId: this.MsgUser.userId,
+                        content: this.MsgTemplate.CONTENT
+                    }
+                }).then(() => {
+                    this.dialogFormVisible = false;
+                    this.$message({
+                        message: '发送消息成功',
+                        type: 'success',
+                        onClose: function () {
+                            location.reload();
+                        }
+                    });
+                })
+            },
+            loadtextarea(selVal) {
+                let templates = this.template
+                for (let a = 0; a < templates.length; a++) {
+                    if (templates[a].ID == selVal) {
+                        // console.log(templates[a].CONTENT)
+                        this.textarea = templates[a].CONTENT;
+                    }
+                }
+            },
+            GetAllUser() {
+                this.api({
+                    url: "/backstageuser/loadlist",
+                    method: "post"
+                }).then(data => {
+                    this.user = data.list;
+                })
+            },
+            GetAllTemplet() {
+                this.api({
+                    url: "/templet/listtemplet",
+                    method: "post"
+                }).then(data => {
+                    this.template = data.list;
+                })
+            },
         }
-      },
-      GetAllUser() {
-        this.api({
-          url: "/backstageuser/loadlist",
-          method: "post"
-        }).then(data => {
-          this.user = data.list;
-        })
-      },
-      GetAllTemplet() {
-        this.api({
-          url: "/templet/listtemplet",
-          method: "post"
-        }).then(data => {
-          this.template = data.list;
-        })
-      },
     }
-  }
 </script>
 
 <style scoped>

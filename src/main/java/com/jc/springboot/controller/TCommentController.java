@@ -21,16 +21,36 @@ public class TCommentController {
 
     @Resource
     TCommentService tCommentService;
-
+    //获取指定贴子的所有评论
     @RequestMapping("/listcomment")
     public JSONObject listcomment(HttpServletRequest request){
         return tCommentService.listcomment(LoginUtil.request2Json(request));
     }
-
+    //获取用户收藏的贴子
+    @RequestMapping("/listcollectionbase")
+    public JSONObject listcollectionbase(HttpServletRequest request){
+        return tCommentService.listcollectionbase(LoginUtil.request2Json(request));
+    }
+    //删除指定评论
     @RequestMapping("/deletecomment")
     public JSONObject deletecomment(@RequestBody JSONObject requestJson){
-        LoginUtil.hasAllRequired(requestJson, "postId");
+        LoginUtil.hasAllRequired(requestJson, "ID");
         return tCommentService.deletecomment(requestJson);
     }
-
+    //取消收藏
+    @RequestMapping("/deletecollectionbase")
+    public JSONObject deletecollectionbase(@RequestBody JSONObject requestJson){
+        LoginUtil.hasAllRequired(requestJson, "ID");
+        return tCommentService.deletecollectionbase(requestJson);
+    }
+    //对用户禁言
+    @RequestMapping("/insertlimit")
+    public JSONObject insertlimit(@RequestBody JSONObject requestJson){
+        return tCommentService.insertlimit(requestJson);
+    }
+    //判断用户是否禁言
+    @RequestMapping("/loadendtime")
+    public JSONObject loadendtime(@RequestBody JSONObject requestJson){
+        return tCommentService.loadendtime(requestJson);
+    }
 }
