@@ -32,7 +32,7 @@
       return {
         loginForm: {
           username: 'yida',
-          password: '122508'
+          password: ''
         },
         loginRules: {
           username: [{required: true, trigger: 'blur', message: "请输入用户名"}],
