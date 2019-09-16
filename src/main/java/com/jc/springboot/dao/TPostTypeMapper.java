@@ -1,5 +1,6 @@
 package com.jc.springboot.dao;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jc.springboot.entity.TPostType;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +13,6 @@ import org.springframework.stereotype.Repository;
 public interface TPostTypeMapper {
     //修改帖子类型
     Boolean update(TPostType postType);
+    //删除帖子类型
+    int deleteType(JSONObject jsonObject);
 }

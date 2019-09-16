@@ -1,6 +1,8 @@
 package com.jc.springboot.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jc.springboot.entity.TPostLabel;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @Auther: 帅气的达
@@ -10,12 +12,14 @@ import com.alibaba.fastjson.JSONObject;
 public interface TPostService {
     //获取所有帖子类型
     JSONObject listType(JSONObject jsonObject);
+    //删除帖子类型
+    JSONObject deleteType(JSONObject jsonObject);
     //获取家用设备信息
     JSONObject listhomelabels(JSONObject jsonObject);
     //添加家用设备信息
-    JSONObject inserthomelabels(JSONObject jsonObject);
+    JSONObject inserthomelabels(MultipartFile[] file, TPostLabel tPostLabel);
     //修改家用设备信息
-    JSONObject updatehomelabels(JSONObject jsonObject);
+    JSONObject updatehomelabels(MultipartFile file,TPostLabel tPostLabel);
     //删除家用设备信息
     JSONObject deletehomelabels(JSONObject jsonObject);
     //获取热门商圈信息
@@ -32,5 +36,8 @@ public interface TPostService {
     JSONObject listsubwaylabels();
     //添加地铁周边信息
     JSONObject insertsubwaylabels(JSONObject jsonObject);
-
+    //设置标签的排序号
+    JSONObject updateIndex(JSONObject jsonObject);
+    //标签改变顺序后的排序
+    JSONObject updateChangeIndex(JSONObject jsonObject);
 }

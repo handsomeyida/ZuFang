@@ -22,18 +22,18 @@
     <div>
       <!--  点赞统计  -->
       <div v-if="checked == 'good'" id="goodCart" class="resonateCart"
-           :style="{width: '1200px', height: '400px'}"></div>
+           :style="{width: '1200px', height: '600px'}"></div>
       <!--  评论统计  -->
       <div v-if="checked == 'comment'" id="commentCart" class="resonateCart"
-           :style="{width: '1200px', height: '400px'}"></div>
+           :style="{width: '1200px', height: '600px'}"></div>
       <!--  收藏统计  -->
       <div v-if="checked == 'collection'" id="collectionCart" class="resonateCart"
-           :style="{width: '1200px', height: '400px'}"></div>
+           :style="{width: '1200px', height: '600px'}"></div>
       <!--  价位统计  -->
       <div v-if="checked == 'money'" id="maxmoneyCart" class="resonateCart"
-           :style="{width: '1200px', height: '400px'}"></div>
+           :style="{width: '1200px', height: '600px'}"></div>
       <div v-if="checked == 'money'" id="minmoneyCart" class="resonateCart"
-           :style="{width: '1200px', height: '400px'}"></div>
+           :style="{width: '1200px', height: '600px'}"></div>
     </div>
   </div>
 </template>
@@ -56,7 +56,7 @@
                 months: '',
                 time: '',
                 datatime: '',
-                Prices: '',
+                Prices: 1000,
                 Status: 'weeks',
                 Title: {
                     good: '点赞统计',
@@ -77,18 +77,29 @@
                 }, {
                     value: 'money',
                     label: '价位统计'
-                }]
+                }],
             }
         },
         created() {
-
+            this.defaulttime();
         },
         methods: {
+            defaulttime() {
+                let date = new Date();
+                this.months = date;
+                let year = this.months.getFullYear();
+                let month = this.months.getMonth();
+                let moths = month+1;
+                this.months = year+'年0'+moths+'月';
+                this.themonths();
+            },
             checkoption() {
                 this.weeks = '';
                 this.months = '';
+                this.defaulttime();
             },
             theweek(val) {
+                this.months = '';
                 //周时间选择器有bug，使用自己写的方法来获取是今年的哪一周
                 let temptTime = val;
                 let weekday = temptTime.getDay() || 7;
@@ -129,6 +140,7 @@
                 }
             },
             themonths() {
+                this.weeks = '';
                 this.listtitle = [];
                 this.listresonate = [];
                 this.listmaxprice = [];
@@ -320,7 +332,6 @@
                         Prices: this.Prices,
                     }
                 }).then(data => {
-                    console.log(data);
                     this.listLoading = false;
                     this.week = this.weeks;
                     this.time = this.weeks;
@@ -477,7 +488,7 @@
                     yAxis: {
                         type: 'value'
                     },
-                    series: this.loadline(this.listmaxprice)
+                    series: this.loadmaxline(this.listmaxprice)
                 }, true);
             },
             drawMinMoney() {
@@ -510,13 +521,23 @@
                     yAxis: {
                         type: 'value'
                     },
-                    series: this.loadline(this.listminprice)
+                    series: this.loadminline(this.listminprice)
                 }, true);
             },
-            loadline(data) {
+            loadmaxline(data) {
                 var serie = [];
                 var item = {
                     name: '最高价格数量',
+                    type: 'line',
+                    data: data
+                };
+                serie.push(item);
+                return serie;
+            },
+            loadminline(data) {
+                var serie = [];
+                var item = {
+                    name: '最低价格数量',
                     type: 'line',
                     data: data
                 };

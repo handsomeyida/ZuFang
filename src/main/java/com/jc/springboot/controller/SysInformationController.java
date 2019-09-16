@@ -71,4 +71,9 @@ public class SysInformationController {
         return informationService.deleteMsg(requestJson);
     }
 
+    //获取所有系统通知消息
+    @RequestMapping("/listsysinfomation")
+    public JSONObject listsysinfomation(HttpServletRequest request) {
+        return informationService.listsysinfomation(LoginUtil.request2Json(request));
+    }
 }

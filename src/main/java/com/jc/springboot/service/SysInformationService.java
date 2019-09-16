@@ -8,7 +8,6 @@ import com.alibaba.fastjson.JSONObject;
  * @Description: 信息管理
  */
 public interface SysInformationService {
-
     //获取公告信息
     JSONObject loadInformation();
     //获取用户收到的消息(弹框)
@@ -25,4 +24,6 @@ public interface SysInformationService {
     JSONObject insertInformation(JSONObject jsonObject);
     //把消息设为已读
     JSONObject deleteMsg(JSONObject jsonObject);
+    //获取所有系统通知消息
+    JSONObject listsysinfomation(JSONObject jsonObject);
 }

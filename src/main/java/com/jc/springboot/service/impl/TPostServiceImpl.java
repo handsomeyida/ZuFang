@@ -2,14 +2,19 @@ package com.jc.springboot.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jc.springboot.dao.TPostMapper;
+import com.jc.springboot.dao.TPostTypeMapper;
+import com.jc.springboot.entity.TAdvertBanner;
 import com.jc.springboot.entity.TPostLabel;
 import com.jc.springboot.service.TPostService;
 import com.jc.springboot.util.ErrorEnum;
+import com.jc.springboot.util.FileUtils;
 import com.jc.springboot.util.LoginUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +28,8 @@ public class TPostServiceImpl implements TPostService {
 
     @Resource
     TPostMapper postMapper;
+    @Resource
+    TPostTypeMapper postTypeMapper;
     //获取所有帖子类型
     @Override
     public JSONObject listType(JSONObject jsonObject) {
@@ -33,6 +40,13 @@ public class TPostServiceImpl implements TPostService {
         info.put("list", listType);
         return LoginUtil.successPage(jsonObject, listType, count);
     }
+
+    @Override
+    public JSONObject deleteType(JSONObject jsonObject) {
+        postTypeMapper.deleteType(jsonObject);
+        return LoginUtil.successJson();
+    }
+
     //获取家用设备信息
     @Override
     public JSONObject listhomelabels(JSONObject jsonObject) {
@@ -45,14 +59,47 @@ public class TPostServiceImpl implements TPostService {
     }
     //添加家用设备信息
     @Override
-    public JSONObject inserthomelabels(JSONObject jsonObject) {
-        postMapper.inserthomelabels(jsonObject);
+    public JSONObject inserthomelabels(MultipartFile[] file, TPostLabel tPostLabel) {
+        //1定义要上传文件 的存放路径
+        String localPath="D:/0Study/IntelliJ IDEA 2019.1.3/MyIdea/springboot/src/main/resources/static/";
+        //2获得文件名字
+        for (MultipartFile multipartFile : file) {
+            String fileName = multipartFile.getOriginalFilename();
+            //2上传失败提示
+            String warning="";
+            if(FileUtils.upload(multipartFile, localPath, fileName)){
+                //上传成功
+                String IMG_URL = "api/image/"+fileName;
+                TPostLabel postLabel = new TPostLabel(1,tPostLabel.getContent(),0,IMG_URL);
+                postMapper.inserthomelabels(postLabel);
+            }else{
+                //上传失败提示
+                return LoginUtil.errorJson(ErrorEnum.E_10015);
+            }
+        }
         return LoginUtil.successJson();
     }
     //修改家用设备信息
     @Override
-    public JSONObject updatehomelabels(JSONObject jsonObject) {
-        postMapper.updatehomelabels(jsonObject);
+    public JSONObject updatehomelabels(MultipartFile file,TPostLabel tPostLabel) {
+        if (file != null) {
+            //1定义要上传文件 的存放路径
+            String localPath = "D:/0Study/IntelliJ IDEA 2019.1.3/MyIdea/springboot/src/main/resources/static/";
+            //2获得文件名字
+            String fileName = file.getOriginalFilename();
+            if (FileUtils.upload(file, localPath, fileName)) {
+                //上传成功
+                String IMG_URL = "api/image/" + fileName;
+                TPostLabel postLabel = new TPostLabel(tPostLabel.getId(),tPostLabel.getContent(),IMG_URL);
+                postMapper.updatehomelabels(postLabel);
+            } else {
+                //上传失败
+                return LoginUtil.errorJson(ErrorEnum.E_10015);
+            }
+        } else {
+            TPostLabel postLabel = new TPostLabel(tPostLabel.getId(),tPostLabel.getContent(),tPostLabel.getType_img_url());
+            postMapper.updatehomelabels(postLabel);
+        }
         return LoginUtil.successJson();
     }
     //删除家用设备信息
@@ -145,5 +192,33 @@ public class TPostServiceImpl implements TPostService {
             postMapper.insertshoplabels(jsonObject);
         }
         return LoginUtil.successJson();
+    }
+    //设置标签的排序号
+    @Override
+    public JSONObject updateIndex(JSONObject jsonObject) {
+        List<Integer> listid = (List<Integer>) jsonObject.get("listID");
+        List<Integer> listindex = (List<Integer>) jsonObject.get("listIndex");
+        for (int i = 0; i < listid.size(); i++) {
+            postMapper.updateIndex(listid.get(i), listindex.get(i));
+        }
+        return LoginUtil.successJson();
+    }
+    //标签改变顺序后的排序
+    @Override
+    public JSONObject updateChangeIndex(JSONObject jsonObject) {
+        List<Integer> listid = (List<Integer>) jsonObject.get("listID");
+        List<Integer> listindex = (List<Integer>) jsonObject.get("listIndex");
+        int j = 0;
+        for (int i = listid.size()-1; i >= 0 ; i--) {
+            postMapper.updateIndex(listid.get(j), listindex.get(i));
+            try {
+                Thread thread = Thread.currentThread();
+                thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            j++;
+        }
+        return LoginUtil.successJson("success");
     }
 }

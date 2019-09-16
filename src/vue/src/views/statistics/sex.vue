@@ -1,8 +1,13 @@
 <template>
-
-  <!--  性别统计  -->
-  <div id="sexCart" class="sexCart" :style="{width: '800px', height: '800px'}"></div>
-
+  <div>
+    <div>
+      <h2 class="text-left" style="color: #409eff;">性别统计:</h2>
+    </div>
+    <div>
+      <!--  性别统计  -->
+      <div id="sexCart" class="sexCart" :style="{width: '1200px', height: '600px'}"></div>
+    </div>
+  </div>
 </template>
 
 <script>

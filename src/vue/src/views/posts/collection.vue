@@ -30,7 +30,11 @@
       <div class="filter-container">
         <el-form>
           <el-form-item>
-            <el-input v-model="end" placeholder="请输入限制天数"></el-input>
+            <div style="float: right">
+              <el-input v-model="commentlistQuery.CONTENT" placeholder="请输入评论内容" style="width: 150px;"></el-input>
+              <el-input v-model="commentlistQuery.WXNAME" placeholder="请输入发帖人姓名" style="width: 150px;"></el-input>
+              <el-button type="primary" plain @click="getCommentList">搜索</el-button>
+            </div>
           </el-form-item>
         </el-form>
       </div>
@@ -47,7 +51,7 @@
         <el-table-column align="center" label="管理" width="380px" v-if="hasPerm('template:update')">
           <template slot-scope="scope">
             <el-button type="danger" icon="delete" @click="removeComment(scope.$index)">删除评论</el-button>
-            <el-button type="warning" icon="delete" @click="updateUser(scope.$index)">限制此人</el-button>
+            <el-button type="warning" icon="update" @click="showUpdate(scope.$index)">限制此人</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -60,6 +64,20 @@
         :page-sizes="[10, 20, 50, 100]"
         layout="total, sizes, prev, pager, next, jumper">
       </el-pagination>
+    </el-dialog>
+
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogForm">
+      <div class="filter-container">
+        <el-form>
+          <el-form-item>
+            <el-input v-model="end" placeholder="请输入限制天数"></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button type="success" @click="updateUser">限制</el-button>
+          <el-button @click="dialogForm = false">取 消</el-button>
+        </div>
+      </div>
     </el-dialog>
   </div>
 
@@ -80,8 +98,10 @@
                 },
                 dialogStatus: 'show',
                 dialogFormVisible: false,
+                dialogForm: false,
                 textMap: {
                     show: '帖子评论信息',
+                    showlimit: '限制'
                 },
                 collectionList: {
                     ID: '',
@@ -89,12 +109,15 @@
                     IS_DEL: '',
                     CREATE_TIME: '',
                     SORT_TIME: '',
+                    START_ID: '',
                 },
                 end: '',
                 commenttotalCount: 0, //分页组件--数据总条数
                 commentlist: [],//评论表格的数据
                 commentlistQuery: {
+                    WXNAME: '',
                     postId: '',
+                    CONTENT: '',
                     pageNum: 1,//页码
                     pageRow: 100,//每页条数
                 },
@@ -171,7 +194,6 @@
                     params: this.commentlistQuery,
                 }).then(data => {
                     this.listLoading = false;
-                    // console.log(data)
                     this.commentlist = data.list;
                     this.commenttotalCount = data.totalCount;
                 })
@@ -217,7 +239,15 @@
                     })
                 })
             },
-            updateUser($index) {
+            showUpdate($index) {
+                this.dialogForm = true;
+                this.dialogStatus = 'showlimit';
+                let _vue = this;
+                let limit = _vue.commentlist[$index];
+                // console.log(limit)
+                this.collectionList.START_ID = limit.START_ID;
+            },
+            updateUser() {
                 if (this.end == null || this.end.length == 0) {
                     this.$message.error('请输入要限制的天数')
                 } else {
@@ -227,7 +257,7 @@
                         showCancelButton: false,
                         type: 'warning'
                     }).then(() => {
-                        let limit = _vue.commentlist[$index];
+                        let limit = _vue.collectionList;
                         _vue.api({
                             url: "/comment/insertlimit",
                             method: "post",
@@ -237,13 +267,14 @@
                             }
                         }).then(() => {
                             _vue.$message.success("限制成功")
-                            _vue.getCommentList()
+                            this.dialogForm = false;
+                            this.end = '';
                         }).catch(() => {
                             _vue.$message.error("限制失败")
                         })
                     })
                 }
-            }
+            },
         }
     }
 </script>

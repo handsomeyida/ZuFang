@@ -98,4 +98,14 @@ public class SysInformationServiceImpl implements SysInformationService {
         informationMapper.deleteMsg(jsonObject);
         return LoginUtil.successJson();
     }
+    //获取所有系统通知消息
+    @Override
+    public JSONObject listsysinfomation(JSONObject jsonObject) {
+        LoginUtil.fillPageParam(jsonObject);
+        JSONObject info = new JSONObject();
+        List<JSONObject> list = informationMapper.listsysinfomation(jsonObject);
+        int count = informationMapper.countsysinfomation(jsonObject);
+        info.put("list", list);
+        return LoginUtil.successPage(jsonObject, list, count);
+    }
 }

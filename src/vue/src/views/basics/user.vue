@@ -135,7 +135,6 @@
         })
       },
       getList() {
-        let roleName = this.roleName;
         //查询列表
         this.listLoading = true;
         this.api({

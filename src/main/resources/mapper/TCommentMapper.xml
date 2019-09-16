@@ -19,8 +19,14 @@
         from
         t_comment co
         left join t_wx_user wx on wx.USER_ID =  co.START_ID
-        where
-        co.POST_ID = #{postId}
+        where 1=1
+        <if test="WXNAME !=null and WXNAME != ''">
+            and wx.WX_NICK_NAME = #{WXNAME}
+        </if>
+        <if test="CONTENT !=null and CONTENT != ''">
+            and co.CONTENT like "%"#{CONTENT}"%"
+        </if>
+        and co.POST_ID = #{postId}
         and co.IS_DEL = 0
         LIMIT #{offSet}, #{pageRow}
     </select>

@@ -40,4 +40,7 @@ public interface SysInformationMapper {
                                   @Param("createTime") Date createTime);
     //把消息设为已读
     int deleteMsg(JSONObject jsonObject);
+    //获取所有系统通知消息
+    List<JSONObject> listsysinfomation(JSONObject jsonObject);
+    int countsysinfomation(JSONObject jsonObject);
 }

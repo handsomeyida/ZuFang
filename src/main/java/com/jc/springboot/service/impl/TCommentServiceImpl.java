@@ -53,7 +53,7 @@ public class TCommentServiceImpl implements TCommentService {
         tCommentMapper.deletecomment(jsonObject);
         return LoginUtil.successJson();
     }
-    //删除指定评论
+    //取消收藏
     @Override
     public JSONObject deletecollectionbase(JSONObject jsonObject) {
         tCommentMapper.deletecollectionbase(jsonObject);

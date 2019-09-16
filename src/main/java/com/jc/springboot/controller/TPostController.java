@@ -1,12 +1,15 @@
 package com.jc.springboot.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jc.springboot.entity.TPostLabel;
 import com.jc.springboot.service.TPostService;
 import com.jc.springboot.util.LoginUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +31,11 @@ public class TPostController {
     public JSONObject listType(HttpServletRequest request){
         return postService.listType(LoginUtil.request2Json(request));
     }
+    //获取所有帖子类型
+    @RequestMapping("/deleteType")
+    public JSONObject deleteType(@RequestBody JSONObject requestJson){
+        return postService.deleteType(requestJson);
+    }
     //获取家用设备信息
     @RequiresPermissions("basics:list")
     @RequestMapping("/listhomelabels")
@@ -37,14 +45,14 @@ public class TPostController {
     //添加家用设备信息
     @RequiresPermissions("basics:add")
     @RequestMapping("/inserthomelabels")
-    public JSONObject inserthomelabels(@RequestBody JSONObject requestJson){
-        return postService.inserthomelabels(requestJson);
+    public JSONObject inserthomelabels(@RequestParam("file") MultipartFile[] file, TPostLabel tPostLabel){
+        return postService.inserthomelabels(file, tPostLabel);
     }
     //修改家用设备信息
     @RequiresPermissions("basics:update")
     @RequestMapping("/updatehomelabels")
-    public JSONObject updatehomelabels(@RequestBody JSONObject requestJson){
-        return postService.updatehomelabels(requestJson);
+    public JSONObject updatehomelabels(@RequestParam(value = "file", required = false) MultipartFile file,TPostLabel tPostLabel){
+        return postService.updatehomelabels(file, tPostLabel);
     }
     //删除家用设备信息
     @RequiresPermissions("basics:delete")
@@ -93,5 +101,14 @@ public class TPostController {
     public JSONObject insertsubwaylabels(@RequestBody JSONObject requestJson){
         return postService.insertsubwaylabels(requestJson);
     }
-
+    //设置标签的排序号
+    @RequestMapping("/updateIndex")
+    public JSONObject updateIndex(@RequestBody JSONObject requestJson){
+        return postService.updateIndex(requestJson);
+    }
+    //标签改变顺序后的排序
+    @RequestMapping("/updateChangeIndex")
+    public JSONObject updateChangeIndex(@RequestBody JSONObject requestJson){
+        return postService.updateChangeIndex(requestJson);
+    }
 }

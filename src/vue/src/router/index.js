@@ -167,17 +167,24 @@ export const asyncRouterMap = [
         meta: {title: '模版管理', icon: 'folder'},
         menu: 'message'
       },
+      // {
+      //   path: 'guide',
+      //   component: _import('message/LeadingWords'),
+      //   meta: {title: '引导语设置', icon: 'group'},
+      //   menu: 'guide'
+      // },
+      // {
+      //   path: 'groupsending',
+      //   component: _import('message/AllSendMsg'),
+      //   meta: {title: '群发系统消息', icon: 'email'},
+      //   menu: 'groupsending'
+      // },
       {
-        path: 'guide',
-        component: _import('message/LeadingWords'),
-        meta: {title: '引导语设置', icon: 'group'},
-        menu: 'guide'
-      },
-      {
-        path: 'groupsending',
-        component: _import('message/AllSendMsg'),
-        meta: {title: '群发系统消息', icon: 'email'},
-        menu: 'groupsending'
+        path: 'sysMessage',
+        name: '系统消息管理',
+        component: _import('message/sysMessage'),
+        meta: {title: '系统消息管理', icon: 'chat'},
+        menu: 'sysMessage'
       },
       {
         path: 'myMessage',

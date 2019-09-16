@@ -2,6 +2,7 @@ package com.jc.springboot.dao;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jc.springboot.entity.TPostLabel;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,9 +21,9 @@ public interface TPostMapper {
     List<JSONObject> listhomelabels(JSONObject jsonObject);
     int counthomelabels(JSONObject jsonObject);
     //添加家用设备信息
-    int inserthomelabels(JSONObject jsonObject);
+    int inserthomelabels(TPostLabel tPostLabel);
     //修改家用设备信息
-    int updatehomelabels(JSONObject jsonObject);
+    int updatehomelabels(TPostLabel tPostLabel);
     //删除家用设备信息
     int deletehomelabels(JSONObject jsonObject);
     //获取热门商圈信息
@@ -38,4 +39,8 @@ public interface TPostMapper {
     int deleteshoplabels(JSONObject jsonObject);
     //获取地铁周边信息
     List<JSONObject> listsubwaylabels();
+    //设置标签的排序号
+    boolean updateIndex(@Param("listID") Integer listID,@Param("listIndex") Integer listIndex);
+    //标签改变顺序后的排序
+//    int updateChangeIndex(@Param("listID") Integer listID,@Param("listIndex") Integer listIndex);
 }

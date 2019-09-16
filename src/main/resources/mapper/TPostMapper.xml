@@ -3,16 +3,17 @@
 <mapper namespace="com.jc.springboot.dao.TPostMapper">
 
     <sql id="Base_Column_List">
-        ID, TYPE_IMTG_URL, TYPE_NAME, CREATE_TIME, IS_DEL
+        ID, TYPE_IMTG_URL, TYPE_NAME, CREATE_TIME, IS_DEL, SORT
     </sql>
     <sql id="Base_Column_List2">
-        ID, PARENT_ID, CONTENT, IS_DEL
+        ID, PARENT_ID, CONTENT, IS_DEL, TYPE_IMG_URL
     </sql>
 
     <select id="listType" resultType="com.alibaba.fastjson.JSONObject">
         select
         <include refid="Base_Column_List"/>
         from t_post_type
+        order by SORT
         LIMIT #{offSet}, #{pageRow}
     </select>
 
@@ -41,15 +42,16 @@
 
     <insert id="inserthomelabels" useGeneratedKeys="true" keyProperty="ID">
         insert into t_post_label
-        (PARENT_ID, CONTENT)
+        (PARENT_ID, CONTENT, TYPE_IMG_URL)
         values
-        (#{parentId}, #{content})
+        (#{parent_id}, #{content}, #{type_img_url})
     </insert>
 
     <update id="updatehomelabels">
         update t_post_label
         set
-        CONTENT = #{content}
+        CONTENT = #{content},
+        TYPE_IMG_URL = #{type_img_url}
         where
         ID = #{id}
     </update>
@@ -144,5 +146,21 @@
         s.PARENT_ID = 3 and
         s.IS_DEL = 0
     </select>
+
+    <update id="updateIndex">
+        update t_post_type
+        set
+        SORT = #{listIndex}
+        where
+        ID = #{listID}
+    </update>
+
+<!--    <update id="updateChangeIndex">-->
+<!--        update t_post_type-->
+<!--        set-->
+<!--        SORT = #{listIndex}-->
+<!--        where-->
+<!--        ID = #{listID}-->
+<!--    </update>-->
 
 </mapper>

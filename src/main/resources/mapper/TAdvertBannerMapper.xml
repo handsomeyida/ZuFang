@@ -3,11 +3,57 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jc.springboot.dao.TAdvertBannerMapper">
 
+    <sql id="Base_Column_List">
+        ID, ADVERT_TITLE, IMG_URL, CREATE_TIME, SORT_TIME, OUT_URL, IS_DEL, SORT
+    </sql>
+
     <insert id="insert" parameterType="com.jc.springboot.entity.TAdvertBanner">
         INSERT INTO t_advert_banner
-        (ADVERT_TITLE, IMG_URL, CREATE_TIME, SORT_TIME, IS_DEL)
+        (ADVERT_TITLE, IMG_URL, CREATE_TIME, SORT_TIME, IS_DEL, OUT_URL)
         VALUES
-        (#{advert_title}, #{img_url}, #{create_time}, #{sort_time}, #{is_del})
+        (#{advert_title}, #{img_url}, #{create_time}, #{sort_time}, #{is_del}, #{out_url})
     </insert>
 
+    <select id="listadvert" resultType="com.alibaba.fastjson.JSONObject">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        t_advert_banner
+        where
+        IS_DEL = 0
+        order by SORT,SORT_TIME
+        LIMIT #{offSet}, #{pageRow}
+    </select>
+    <select id="countadvert" resultType="Integer">
+        SELECT count(0)
+        FROM t_advert_banner
+        where
+        IS_DEL = 0
+    </select>
+
+    <delete id="deleteadvert">
+        delete from
+        t_advert_banner
+        where
+        ID = #{ID}
+    </delete>
+
+    <update id="updateadvert">
+        update
+        t_advert_banner
+        set
+        ADVERT_TITLE = #{advert_title},
+        IMG_URL = #{img_url},
+        SORT_TIME = #{sort_time},
+        where
+        ID = #{id}
+    </update>
+
+    <update id="updateIndex">
+        update t_advert_banner
+        set
+        SORT = #{listIndex}
+        where
+        ID = #{listID}
+    </update>
 </mapper>
