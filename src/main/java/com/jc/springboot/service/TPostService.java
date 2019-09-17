@@ -27,7 +27,7 @@ public interface TPostService {
     //添加热门商圈信息
     JSONObject insertshoplabels(JSONObject jsonObject);
     //修改热门商圈信息
-    JSONObject updateshoplabels(JSONObject jsonObject);
+//    JSONObject updateshoplabels(JSONObject jsonObject);
     //删除热门商圈信息
     JSONObject deleteonelabels(JSONObject jsonObject);
     //删除热门商圈信息

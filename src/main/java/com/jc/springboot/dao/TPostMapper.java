@@ -33,7 +33,7 @@ public interface TPostMapper {
     int insertparentlabels(TPostLabel tPostLabel);
     int insertshoplabels(JSONObject jsonObject);
     //修改热门商圈信息
-    int updateshoplabels(JSONObject jsonObject);
+//    int updateshoplabels(JSONObject jsonObject);
     //删除热门商圈信息
     int deleteparentlabels(JSONObject jsonObject);
     int deleteshoplabels(JSONObject jsonObject);

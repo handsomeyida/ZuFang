@@ -142,11 +142,11 @@ public class TPostServiceImpl implements TPostService {
         return LoginUtil.successJson();
     }
     //修改热门商圈信息
-    @Override
-    public JSONObject updateshoplabels(JSONObject jsonObject) {
-        postMapper.updateshoplabels(jsonObject);
-        return LoginUtil.successJson();
-    }
+//    @Override
+//    public JSONObject updateshoplabels(JSONObject jsonObject) {
+//        postMapper.updateshoplabels(jsonObject);
+//        return LoginUtil.successJson();
+//    }
     //删除热门商圈信息
     @Override
     public JSONObject deleteonelabels(JSONObject jsonObject) {

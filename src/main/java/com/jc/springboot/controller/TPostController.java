@@ -73,11 +73,11 @@ public class TPostController {
         return postService.insertshoplabels(requestJson);
     }
     //修改热门商圈信息
-    @RequiresPermissions("basics:update")
-    @RequestMapping("/updateshoplabels")
-    public JSONObject updateshoplabels(@RequestBody JSONObject requestJson){
-        return postService.updateshoplabels(requestJson);
-    }
+//    @RequiresPermissions("basics:update")
+//    @RequestMapping("/updateshoplabels")
+//    public JSONObject updateshoplabels(@RequestBody JSONObject requestJson){
+//        return postService.updateshoplabels(requestJson);
+//    }
     //删除热门商圈信息
     @RequiresPermissions("basics:delete")
     @RequestMapping("/deleteonelabels")
