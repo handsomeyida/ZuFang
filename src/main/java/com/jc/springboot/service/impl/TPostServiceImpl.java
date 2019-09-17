@@ -11,9 +11,11 @@ import com.jc.springboot.util.FileUtils;
 import com.jc.springboot.util.LoginUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -211,12 +213,6 @@ public class TPostServiceImpl implements TPostService {
         int j = 0;
         for (int i = listid.size()-1; i >= 0 ; i--) {
             postMapper.updateIndex(listid.get(j), listindex.get(i));
-            try {
-                Thread thread = Thread.currentThread();
-                thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             j++;
         }
         return LoginUtil.successJson("success");

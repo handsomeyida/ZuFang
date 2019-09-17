@@ -328,9 +328,8 @@
                     },
                 }).then(data => {
                     if (data == "success") {
-                        this.getList();
                         this.listLoading = false;
-                        this.canclick = true;
+                        this.getList();
                     }
                 })
             }
