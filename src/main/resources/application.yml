@@ -10,7 +10,7 @@ spring:
     static-path-pattern: /image/**
   #图片存放真实路径
   resources:
-    static-locations: file:D:/0Study/IntelliJ IDEA 2019.1.3/MyIdea/springboot/src/main/resources/static/
+    static-locations: file:D:/Study/WorkSpaces/MyIdea/springboot/src/main/resources/static/
 
   # 配置数据源
   datasource:
