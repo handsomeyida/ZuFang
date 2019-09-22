@@ -1,7 +1,7 @@
 package com.jc.springboot.util;
 
 /**
- * @author: hxy
+ * @author: 帅气的达
  * @date: 2017/10/24 10:16
  */
 public enum ErrorEnum {
