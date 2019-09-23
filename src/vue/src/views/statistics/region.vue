@@ -57,13 +57,23 @@
                 }]
             }
         },
-        create() {
-
+        created() {
+            this.defaulttime();
         },
         methods: {
+            defaulttime() {
+                let date = new Date();
+                this.months = date;
+                let year = this.months.getFullYear();
+                let month = this.months.getMonth();
+                let moths = month+1;
+                this.months = year+'年0'+moths+'月';
+                this.themonths();
+            },
             checkoption() {
                 this.weeks = '';
                 this.months = '';
+                this.defaulttime();
             },
             theweek(val) {
                 //周时间选择器有bug，使用自己写的方法来获取是今年的哪一周

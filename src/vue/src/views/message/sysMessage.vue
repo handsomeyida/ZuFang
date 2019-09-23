@@ -71,7 +71,6 @@
             getList() {
                 this.listQuery.starttime = this.time[0],
                 this.listQuery.endtime = this.time[1],
-                console.log(this.listQuery.starttime,this.listQuery.endtime)
                 this.listLoading = true;
                 this.api({
                     url: '/information/listsysinfomation',
