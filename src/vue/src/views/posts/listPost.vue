@@ -37,7 +37,7 @@
       <el-table-column align="center" label="地址" prop="address" style="width: 100px;"></el-table-column>
       <el-table-column align="center" label="标签" prop="labels" style="width: 100px;">
         <template slot-scope="scope">
-          <el-tag v-for="(item) in list[scope.$index].labels.split(',').slice(0, list[scope.$index].labels.split(',').length-1)" type="success">
+          <el-tag v-for="(item) in list[scope.$index].labels.split(',').slice(0, list[scope.$index].labels.split(',').length-1)" :key="index" type="success">
             {{item}}
           </el-tag>
         </template>
@@ -389,7 +389,7 @@
         //查询列表
         this.listLoading = true;
         this.api({
-          url: "/FPost/listPostF.do",
+          url: "/FPost/listPostF",
           method: "post",
           params: this.listQuery,
         }).then(reqs => {
@@ -400,7 +400,7 @@
       },
       getPostType(){
         this.api({
-          url: "/FPost/listPostTypeF.do",
+          url: "/FPost/listPostTypeF",
           method: "post"
         }).then(data => {
           this.listPostType = data.data;
@@ -434,7 +434,7 @@
           var postId = this.list[$index].postId;
           this.postAction.postId = postId;
           this.api({
-            url: "/FPost/updatePostIsDelF.do",
+            url: "/FPost/updatePostIsDelF",
             method: "post",
             params: this.postAction,
           }).then(() => {
@@ -453,7 +453,7 @@
           var postId = this.list[$index].postId;
           this.postAction.postId = postId;
           this.api({
-            url: "/FPost/updatePostIsDelR.do",
+            url: "/FPost/updatePostIsDelR",
             method: "post",
             params: this.postAction,
           }).then(() => {
@@ -472,7 +472,7 @@
           var postId = this.list[$index].postId;
           this.postAction.postId = postId;
           this.api({
-            url: "/FPost/updateIsLowerShelfU.do",
+            url: "/FPost/updateIsLowerShelfU",
             method: "post",
             params: this.postAction,
           }).then(() => {
@@ -491,7 +491,7 @@
           var postId = this.list[$index].postId;
           this.postAction.postId = postId;
           this.api({
-            url: "/FPost/updateIsLowerShelfD.do",
+            url: "/FPost/updateIsLowerShelfD",
             method: "post",
             params: this.postAction,
           }).then(() => {
@@ -506,7 +506,7 @@
         this.listNav = [];
         this.chooseCheckbox = [];//初始化,防止之前push的数据还残留
         this.api({
-          url: "/FPost/listNavF.do",
+          url: "/FPost/listNavF",
           method: "post",
         }).then(reqs => {
           this.listLoading = false;
@@ -518,7 +518,7 @@
         var postId = this.list[$index].postId;
         this.postAction.postId = postId;
         this.api({
-          url: "/FPost/getListNavName.do",
+          url: "/FPost/getListNavName",
           method: "post",
           data: this.postAction,
         }).then(reqs => {
@@ -552,7 +552,7 @@
             this.funcAsync(chooseCheckbox[i]);
           }
           this.api({
-            url: "/FPost/updateTopIsDel0.do",
+            url: "/FPost/updateTopIsDel0",
             method: "post",
             data:this.postAction,
           }).then(() => {
@@ -563,7 +563,7 @@
           })
         }else if (this.chooseCheckbox == undefined||this.chooseCheckbox.length <= 0){
           this.api({
-            url: "/FPost/updateTopIsDel1.do",
+            url: "/FPost/updateTopIsDel1",
             method: "post",
             data:this.postAction,
           }).then(() => {
@@ -579,7 +579,7 @@
             this.funcAsync(chooseCheckbox[i]);
           }
           this.api({
-            url: "/FPost/updateTopIsDel0.do",
+            url: "/FPost/updateTopIsDel0",
             method: "post",
             data:this.postAction,
           }).then(() => {
@@ -589,7 +589,7 @@
             this.$message.error("置顶失败")
           })
           this.api({
-            url: "/FPost/updateTopIsDel1.do",
+            url: "/FPost/updateTopIsDel1",
             method: "post",
             data:this.postAction,
           }).then(() => {
@@ -606,7 +606,7 @@
         this.postLabel.listCheckLabelName = [];
         this.postLabel.listCheckLabelName1 = [];
         this.api({
-          url: "/FPost/listPostLabelF.do",
+          url: "/FPost/listPostLabelF",
           method: "post",
         }).then(reqs => {
           this.listLoading = false;
@@ -618,7 +618,7 @@
         var postId = this.list[$index].postId;
         this.postLabel.postId = postId;
         this.api({
-          url: "/FPost/getListLabelName.do",
+          url: "/FPost/getListLabelName",
           method: "post",
           data: this.postLabel,
         }).then(reqs => {
@@ -676,7 +676,7 @@
               if(choosePostLabel == undefined||choosePostLabel.length <= 0){
                 //先删除对应行的postId的t_post_base_label所有数据
                 this.api({
-                  url: "/FPost/deleteBaseLabelF.do",
+                  url: "/FPost/deleteBaseLabelF",
                   method: "post",
                   data:this.postLabel,
                 }).then(() => {
@@ -686,7 +686,7 @@
                 for (let x = 0; x < choosePostLabel.length; x++) {
                   //重新添加数据
                   this.api({
-                    url: "/FPost/insertBaseLabelF.do",
+                    url: "/FPost/insertBaseLabelF",
                     method: "post",
                     params:{
                       postId:this.postLabel.postId,
@@ -716,7 +716,7 @@
                 this.postLabel.listCheckLabelName = choosePostLabel;
                 //修改帖子信息
                 this.api({
-                  url: "/FPost/updatePostF.do",
+                  url: "/FPost/updatePostF",
                   method: "post",
                   data:this.tempPost,
                 }).then(() => {
@@ -728,7 +728,7 @@
                 })
               }else if (choosePostLabel == undefined||choosePostLabel.length <= 0){
                 this.api({
-                  url: "/FPost/updateBaseLabelIsDel1.do",
+                  url: "/FPost/updateBaseLabelIsDel1",
                   method: "post",
                   data:this.postLabel,
                 }).then(() => {
@@ -755,7 +755,7 @@
                 this.postLabel.listCheckLabelName = choosePostLabel;
                 //修改帖子信息
                 this.api({
-                  url: "/FPost/updatePostF.do",
+                  url: "/FPost/updatePostF",
                   method: "post",
                   data:this.tempPost,
                 }).then(() => {
@@ -768,7 +768,7 @@
               } else {
                 //先删除对应行的postId的t_post_base_label所有数据
                 this.api({
-                  url: "/FPost/deleteBaseLabelF.do",
+                  url: "/FPost/deleteBaseLabelF",
                   method: "post",
                   data:this.postLabel,
                 }).then(() => {
@@ -778,7 +778,7 @@
                 for (let x = 0; x < choosePostLabel.length; x++) {
                   //重新添加数据
                   this.api({
-                    url: "/FPost/insertBaseLabelF.do",
+                    url: "/FPost/insertBaseLabelF",
                     method: "post",
                     params:{
                       postId:this.postLabel.postId,
@@ -808,7 +808,7 @@
                 this.postLabel.listCheckLabelName = choosePostLabel;
                 //修改帖子信息
                 this.api({
-                  url: "/FPost/updatePostF.do",
+                  url: "/FPost/updatePostF",
                   method: "post",
                   data:this.tempPost,
                 }).then(() => {
@@ -832,7 +832,7 @@
         console.log(this.listNavigationTop.length)
         if (this.listNavigationTop == undefined||this.listNavigationTop.length <= 0) {
           this.api({
-            url: "/FPost/insertTopF.do",
+            url: "/FPost/insertTopF",
             method: "post",
             params:{
               postId:this.postAction.postId,
@@ -847,7 +847,7 @@
       funcAwait(data){
         return new Promise((resolve,reject)=>{
           this.api({
-            url: "/FPost/listNavigationTop.do",
+            url: "/FPost/listNavigationTop",
             method: "post",
             params:{
               postId:this.postAction.postId,
