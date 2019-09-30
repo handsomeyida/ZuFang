@@ -3,6 +3,13 @@
     <div class="filter-container">
       <el-form>
         <el-form-item>
+          <h2 class="text-left" style="color: #409eff;">帖子管理：</h2>
+        </el-form-item>
+      </el-form>
+    </div>
+    <div class="filter-container">
+      <el-form>
+        <el-form-item>
           <div style="float: left">
             <el-date-picker
               v-model="listQuery.baseCreateTime"
@@ -20,7 +27,7 @@
         </el-form-item>
       </el-form>
     </div>
-    <el-table :data="list" max-height="450"
+    <el-table :data="list"
               v-loading.body="listLoading" element-loading-text="拼命加载中" border fit
               highlight-current-row>
       <el-table-column align="center" label="序号" width="80">
@@ -28,27 +35,27 @@
           <span v-text="getIndex(scope.$index)"> </span>
         </template>
       </el-table-column >
-      <el-table-column align="center" label="发帖人" prop="wxNickName" style="width: 100px;"></el-table-column>
-      <el-table-column align="center" label="发帖类型" prop="typeName" style="width: 100px;"></el-table-column>
-      <el-table-column align="center" label="帖子内容" prop="content" style="width: 100px;"></el-table-column>
-      <el-table-column align="center" label="最小价格" prop="minPrice" style="width: 100px;"></el-table-column>
-      <el-table-column align="center" label="最大价格" prop="maxPrice" style="width: 100px;"></el-table-column>
-      <el-table-column align="center" label="手机号码" prop="phone" style="width: 100px;"></el-table-column>
-      <el-table-column align="center" label="地址" prop="address" style="width: 100px;"></el-table-column>
-      <el-table-column align="center" label="标签" prop="labels" style="width: 100px;">
+      <el-table-column align="center" label="发帖人" prop="wxNickName"></el-table-column>
+      <el-table-column align="center" label="发帖类型" prop="typeName"></el-table-column>
+      <el-table-column align="center" label="帖子内容" prop="content" width="500"></el-table-column>
+      <el-table-column align="center" label="最小价格" prop="minPrice"></el-table-column>
+      <el-table-column align="center" label="最大价格" prop="maxPrice"></el-table-column>
+      <el-table-column align="center" label="手机号码" prop="phone"></el-table-column>
+      <el-table-column align="center" label="地址" prop="address"></el-table-column>
+      <el-table-column align="center" label="标签" prop="labels">
         <template slot-scope="scope">
           <el-tag v-for="(item) in list[scope.$index].labels.split(',').slice(0, list[scope.$index].labels.split(',').length-1)" :key="index" type="success">
             {{item}}
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="真实浏览量" prop="totalBrowse" style="width: 100px;"></el-table-column>
-      <el-table-column align="center" label="真实点赞量" prop="totalResonate" style="width: 100px;"></el-table-column>
-      <el-table-column align="center" label="偏移浏览量" prop="devBrowse" style="width: 100px;"></el-table-column>
-      <el-table-column align="center" label="偏移点赞量" prop="devResonate" style="width: 100px;"></el-table-column>
-      <el-table-column align="center" label="活跃时间" prop="activeTime" style="width: 100px;"></el-table-column>
-      <el-table-column align="center" label="创建时间" prop="baseCreateTime" style="width: 100px;"></el-table-column>
-      <el-table-column align="center" label="是否下架" prop="isLowerShelf" style="width: 100px;">
+      <el-table-column align="center" label="真实浏览量" prop="totalBrowse"></el-table-column>
+      <el-table-column align="center" label="真实点赞量" prop="totalResonate"></el-table-column>
+      <el-table-column align="center" label="偏移浏览量" prop="devBrowse"></el-table-column>
+      <el-table-column align="center" label="偏移点赞量" prop="devResonate"></el-table-column>
+      <el-table-column align="center" label="活跃时间" prop="activeTime"></el-table-column>
+      <el-table-column align="center" label="创建时间" prop="baseCreateTime"></el-table-column>
+      <el-table-column align="center" label="是否下架" prop="isLowerShelf">
         <template slot-scope="scope">
           <p v-if="list[scope.$index].isLowerShelf == 0">
             {{"否"}}
@@ -68,9 +75,9 @@
           </p>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="总收藏量" prop="totalCollection" style="width: 100px;"></el-table-column>
-      <el-table-column align="center" label="总关注量" prop="totalComments" style="width: 100px;"></el-table-column>
-      <el-table-column align="center" label="是否有中介费" prop="fee" style="width: 100px;">
+      <el-table-column align="center" label="总收藏量" prop="totalCollection"></el-table-column>
+      <el-table-column align="center" label="总关注量" prop="totalComments"></el-table-column>
+      <el-table-column align="center" label="是否有中介费" prop="fee">
         <template slot-scope="scope">
           <p v-if="list[scope.$index].fee == 0">
             {{"否"}}
@@ -80,7 +87,7 @@
           </p>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="是否为地铁周边" prop="isSub" style="width: 100px;">
+      <el-table-column align="center" label="是否为地铁周边">
         <template slot-scope="scope">
           <p v-if="list[scope.$index].isSub == 0">
             {{"否"}}
@@ -90,7 +97,7 @@
           </p>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="是否为商圈附近" prop="isMall" style="width: 100px;">
+      <el-table-column align="center" label="是否为商圈附近" prop="isMall">
         <template slot-scope="scope">
           <p v-if="list[scope.$index].isMall == 0">
             {{"否"}}

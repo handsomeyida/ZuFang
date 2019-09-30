@@ -1,5 +1,12 @@
 <template>
   <div class="app-container">
+    <div class="filter-container">
+      <el-form>
+        <el-form-item>
+          <h2 class="text-left" style="color: #409eff;">收藏帖子：</h2>
+        </el-form-item>
+      </el-form>
+    </div>
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit
               highlight-current-row>
       <el-table-column align="center" label="序号" width="80">
