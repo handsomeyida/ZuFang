@@ -24,7 +24,7 @@
         <template slot-scope="scope">
           <el-button type="primary" icon="edit" @click="showUpdate(scope.$index)" v-if="hasPerm('basics:update')">修改
           </el-button>
-          <el-button type="danger" icon="edit" @click="removeType(scope.$index)">删除</el-button>
+<!--          <el-button type="danger" icon="edit" @click="removeType(scope.$index)">删除</el-button>-->
           <el-button
             size="mini"
             :disabled="scope.$index===0"
