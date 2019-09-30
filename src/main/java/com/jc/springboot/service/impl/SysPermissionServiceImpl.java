@@ -22,17 +22,17 @@ public class SysPermissionServiceImpl implements SysPermissionService {
 
     @Resource
     SysPermissionMapper sysPermissionMapper;
-
+    //根据用户id获取用户所有权限
     @Override
     public SysPermission listSysPermissionByPermissionId(Integer permission_id) {
         return sysPermissionMapper.listSysPermissionByPermissionId(permission_id);
     }
-
+    //获取所有权限
     @Override
     public List<SysPermission> list() {
         return sysPermissionMapper.list();
     }
-
+    //获取用户的所有权限
     @Override
     public JSONObject loadUserPermission(String username) {
         JSONObject userPermission = sysPermissionMapper.loadUserPermission(username);

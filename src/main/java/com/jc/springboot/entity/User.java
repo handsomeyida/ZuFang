@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @Auther: 帅气的达
  * @Date: 2019/8/3 09:52
- * @Description:
+ * @Description: 权限测试用户实体类
  */
 
 public class User implements Serializable {

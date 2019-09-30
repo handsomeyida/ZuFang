@@ -1,6 +1,7 @@
 package com.jc.springboot.dao;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jc.springboot.entity.SysPermission;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -14,14 +15,14 @@ import java.util.Set;
  */
 @Repository
 public interface SysPermissionMapper {
-
-    com.jc.springboot.entity.SysPermission listSysPermissionByPermissionId(@Param(value="permission_id")Integer permission_id);
-
-    List<com.jc.springboot.entity.SysPermission> list();
-
+    //获取对应的权限
+    SysPermission listSysPermissionByPermissionId(@Param(value="permission_id")Integer permission_id);
+    //获取所有权限
+    List<SysPermission> list();
+    //获取用户的权限信息
     JSONObject loadUserPermission(String username);
-
+    //获取所有菜单
     Set<String> loadAllMenu();
-
+    //获取所有权限
     Set<String> listAllPermission();
 }

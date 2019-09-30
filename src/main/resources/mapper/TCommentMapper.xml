@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jc.springboot.dao.TCommentMapper">
+
+    <sql id="Base_Column_List">
+        ID, POST_ID, START_ID, RECEIVE_ID, CONTENT, CREATE_TIME, IS_DEL
+    </sql>
+
+    <select id="listcomment" resultType="com.alibaba.fastjson.JSONObject">
+        select
+            co.ID,
+            co.POST_ID,
+            co.START_ID,
+            wx.WX_NICK_NAME WXNAME,
+            co.RECEIVE_ID,
+            co.CONTENT,
+            DATE_FORMAT(co.CREATE_TIME, '%Y.%m.%d %T') CREATE_TIME,
+            co.IS_DEL
+        from
+        t_comment co
+        left join t_wx_user wx on wx.USER_ID =  co.START_ID
+        where 1=1
+        <if test="WXNAME !=null and WXNAME != ''">
+            and wx.WX_NICK_NAME = #{WXNAME}
+        </if>
+        <if test="CONTENT !=null and CONTENT != ''">
+            and co.CONTENT like "%"#{CONTENT}"%"
+        </if>
+        and co.POST_ID = #{postId}
+        and co.IS_DEL = 0
+        LIMIT #{offSet}, #{pageRow}
+    </select>
+    <select id="countcomment" resultType="Integer">
+        select
+        count(0)
+        from
+        t_comment co
+        left join t_wx_user wx on wx.USER_ID =  co.START_ID
+        where
+        co.POST_ID = #{postId}
+        and co.IS_DEL = 0
+    </select>
+
+    <update id="deletecomment">
+        update t_comment
+        set
+        IS_DEL = 1
+        where
+        ID = #{ID}
+    </update>
+
+    <select id="listcollectionbase" resultType="com.alibaba.fastjson.JSONObject">
+        select
+            co.ID,
+            ba.CONTENT,
+            co.POST_ID,
+            co.IS_DEL,
+            DATE_FORMAT(co.CREATE_TIME, '%Y.%m.%d %T') CREATE_TIME,
+            DATE_FORMAT(co.SORT_TIME, '%Y.%m.%d %T') SORT_TIME
+        from
+        t_user_collection co
+        left join t_post_base ba on co.POST_ID = ba.ID
+        where
+        co.USER_ID = #{userId}
+        and co.IS_DEL = 0
+        ORDER BY co.SORT_TIME desc
+        LIMIT #{offSet}, #{pageRow}
+    </select>
+    <select id="countcollectionbase" resultType="Integer">
+        select
+        count(0)
+        from
+        t_user_collection co
+        left join t_post_base ba on co.POST_ID = ba.ID
+        where
+        co.USER_ID = #{userId}
+        and co.IS_DEL = 0
+    </select>
+
+    <update id="deletecollectionbase">
+        update t_user_collection
+        set
+        IS_DEL = 1
+        where
+        ID = #{ID}
+    </update>
+
+    <select id="loadlimit" resultType="java.lang.Integer">
+        select
+        count(0)
+        from
+        t_user_operation_restrict
+        where
+        USER_ID = #{userId}
+    </select>
+    <update id="updatelimit">
+        update t_user_operation_restrict
+        set
+        RESTRICT_STATE = #{restrict},
+        RESTRICT_END_TIME = #{endtime}
+        where
+        USER_ID = #{userId}
+    </update>
+    <insert id="insertlimit">
+        insert into
+        t_user_operation_restrict
+        (USER_ID, RESTRICT_STATE, RESTRICT_END_TIME)
+        values
+        (#{userId}, #{restrict}, #{endtime})
+    </insert>
+
+    <select id="loadendtime" resultType="com.alibaba.fastjson.JSONObject">
+        select
+            DATE_FORMAT(RESTRICT_END_TIME, '%Y.%m.%d %T') endtime
+        from
+        t_user_operation_restrict
+        where
+        USER_ID = #{userId}
+        and RESTRICT_STATE=1
+    </select>
+
+<!--    <select id="loadperId" resultType="java.lang.Integer">-->
+<!--        select-->
+<!--			rp.id-->
+<!--		from-->
+<!--		sys_role_permission rp-->
+<!--		left join sys_permission p on rp.permission_id = p.id-->
+<!--		left join sys_user u on u.role_id = rp.role_id-->
+<!--		where-->
+<!--		u.id = #{userId}-->
+<!--		and p.id = 606-->
+<!--    </select>-->
+
+<!--    <update id="deletesend">-->
+<!--        update-->
+<!--			sys_role_permission-->
+<!--		set-->
+<!--		delete_status = 1-->
+<!--		where-->
+<!--		id = #{id}-->
+<!--    </update>-->
+
+</mapper>

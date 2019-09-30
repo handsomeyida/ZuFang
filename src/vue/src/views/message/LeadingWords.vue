@@ -52,6 +52,7 @@
           CONTENT: '',
           IS_NOT_GUIDE: '',
         },
+        selVal: '',
       }
     },
     created() {
@@ -65,6 +66,12 @@
       },
       setIt() {
         this.$message.success("模板导入成功!");
+        let templates = this.template
+        for (let a=0;a<templates.length;a++){
+          if (templates[a].ID==this.selVal) {
+            this.textarea = templates[a].CONTENT;
+          }
+        }
         this.dialogFormVisible = false
       },
       setMessage(){
@@ -81,17 +88,17 @@
       },
       loadtextarea(selVal) {
         // console.log(selVal)
-        let templates = this.template
-        for (let a=0;a<templates.length;a++){
-          if (templates[a].ID==selVal) {
-            // console.log(templates[a].CONTENT)
-            this.textarea = templates[a].CONTENT;
-          }
-        }
+        this.selVal = selVal;
+        // let templates = this.template
+        // for (let a=0;a<templates.length;a++){
+        //   if (templates[a].ID==selVal) {
+        //     this.textarea = templates[a].CONTENT;
+        //   }
+        // }
       },
       GetAllTemplet() {
         this.api({
-          url: "/templet/listtemplet",
+          url: "/templet/listalltemplet",
           method: "post"
         }).then(data => {
           this.template = data.list;

@@ -10,9 +10,9 @@ import java.util.List;
  * @Description:
  */
 public interface SysRoleService {
-
+    //获取角色
     List<SysRole> listSysRoleByRoleId(Integer role_id);
-
+    //获取所有角色
     List<SysRole> list();
 
 }

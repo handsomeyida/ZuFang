@@ -13,9 +13,9 @@ import java.util.List;
  */
 @Repository
 public interface SysRolePermissionMapper {
-
+    //获取角色的权限
     List<SysRolePermission> loadSysPermissionIDByRoleId(@Param(value="role_id")Integer role_id);
-
+    //添加角色权限
     boolean save(SysRolePermission sysRolePermission);
 
 }

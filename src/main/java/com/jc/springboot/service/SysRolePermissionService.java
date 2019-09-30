@@ -10,8 +10,8 @@ import java.util.List;
  * @Description:
  */
 public interface SysRolePermissionService {
-
+    //获取角色
     List<SysRolePermission> listSysPermissionIDByRoleId(Integer role_id);
-
+    //添加角色权限
     boolean save(SysRolePermission sysRolePermission);
 }

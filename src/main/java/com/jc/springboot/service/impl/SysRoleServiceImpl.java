@@ -20,12 +20,12 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Resource
     SysRoleMapper sysRoleMapper;
-
+    //获取角色
     @Override
     public List<SysRole> listSysRoleByRoleId(Integer role_id) {
         return sysRoleMapper.listSysRoleByRoleId(role_id);
     }
-
+    //获取所有角色
     @Override
     public List<SysRole> list() {
         return sysRoleMapper.list();

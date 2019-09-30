@@ -30,9 +30,7 @@
           <div v-else>
             <div v-for="menu in scope.row.menus" style="text-align: left">
               <span style="width: 100px;display: inline-block;text-align: right ">{{menu.menuName}}</span>
-              <el-tag v-for="perm in menu.permissions" :key="perm.permissionName" v-text="perm.permissionName"
-                      style="margin-right: 3px;"
-                      type="primary"></el-tag>
+              <el-tag v-for="perm in menu.permissions" :key="perm.permissionName" style="margin-right: 3px;" type="primary">{{perm.permissionName}}</el-tag>
             </div>
           </div>
         </template>
@@ -130,6 +128,7 @@
         }).then(data => {
           this.listLoading = false;
           this.list = data.list;
+          // console.log(this.list)
         })
       },
       getIndex($index) {

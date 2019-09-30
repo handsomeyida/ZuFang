@@ -32,7 +32,7 @@
       return {
         loginForm: {
           username: 'yida',
-          password: ''
+          password: '122508'
         },
         loginRules: {
           username: [{required: true, trigger: 'blur', message: "请输入用户名"}],
@@ -72,22 +72,9 @@
             message: '欢迎!!'
           });
           this.userId = this.$store.state.user.userId;
-          // this.loadandshowMsg();
+
         });
-        /*console.log(this.$store.state.user.userId);*/
-        // console.log(this.userId);
       },
-      // loadandshowMsg() {
-      //   this.api({
-      //     url: '/information/loadMsg',
-      //     method: "post",
-      //     data: {
-      //       userId: this.userId
-      //     }
-      //   }).then((data)=> {
-      //     // console.log(data)
-      //   });
-      // },
       handleLogin() {
         this.$refs.loginForm.validate(valid => {
           if (valid) {

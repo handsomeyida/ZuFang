@@ -19,4 +19,8 @@ public class AllResult extends JSONObject{
     private List<JSONObject> menus;
     private List<JSONObject> users;
     private List<JSONObject> permissions;
+    private List<JSONObject> QShop;
+    private List<JSONObject> SShop;
+    private List<JSONObject> subway;
+    private List<JSONObject> Line;
 }

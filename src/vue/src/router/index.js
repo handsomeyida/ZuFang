@@ -87,24 +87,39 @@ export const asyncRouterMap = [
         meta: {title: '帖子类别管理', icon: 'server'}, menu: 'posts',
       },
       {
-        path: 'label',
-        component: _import('labels/category'),
-        meta: {title: '帖子标签管理', icon: 'check'},
-        menu: 'posts',
+        path: 'home',
+        component: _import('labels/home'),
+        meta: {title: '家用设备管理', icon: 'home'}, menu: 'posts',
+      },
+      {
+        path: 'shop',
+        component: _import('labels/shop'),
+        meta: {title: '热门商圈管理', icon: 'shop'}, menu: 'posts',
+      },
+      {
+        path: 'subway',
+        component: _import('labels/subway'),
+        meta: {title: '地铁周边管理', icon: 'subway'}, menu: 'posts',
       }
     ]
   },
   {
-    path: '/system',
+    path: '/posts',
     component: Layout,
-    redirect: '/system/posts/',
-    meta: {title: '帖子管理', icon: 'tree'},
+    redirect: '/posts/posts/',
+    meta: {title: '帖子管理', icon: 'contract'},
     children: [
       {
         path: 'posts',
         component: _import('posts/listPost'),
         meta: {title: '帖子管理', icon: 'contract'},
         menu: 'posts'
+      },
+      {
+        path: 'collection',
+        component: _import('posts/collection'),
+        meta: {title: '收藏的帖', icon: 'contract'},
+        menu: 'collection'
       },
     ]
   },
@@ -115,10 +130,28 @@ export const asyncRouterMap = [
     meta: {title: '统计模块', icon: 'tree'},
     children: [
       {
-        path: 'statistics',
-        component: _import('article/article'),
-        meta: {title: '统计模块', icon: 'analysis'},
-        menu: 'statistics'
+        path: 'sex',
+        component: _import('statistics/sex'),
+        meta: {title: '性别统计', icon: 'analysis'},
+        menu: 'sex'
+      },
+      {
+        path: 'bases',
+        component: _import('statistics/bases'),
+        meta: {title: '帖子统计', icon: 'analysis'},
+        menu: 'bases'
+      },
+      {
+        path: 'follow',
+        component: _import('statistics/follow'),
+        meta: {title: '关注统计', icon: 'analysis'},
+        menu: 'follow'
+      },
+      {
+        path: 'region',
+        component: _import('statistics/region'),
+        meta: {title: '地区统计', icon: 'analysis'},
+        menu: 'region'
       },
     ]
   },
@@ -134,20 +167,28 @@ export const asyncRouterMap = [
         meta: {title: '模版管理', icon: 'folder'},
         menu: 'message'
       },
+      // {
+      //   path: 'guide',
+      //   component: _import('message/LeadingWords'),
+      //   meta: {title: '引导语设置', icon: 'group'},
+      //   menu: 'guide'
+      // },
+      // {
+      //   path: 'groupsending',
+      //   component: _import('message/AllSendMsg'),
+      //   meta: {title: '群发系统消息', icon: 'email'},
+      //   menu: 'groupsending'
+      // },
       {
-        path: 'guide',
-        component: _import('message/LeadingWords'),
-        meta: {title: '引导语设置', icon: 'group'},
-        menu: 'guide'
-      },
-      {
-        path: 'groupsending',
-        component: _import('message/AllSendMsg'),
-        meta: {title: '群发系统消息', icon: 'email'},
-        menu: 'groupsending'
+        path: 'sysMessage',
+        name: '系统消息管理',
+        component: _import('message/sysMessage'),
+        meta: {title: '系统消息管理', icon: 'chat'},
+        menu: 'sysMessage'
       },
       {
         path: 'myMessage',
+        name: '收到的消息',
         component: _import('message/myMessage'),
         meta: {title: '收到的消息', icon: 'chat'},
         menu: 'myMessage'

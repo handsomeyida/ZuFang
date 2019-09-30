@@ -12,41 +12,32 @@ import java.util.List;
  * @Description:
  */
 public interface SysUserService {
-
+    //根据用户名和密码查询用户信息
     SysUser listUserByName(String username, String password);
-
+    //获取用户信息
     JSONObject list();
-
     //登陆获取用户信息
     JSONObject loadUser(@Param("username") String username, @Param("password") String password);
-
     //查询所有权限, 给角色分配权限时调用
     JSONObject listAllPermission();
-
     //角色权限列表
     JSONObject listRole();
-
     //添加角色权限
     JSONObject insertRole(JSONObject jsonObject);
-
     // 修改角色权限
     JSONObject updateRole(JSONObject jsonObject);
-
     //删除角色权限
     JSONObject deleteRole(JSONObject jsonObject);
-
     //用户列表
     JSONObject listUser(JSONObject jsonObject);
-
      //查询所有的角色
      //在添加/修改用户的时候要使用此方法
     JSONObject getAllRoles();
-
     //添加用户
     JSONObject insertUser(JSONObject jsonObject);
-
     //修改用户
     JSONObject updateUser(JSONObject jsonObject);
+    JSONObject updateuser(JSONObject jsonObject);
 
 
 }

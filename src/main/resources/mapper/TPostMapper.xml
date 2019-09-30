@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jc.springboot.dao.TPostMapper">
+
+    <sql id="Base_Column_List">
+        ID, TYPE_IMTG_URL, TYPE_NAME, CREATE_TIME, IS_DEL, SORT
+    </sql>
+    <sql id="Base_Column_List2">
+        ID, PARENT_ID, CONTENT, IS_DEL, TYPE_IMG_URL
+    </sql>
+
+    <select id="listType" resultType="com.alibaba.fastjson.JSONObject">
+        select
+        <include refid="Base_Column_List"/>
+        from t_post_type
+        order by SORT
+        LIMIT #{offSet}, #{pageRow}
+    </select>
+
+    <select id="countType" resultType="Integer">
+        SELECT count(0)
+        FROM t_post_type
+    </select>
+
+    <select id="listhomelabels" resultType="com.alibaba.fastjson.JSONObject">
+        select
+        <include refid="Base_Column_List2"/>
+        from t_post_label
+        where
+        PARENT_ID=1
+        and IS_DEL=0
+        LIMIT #{offSet}, #{pageRow}
+    </select>
+
+    <select id="counthomelabels" resultType="Integer">
+        SELECT count(0)
+        FROM t_post_label
+        WHERE
+        PARENT_ID=1
+        and IS_DEL=0
+    </select>
+
+    <insert id="inserthomelabels" useGeneratedKeys="true" keyProperty="ID">
+        insert into t_post_label
+        (PARENT_ID, CONTENT, TYPE_IMG_URL)
+        values
+        (#{parent_id}, #{content}, #{type_img_url})
+    </insert>
+
+    <update id="updatehomelabels">
+        update t_post_label
+        set
+        CONTENT = #{content},
+        TYPE_IMG_URL = #{type_img_url}
+        where
+        ID = #{id}
+    </update>
+
+    <update id="deletehomelabels">
+        update t_post_label
+        set
+        IS_DEL = 1
+        where
+        ID = #{ID}
+    </update>
+
+    <resultMap id="shopMap" type="com.jc.springboot.util.model.AllResult">
+        <id column="Qid" property="Qid"/>
+        <result column="Qcontent" property="Qcontent"/>
+        <collection property="SShop" ofType="com.alibaba.fastjson.JSONObject">
+            <id column="Sid" property="Sid"/>
+            <result column="Scontent" property="Scontent"/>
+        </collection>
+    </resultMap>
+    <select id="listshoplabels" resultMap="shopMap">
+        select
+        q.ID            Qid,
+        q.CONTENT       Qcontent,
+        s.ID            Sid,
+        s.CONTENT       Scontent
+        from t_post_label q
+            left join t_post_label s on q.ID = s.PARENT_ID and s.IS_DEL = 0
+        where
+        q.PARENT_ID = 2 and
+        q.IS_DEL = 0
+    </select>
+
+    <select id="loadExistlabels" resultType="int">
+        select count(0)
+        from t_post_label
+        where ID=#{parentId}
+    </select>
+
+    <insert id="insertparentlabels" parameterType="com.jc.springboot.entity.TPostLabel" useGeneratedKeys="true" keyProperty="id">
+        insert into t_post_label
+        (PARENT_ID, CONTENT)
+        values
+        (#{parent_id}, #{content})
+    </insert>
+    <insert id="insertshoplabels" useGeneratedKeys="true" keyProperty="id">
+        insert into t_post_label
+        (PARENT_ID, CONTENT)
+        values
+        (#{parentId}, #{content})
+    </insert>
+
+    <delete id="deleteparentlabels">
+        delete from t_post_label
+        where 1=1
+        <if test="Qid != null and Qid != ''">
+            and ID = #{Qid}
+        </if>
+        <if test="subid != null and subid != ''">
+            and ID = #{subid}
+        </if>
+    </delete>
+
+    <delete id="deleteshoplabels">
+        delete from t_post_label
+        where 1=1
+        <if test="Sid != null and Sid != ''">
+            and ID = #{Sid}
+        </if>
+        <if test="Lid != null and Lid != ''">
+            and ID = #{Lid}
+        </if>
+    </delete>
+
+    <resultMap id="subwayMap" type="com.jc.springboot.util.model.AllResult">
+        <id column="subid" property="subid"/>
+        <result column="subcontent" property="subcontent"/>
+        <collection property="Line" ofType="com.alibaba.fastjson.JSONObject">
+            <id column="Lid" property="Lid"/>
+            <result column="Lcontent" property="Lcontent"/>
+        </collection>
+    </resultMap>
+    <select id="listsubwaylabels" resultMap="subwayMap">
+        select
+        s.ID            subid,
+        s.CONTENT       subcontent,
+        l.ID            Lid,
+        l.CONTENT       Lcontent
+        from t_post_label s
+            left join t_post_label l on s.ID = l.PARENT_ID and l.IS_DEL = 0
+        where
+        s.PARENT_ID = 3 and
+        s.IS_DEL = 0
+    </select>
+
+    <update id="updateIndex">
+        update t_post_type
+        set
+        SORT = #{listIndex}
+        where
+        ID = #{listID}
+    </update>
+
+<!--    <update id="updateChangeIndex">-->
+<!--        update t_post_type-->
+<!--        set-->
+<!--        SORT = #{listIndex}-->
+<!--        where-->
+<!--        ID = #{listID}-->
+<!--    </update>-->
+
+</mapper>

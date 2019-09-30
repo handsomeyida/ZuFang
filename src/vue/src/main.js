@@ -11,10 +11,9 @@ import '@/permission' // 权限
 import {default as api} from './utils/api'
 import {hasPermission} from "./utils/hasPermission";
 import axios from 'axios'
-import qs from 'qs'
+import echarts from 'echarts' //引入echarts
+Vue.prototype.$echarts = echarts //引入组件
 
-Vue.prototype.qs = qs           //全局注册，使用方法为:this.qs
-// Vue.prototype.$reqs = axios
 Vue.prototype.$reqs = axios
 Vue.use(ElementUI, {locale})
 Vue.prototype.api = api

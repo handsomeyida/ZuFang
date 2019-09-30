@@ -24,7 +24,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Resource
     SysPermissionService permissionService;
-
+    //获取用户登录信息
     @Override
     public JSONObject listInfo() {
         Session session = SecurityUtils.getSubject().getSession();
@@ -36,7 +36,7 @@ public class LoginServiceImpl implements LoginService {
         info.put("userPermission", userPermission);
         return LoginUtil.successJson(info);
     }
-
+    //登出
     @Override
     public JSONObject logout() {
         try {

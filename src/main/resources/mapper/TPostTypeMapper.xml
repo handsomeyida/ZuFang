@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.jc.springboot.dao.PostTypeMapper">
+<mapper namespace="com.jc.springboot.dao.TPostTypeMapper">
 
-    <insert id="update" parameterType="com.jc.springboot.entity.PostType">
+    <update id="update" parameterType="com.jc.springboot.entity.TPostType">
         update t_post_type
         set
         <if test="type_imtg_url !=null and type_imtg_url != ''">
@@ -12,6 +12,13 @@
         TYPE_NAME=#{type_name}
         where
         ID = #{id}
-    </insert>
+    </update>
 
+    <update id="deleteType">
+        update t_post_type
+        set
+        IS_DEL = 1
+        where
+        ID = #{ID}
+    </update>
 </mapper>

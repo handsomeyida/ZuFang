@@ -11,9 +11,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-
-        ID, TARGET_ID, CONTENT,DATE_FORMAT(create_time, '%Y.%m.%d %T') CREATE_TIME
-
+        ID, TARGET_ID, CONTENT,DATE_FORMAT(CREATE_TIME, '%Y.%m.%d %T') CREATE_TIME
     </sql>
 
     <select id="loadInformation" resultType="com.alibaba.fastjson.JSONObject">
@@ -95,5 +93,27 @@
         where
         ID=#{ID}
     </update>
+
+    <select id="listsysinfomation" resultType="com.alibaba.fastjson.JSONObject">
+        select
+        inf.ID,
+        inf.TARGET_ID,
+        wx.nickname NICKNAME,
+        CONTENT,DATE_FORMAT(inf.CREATE_TIME, '%Y.%m.%d %T') CREATE_TIME
+        from
+        t_sys_information inf
+        left join sys_user wx on inf.TARGET_ID = wx.ID
+        where 1=1
+        <if test="starttime !=null and starttime != '' and endtime !=null and endtime != ''">
+            and inf.CREATE_TIME between #{starttime} and #{endtime}
+        </if>
+        LIMIT #{offSet}, #{pageRow}
+    </select>
+    <select id="countsysinfomation" resultType="Integer">
+        select
+        count(0)
+        from
+        t_sys_information
+    </select>
 
 </mapper>

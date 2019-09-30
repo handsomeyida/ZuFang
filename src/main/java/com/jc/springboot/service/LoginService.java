@@ -8,8 +8,8 @@ import com.alibaba.fastjson.JSONObject;
  * @Description:
  */
 public interface LoginService {
-
+    //获取用户登录信息
     JSONObject listInfo();
-
+    //登出
     JSONObject logout();
 }

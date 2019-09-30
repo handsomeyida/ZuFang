@@ -22,7 +22,7 @@ public class SysTempletServiceImpl implements SysTempletService {
 
     @Resource
     SysTempletMapper templetMapper;
-
+    //获取系统模板(分页, 没有公告模板)
     @Override
     public JSONObject listtemplet(JSONObject jsonObject) {
         LoginUtil.fillPageParam(jsonObject);
@@ -32,7 +32,17 @@ public class SysTempletServiceImpl implements SysTempletService {
         info.put("list", list);
         return LoginUtil.successPage(jsonObject, list, count);
     }
-
+    //获取全部系统模板
+    @Override
+    public JSONObject listalltemplet(JSONObject jsonObject) {
+        LoginUtil.fillPageParam(jsonObject);
+        JSONObject info = new JSONObject();
+        int count = templetMapper.countallTemplate(jsonObject);
+        List<JSONObject> list = templetMapper.listalltemplet(jsonObject);
+        info.put("list", list);
+        return LoginUtil.successPage(jsonObject, list, count);
+    }
+    //添加系统模板
     @Override
     public JSONObject insertTemplate(JSONObject jsonObject) {
         int exist = templetMapper.loadExistTitle(jsonObject);
@@ -42,13 +52,13 @@ public class SysTempletServiceImpl implements SysTempletService {
         templetMapper.insertTemplate(jsonObject);
         return LoginUtil.successJson();
     }
-
+    //修改系统模板
     @Override
     public JSONObject updateTemplate(JSONObject jsonObject) {
         templetMapper.updateTemplate(jsonObject);
         return LoginUtil.successJson();
     }
-
+    //删除系统模板
     @Override
     public JSONObject deleteTemplate(JSONObject jsonObject) {
         templetMapper.deleteTemplate(jsonObject);

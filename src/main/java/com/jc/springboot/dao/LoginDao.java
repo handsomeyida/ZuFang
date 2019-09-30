@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author: hxy
+ * @author: 帅气的达
  * @description: 登录相关dao
  * @date: 2017/10/24 11:02
  */

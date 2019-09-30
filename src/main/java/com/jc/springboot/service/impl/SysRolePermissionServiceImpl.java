@@ -20,12 +20,12 @@ public class SysRolePermissionServiceImpl implements SysRolePermissionService {
 
     @Resource
     SysRolePermissionMapper sysRolePermissionMapper;
-
+    //获取角色的所有权限
     @Override
     public List<SysRolePermission> listSysPermissionIDByRoleId(Integer role_id) {
         return sysRolePermissionMapper.loadSysPermissionIDByRoleId(role_id);
     }
-
+    //添加权限
     @Override
     public boolean save(SysRolePermission sysRolePermission) {
         return sysRolePermissionMapper.save(sysRolePermission);
