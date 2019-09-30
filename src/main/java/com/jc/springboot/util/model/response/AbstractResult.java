@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public abstract class AbstractResult implements IResult{
     /**成功Code*/
-    public static final String SUCCESS = "0000";
+    public static final String SUCCESS = "1000";
     /**系统失败Code*/
     public static final String SYSTEM_FAIL = "9999";
     /**检查失败Code*/

@@ -25,21 +25,21 @@ public class SysUserRoleController {
     SysUserService userService;
 
     //查询所有权限, 给角色分配权限时调用
-    @RequiresPermissions("role:list")
+//    @RequiresPermissions("role:list")
     @RequestMapping("/AllPermissionlist")
     public JSONObject listAllPermission() {
         return userService.listAllPermission();
     }
 
     //获取角色信息
-    @RequiresPermissions("role:list")
+//    @RequiresPermissions("role:list")
     @RequestMapping("/listRole")
     public JSONObject listRole() {
         return userService.listRole();
     }
 
     //添加角色权限
-    @RequiresPermissions("role:add")
+//    @RequiresPermissions("role:add")
     @RequestMapping("/addRole")
     public JSONObject insertRole(@RequestBody JSONObject requestJson) {
         LoginUtil.hasAllRequired(requestJson, "roleName,permissions");
@@ -47,7 +47,7 @@ public class SysUserRoleController {
     }
 
     //修改角色权限
-    @RequiresPermissions("role:update")
+//    @RequiresPermissions("role:update")
     @PostMapping("/updateRole")
     public JSONObject updateRole(@RequestBody JSONObject requestJson) {
         LoginUtil.hasAllRequired(requestJson, "roleId,roleName,permissions");
@@ -55,7 +55,7 @@ public class SysUserRoleController {
     }
 
     //删除角色权限
-    @RequiresPermissions("role:delete")
+//    @RequiresPermissions("role:delete")
     @PostMapping("/deleteRole")
     public JSONObject deleteRole(@RequestBody JSONObject requestJson) {
         LoginUtil.hasAllRequired(requestJson, "roleId");

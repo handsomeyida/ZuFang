@@ -35,19 +35,19 @@ public class SysInformationController {
         return informationService.loadMsg(requestJson);
     }
 
-    @RequiresPermissions("guide:update")
+//    @RequiresPermissions("guide:update")
     @RequestMapping("/saveWords")
     public JSONObject saveWords(@RequestBody JSONObject requestJson){
         return informationService.saveWords(requestJson);
     }
 
-    @RequiresPermissions("groupsending:add")
+//    @RequiresPermissions("groupsending:add")
     @RequestMapping("/insertAllInformation")
     public JSONObject insertAllInformation(@RequestBody JSONObject requestJson){
         return informationService.insertAllInformation(requestJson);
     }
 
-    @RequiresPermissions("groupsending:add")
+//    @RequiresPermissions("groupsending:add")
     @RequestMapping("/insertInformation")
     public JSONObject insertInformation(@RequestBody JSONObject requestJson){
         return informationService.insertInformation(requestJson);

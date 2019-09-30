@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Auther: 帅气的达
@@ -13,6 +14,7 @@ import java.util.Date;
  */
 @Data
 public class PostType implements Serializable {
+    private List<FBaseWxuserTypeLabel> listPostBaseF;
 
     private int id;
 

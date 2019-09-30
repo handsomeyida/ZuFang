@@ -44,7 +44,7 @@ public class UploadController {
     private PostTypeMapper postTypeMapper;
 
     //文件上传接口
-    @RequiresPermissions("upload:imgupload")
+//    @RequiresPermissions("upload:imgupload")
     @RequestMapping(value = "/imgUpload", method = RequestMethod.POST)
     public String imgUpload(@RequestParam("file") MultipartFile[] file, String AdvertTitle){
 
@@ -72,7 +72,7 @@ public class UploadController {
         return message;
     }
 
-    @RequiresPermissions("upload:imgupload")
+//    @RequiresPermissions("upload:imgupload")
     @RequestMapping(value = "/typeimgUpload", method = RequestMethod.POST)
     public String TypeimgUpload(@RequestParam("file") MultipartFile file, PostType postType){
         String message = "";

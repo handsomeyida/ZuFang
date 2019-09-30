@@ -40,7 +40,7 @@
               this.username.push(this.AllMesg[a].START_ID);
             }
           }
-          // console.log(this.message);
+          console.log(this.message);
           if (this.message.length > 3) {
             let msgcount = '你有'+this.message.length+'条未读消息';
             this.showWords(msgcount);

@@ -23,13 +23,13 @@ public class SysTempletController {
     @Resource
     SysTempletService templetService;
 
-    @RequiresPermissions("guide:list")
+//    @RequiresPermissions("guide:list")
     @RequestMapping("/listtemplet")
     public JSONObject listtemplet(HttpServletRequest request){
         return templetService.listtemplet(LoginUtil.request2Json(request));
     }
 
-    @RequiresPermissions("template:add")
+//    @RequiresPermissions("template:add")
     @RequestMapping("/addTemplate")
     public JSONObject insertTemplate(@RequestBody JSONObject requestJson){
 //        System.out.println(requestJson);
@@ -37,7 +37,7 @@ public class SysTempletController {
         return templetService.insertTemplate(requestJson);
     }
 
-    @RequiresPermissions("template:update")
+//    @RequiresPermissions("template:update")
     @RequestMapping("/updateTemplate")
     public JSONObject updateTemplate(@RequestBody JSONObject requestJson){
 //        System.out.println(requestJson);
@@ -45,7 +45,7 @@ public class SysTempletController {
         return templetService.updateTemplate(requestJson);
     }
 
-    @RequiresPermissions("template:delete")
+//    @RequiresPermissions("template:delete")
     @RequestMapping("/deleteTemplate")
     public JSONObject deleteTemplate(@RequestBody JSONObject requestJson){
 //        System.out.println(requestJson);

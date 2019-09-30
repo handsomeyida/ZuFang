@@ -22,7 +22,7 @@ public class PostController {
     @Resource
     PostService postService;
 
-    @RequiresPermissions("basics:list")
+//    @RequiresPermissions("basics:list")
     @RequestMapping("/listType")
     public JSONObject listType(HttpServletRequest request){
         return postService.listType(LoginUtil.request2Json(request));

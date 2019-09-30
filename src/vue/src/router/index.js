@@ -102,7 +102,7 @@ export const asyncRouterMap = [
     children: [
       {
         path: 'posts',
-        component: _import('article/article'),
+        component: _import('posts/listPost'),
         meta: {title: '帖子管理', icon: 'contract'},
         menu: 'posts'
       },

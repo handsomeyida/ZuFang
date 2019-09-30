@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jc.springboot.dao.FPostBaseMapper">
+    <resultMap id="FListBaseResultMap" type="com.jc.springboot.entity.FBaseWxuserTypeLabel">
+        <id column="ID" property="postId" jdbcType="INTEGER"/>
+        <result column="USER_ID" property="userId" jdbcType="VARCHAR"/>
+        <result column="TYPE_ID" property="typeId" jdbcType="INTEGER"/>
+        <result column="CONTENT" property="content" jdbcType="VARCHAR"/>
+        <result column="MIN_PRICE" property="minPrice" jdbcType="VARCHAR"/>
+        <result column="MAX_PRICE" property="maxPrice" jdbcType="VARCHAR"/>
+        <result column="PHONE" property="phone" jdbcType="VARCHAR"/>
+        <result column="ADDRESS" property="address" jdbcType="VARCHAR"/>
+        <result column="LABELS" property="labels" jdbcType="VARCHAR"/>
+        <result column="TOTAL_BROWSE" property="totalBrowse" jdbcType="INTEGER"/>
+        <result column="TOTAL_RESONATE" property="totalResonate" jdbcType="INTEGER"/>
+        <result column="DEV_BROWSE" property="devBrowse" jdbcType="INTEGER"/>
+        <result column="DEV_RESONATE" property="devResonate" jdbcType="INTEGER"/>
+        <result column="ACTIVE_TIME" property="activeTime" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_TIME" property="baseCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="IS_LOWER_SHELF" property="isLowerShelf" jdbcType="TINYINT"/>
+        <result column="IS_DEL" property="isDelBase" jdbcType="TINYINT"/>
+        <result column="TOTAL_COLLECTION" property="totalCollection" jdbcType="INTEGER"/>
+        <result column="TOTAL_COMMENTS" property="totalComments" jdbcType="INTEGER"/>
+        <result column="FEE" property="fee" jdbcType="TINYINT"/>
+        <result column="IS_SUB" property="isSub" jdbcType="INTEGER"/>
+        <result column="IS_MALL" property="isMall" jdbcType="INTEGER"/>
+
+        <result column="USER_ID" property="wxuserId" jdbcType="VARCHAR"/>
+        <result column="OPEN_ID" property="openId" jdbcType="VARCHAR"/>
+        <result column="UNION_ID" property="unionId" jdbcType="VARCHAR"/>
+        <result column="WX_AVATAR_URL" property="wxAvatarUrl" jdbcType="VARCHAR"/>
+        <result column="WX_NICK_NAME" property="wxNickName" jdbcType="VARCHAR"/>
+        <result column="WX_GENDER" property="wxGender" jdbcType="INTEGER"/>
+        <result column="WX_CITY" property="wxCity" jdbcType="VARCHAR"/>
+        <result column="WX_PROVINCE" property="wxProvince" jdbcType="VARCHAR"/>
+        <result column="WX_COUNTRY" property="wxCountry" jdbcType="VARCHAR"/>
+        <result column="DEV_FANS" property="devFans" jdbcType="INTEGER"/>
+        <result column="CREATE_TIME" property="wxuserCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="IS_DEL" property="isDelWxuser" jdbcType="TINYINT"/>
+        <result column="SUMMARY" property="summary" jdbcType="VARCHAR"/>
+
+        <result column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="TYPE_IMTG_URL" property="typeImtgUrl" jdbcType="VARCHAR"/>
+        <result column="TYPE_NAME" property="typeName" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="IS_DEL" property="isDel" jdbcType="TINYINT"/>
+
+        <result column="ID" property="labelId" jdbcType="INTEGER"/>
+        <result column="PARENT_ID" property="parentId" jdbcType="INTEGER"/>
+        <result column="CONTENT" property="labelContent" jdbcType="VARCHAR"/>
+        <result column="TYPE" property="type" jdbcType="TINYINT"/>
+        <result column="IS_DEL" property="isDelLabel" jdbcType="TINYINT"/>
+        <result column="TYPE_IMG_URL" property="typeImgUrl" jdbcType="VARCHAR"/>
+
+        <result column="ID" property="postBaseLabelId" jdbcType="INTEGER"/>
+        <result column="POST_BASE_ID" property="postBaseId" jdbcType="INTEGER"/>
+        <result column="POST_LABEL_ID" property="posrLabelId" jdbcType="INTEGER"/>
+        <result column="IS_DEL" property="postBaseLabelIsDel" jdbcType="INTEGER"/>
+
+        <result column="ID" property="topId" jdbcType="INTEGER"/>
+        <result column="NAVIGATION_ID" property="navigationId" jdbcType="INTEGER"/>
+        <result column="POST_ID" property="topPostId" jdbcType="INTEGER"/>
+        <result column="SORT_TIME" property="sortTime" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_TIME" property="topCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="IS_DEL" property="topIsDel" jdbcType="TINYINT"/>
+
+        <result column="ID" property="navigationId" jdbcType="INTEGER"/>
+        <result column="TITLE" property="title" jdbcType="VARCHAR"/>
+        <result column="MAX_TOP_NUM" property="maxTopNum" jdbcType="INTEGER"/>
+        <result column="CREATE_TIME" property="navigationCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="IS_DEL" property="navigationIsDel" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <select id="listNavF" resultType="com.jc.springboot.entity.FBaseWxuserTypeLabel">
+        SELECT
+        t_navigation.ID navigationId, t_navigation.TITLE title,
+        t_navigation.MAX_TOP_NUM maxTopNum,
+        t_navigation.CREATE_TIME navigationCreateTime,
+        t_navigation.IS_DEL navigationIsDel
+        FROM t_navigation
+    </select>
+
+    <select id="listPostTypeF" resultType="com.jc.springboot.entity.FBaseWxuserTypeLabel">
+        SELECT
+        t_post_type.ID id,
+        t_post_type.TYPE_IMTG_URL typeImtgUrl,
+        t_post_type.TYPE_NAME typeName,
+        t_post_type.CREATE_TIME createTime,
+        t_post_type.IS_DEL isDelType
+        FROM t_post_type
+    </select>
+
+    <select id="listPostIdF" resultType="java.lang.String">
+        SELECT t_post_base.ID FROM t_post_base
+    </select>
+
+    <select id="listPostLabelsF" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT POST_LABEL_ID FROM t_post_base_label WHERE IS_DEL = 0
+        AND POST_BASE_ID = #{postId}
+    </select>
+
+    <select id="getLabelNameF" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT CONTENT FROM t_post_label WHERE ID = #{labelId}
+    </select>
+
+    <update id="updatePostLabelsF">
+        UPDATE t_post_base tpb SET tpb.LABELS = #{listLabelName}  WHERE tpb.ID = #{postId}
+    </update>
+
+    <select id="listPostF" parameterType="map" resultType="com.jc.springboot.entity.FBaseWxuserTypeLabel">
+        SELECT
+        tpb.ID                  postId,                tpb.USER_ID               userId,
+        tpb.TYPE_ID             typeId,                tpb.CONTENT               content,
+        tpb.MIN_PRICE           minPrice,              tpb.MAX_PRICE             maxPrice,
+        tpb.PHONE               phone,                 tpb.ADDRESS               address,
+        tpb.LABELS              labels,                tpb.TOTAL_BROWSE        totalBrowse,
+        tpb.TOTAL_RESONATE      totalResonate,         tpb.DEV_BROWSE            devBrowse,
+        tpb.DEV_RESONATE        devResonate,           tpb.ACTIVE_TIME           activeTime,
+        tpb.CREATE_TIME         baseCreateTime,        tpb.IS_LOWER_SHELF        isLowerShelf,
+        tpb.IS_DEL              isDelBase,             tpb.TOTAL_COLLECTION      totalCollection,
+        tpb.TOTAL_COMMENTS      totalComments,         tpb.FEE                   fee,
+        tpb.IS_SUB              isSub,                 tpb.IS_MALL               isMall,
+
+        tpt.ID                  id,                    tpt.TYPE_IMTG_URL         typeImtgUrl,
+        tpt.TYPE_NAME           typeName,              tpt.CREATE_TIME           createTime,
+        tpt.IS_DEL              isDelType,
+
+        twu.USER_ID             wxuserId,              twu.OPEN_ID               openId,
+        twu.UNION_ID            unionId,               twu.WX_AVATAR_URL         wxAvatarUrl,
+        twu.WX_NICK_NAME        wxNickName,            twu.WX_GENDER             wxGender,
+        twu.WX_CITY             wxCity,                twu.WX_PROVINCE           wxProvince,
+        twu.WX_COUNTRY          wxCountry,             twu.DEV_FANS              devFans,
+        twu.CREATE_TIME         wxuserCreateTime,      twu.UPDATE_TIME           updateTime,
+        twu.IS_DEL              isDelWxuser,           twu.SUMMARY               summary,
+
+        tnt.ID                  topId,                 tnt.NAVIGATION_ID         navigationTopId,
+        tnt.POST_ID             topPostId,             tnt.SORT_TIME             sortTime,
+        tnt.CREATE_TIME         topCreateTime,         tnt.IS_DEL                topIsDel
+        FROM t_post_base tpb
+        LEFT JOIN t_post_type tpt ON tpb.TYPE_ID = tpt.ID
+        LEFT JOIN t_wx_user twu ON tpb.USER_ID = twu.USER_ID
+        LEFT JOIN t_navigation_top tnt ON tpb.ID = tnt.POST_ID
+        WHERE 1=1
+        <if test="baseCreateTime!=null and ''!=baseCreateTime">
+            AND tpb.CREATE_TIME LIKE CONCAT(#{baseCreateTime},'%')
+        </if>
+        <if test="typeName!=null and ''!=typeName">
+            AND tpt.TYPE_NAME LIKE CONCAT(#{typeName},'%')
+        </if>
+        <if test="labels!=null and ''!=labels">
+            AND tpb.LABELS LIKE  CONCAT('%',CONCAT(#{labels},'%'))
+        </if>
+        <if test="wxNickName!=null and ''!=wxNickName">
+            AND twu.WX_NICK_NAME LIKE CONCAT(#{wxNickName},'%')
+        </if>
+        GROUP BY tpb.ID
+        ORDER BY tnt.SORT_TIME DESC, tpb.ACTIVE_TIME DESC, tpb.CREATE_TIME DESC
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+    <!--统计数据条数-->
+    <select id="countPostF" parameterType="map" resultType="Integer">
+        SELECT COUNT(1)
+        FROM t_post_base tpb
+        LEFT JOIN t_post_type tpt ON tpb.TYPE_ID = tpt.ID
+        LEFT JOIN t_wx_user twu ON tpb.USER_ID = twu.USER_ID
+        WHERE 1=1
+        <if test="baseCreateTime==null and ''==baseCreateTime">
+            AND tpb.CREATE_TIME LIKE CONCAT(#{baseCreateTime}, '%')
+        </if>
+        <if test="typeName!=null and ''!=typeName">
+            AND tpt.TYPE_NAME LIKE CONCAT(#{typeName},'%')
+        </if>
+        <if test="labels!=null and ''!=labels">
+            AND tpb.LABELS LIKE  CONCAT('%',CONCAT(#{labels},'%'))
+        </if>
+        <if test="wxNickName!=null and ''!=wxNickName">
+            AND twu.WX_NICK_NAME = #{wxNickName}
+        </if>
+    </select>
+    <!--帖子表逻辑删除-->
+    <update id="updatePostIsDelF">
+        UPDATE t_post_base tpb SET tpb.IS_DEL = 1  WHERE tpb.ID = #{postId}
+    </update>
+    <!--帖子表逻辑恢复-->
+    <update id="updatePostIsDelR">
+        UPDATE t_post_base tpb SET tpb.IS_DEL = 0  WHERE tpb.ID = #{postId}
+    </update>
+    <!--帖子表逻辑下架-->
+    <update id="updateIsLowerShelfD">
+        UPDATE t_post_base tpb SET tpb.IS_LOWER_SHELF = 1  WHERE tpb.ID = #{postId}
+    </update>
+    <!--帖子表逻辑上架-->
+    <update id="updateIsLowerShelfU">
+        UPDATE t_post_base tpb SET tpb.IS_LOWER_SHELF = 0  WHERE tpb.ID = #{postId}
+    </update>
+    <!--根据postId查询所有t_navigation的title-->
+    <select id="getListNavName" parameterType="java.lang.String" resultType="com.jc.springboot.entity.FBaseWxuserTypeLabel">
+        SELECT tn.TITLE title,tnt.NAVIGATION_ID navigationTopId,tnt.ID topId
+        FROM t_navigation tn
+        LEFT JOIN t_navigation_top tnt ON tnt.NAVIGATION_ID = tn.ID
+        WHERE tnt.IS_DEL = 0
+        AND tnt.POST_ID = #{postId}
+    </select>
+    <!--帖子表逻辑置顶-->
+    <update id="updateTopIsDel0">
+        UPDATE t_navigation_top tnt
+        SET tnt.IS_DEL = 0, tnt.SORT_TIME = #{sortTime} WHERE tnt.NAVIGATION_ID in
+        <foreach collection="listCheckNavName" index="index" item="navName" open="(" separator="," close=")">
+            #{navName}
+        </foreach>
+        AND tnt.POST_ID = #{postId}
+    </update>
+    <!--帖子表逻辑取消置顶-->
+    <update id="updateTopIsDel1">
+        UPDATE t_navigation_top tnt
+        SET tnt.IS_DEL = 1 WHERE tnt.NAVIGATION_ID in
+        <foreach collection="listCheckNavName1" index="index" item="navName" open="(" separator="," close=")">
+            #{navName}
+        </foreach>
+        AND tnt.POST_ID = #{postId}
+    </update>
+    <!--查询t_navigation_top表对应postId和navigationTopId的数据是否存在-->
+    <select id="listNavigationTop" parameterType="java.lang.String" resultType="com.jc.springboot.entity.FBaseWxuserTypeLabel">
+        SELECT
+        tnt.ID                  topId,                 tnt.NAVIGATION_ID         navigationTopId,
+        tnt.POST_ID             topPostId,             tnt.SORT_TIME             sortTime,
+        tnt.CREATE_TIME         topCreateTime,         tnt.IS_DEL                topIsDel
+        FROM t_navigation_top tnt WHERE tnt.NAVIGATION_ID = #{navigationId} AND tnt.POST_ID = #{postId}
+    </select>
+    <!--t_navigation_top表的添加-->
+    <insert id="insertTopF" parameterType="java.lang.String">
+        INSERT INTO t_navigation_top(NAVIGATION_ID,POST_ID,SORT_TIME,CREATE_TIME,IS_DEL)
+        VALUES (#{navigationTopId},#{postId},#{sortTime},#{topCreateTime},0)
+    </insert>
+
+    <!--帖子表的修改-->
+    <update id="updatePostF">
+        UPDATE t_post_base tpb
+        SET
+        tpb.CONTENT = #{content},                   tpb.MIN_PRICE = #{minPrice},
+        tpb.MAX_PRICE = #{maxPrice},                tpb.PHONE = #{phone},
+        tpb.ADDRESS = #{address},                   tpb.TOTAL_BROWSE = #{totalBrowse},
+        tpb.TOTAL_RESONATE = #{totalResonate},      tpb.DEV_BROWSE = #{devBrowse},
+        tpb.DEV_RESONATE = #{devResonate},          tpb.ACTIVE_TIME = #{activeTime},
+        tpb.TOTAL_COLLECTION = #{totalCollection},  tpb.TOTAL_COMMENTS = #{totalComments},
+        tpb.FEE = #{fee},                           tpb.IS_SUB = #{isSub},
+        tpb.IS_MALL = #{isMall},                    tpb.TYPE_ID = #{id}
+        WHERE tpb.ID = #{postId}
+    </update>
+    <!--t_post_base_label表的逻辑删除-->
+    <update id="updateBaseLabelIsDel1">
+        UPDATE t_post_base_label tpbl
+        SET tpbl.IS_DEL = 1 WHERE tpbl.POST_LABEL_ID in
+        <foreach collection="listCheckLabelName1" index="index" item="labelName" open="(" separator="," close=")">
+            #{labelName}
+        </foreach>
+        AND tpbl.POST_BASE_ID = #{postId}
+    </update>
+    <select id="listPostLabelF" resultType="com.jc.springboot.entity.FBaseWxuserTypeLabel">
+        SELECT
+        t_post_label.ID labelId, t_post_label.PARENT_ID parentId,
+        t_post_label.CONTENT labelContent,
+        t_post_label.TYPE type,
+        t_post_label.IS_DEL isDelLabel,
+        t_post_label.TYPE_IMG_URL typeImgUrl
+        FROM t_post_label
+    </select>
+    <!--根据postId查询所有标签表的名字-->
+    <select id="getListLabelName" parameterType="java.lang.String" resultType="com.jc.springboot.entity.FBaseWxuserTypeLabel">
+        SELECT tpl.CONTENT labelContent, tpbl.POST_LABEL_ID postLabelId, tpbl.ID postBaseLabelId
+        FROM t_post_label tpl
+        LEFT JOIN t_post_base_label tpbl ON tpl.ID = tpbl.POST_LABEL_ID
+        WHERE tpbl.IS_DEL = 0
+        AND tpbl.POST_BASE_ID = #{postId}
+    </select>
+    <!--t_post_base_label表的删除-->
+    <delete id="deleteBaseLabelF">
+        DELETE FROM t_post_base_label WHERE POST_BASE_ID = #{postId}
+    </delete>
+    <!--t_post_base_label表的添加-->
+    <insert id="insertBaseLabelF" parameterType="java.lang.String">
+        INSERT INTO t_post_base_label(POST_BASE_ID,POST_LABEL_ID,IS_DEL)
+        VALUES (#{postBaseId},#{postLabelId},0)
+    </insert>
+</mapper>
