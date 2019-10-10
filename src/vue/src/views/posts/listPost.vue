@@ -814,7 +814,6 @@
                 })
                 if (this.tempPost.fee == false) {
                   this.tempPost.fee = 0;
-                  console.log(this.tempPost.fee)
                 }else {
                   this.tempPost.fee = 1;
                 }
@@ -905,8 +904,6 @@
       },
       async funcAsync(data){
         await this.funcAwait(data);
-        console.log(this.listNavigationTop+"外面")
-        console.log(this.listNavigationTop.length)
         if (this.listNavigationTop == undefined||this.listNavigationTop.length <= 0) {
           this.api({
             url: "/FPost/insertTopF",
@@ -933,9 +930,7 @@
           }).then(reqs => {
             resolve(reqs)
             this.listNavigationTop = [];
-            console.log(this.listNavigationTop+"清除后的")
             this.listNavigationTop.push(reqs.data.topId);
-            console.log(this.listNavigationTop+"里面")
           }).catch(err => {
             reject(err)
           })
@@ -1005,7 +1000,6 @@
         this.dialogStatus = 'showlimit';
         let _vue = this;
         let limit = _vue.commentlist[$index];
-        console.log(limit)
         this.collectionList.START_ID = limit.START_ID;
       },
       updateUser() {

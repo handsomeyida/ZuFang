@@ -110,7 +110,7 @@ public class FPostBaseController {
     public IResult insertBaseLabelF(String postId, String postLabelId){
         return new ResultBean<Boolean>(fPostBaseService.insertBaseLabelF(postId,postLabelId));
     }
-    //t_post_base_label表的添加
+    //t_post_base表的修改
     @RequestMapping("/updatePostF")
     public IResult updatePostF(@RequestBody FBaseWxuserTypeLabel tempPost){
         String postId = tempPost.getPostId();

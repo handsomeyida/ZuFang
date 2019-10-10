@@ -84,8 +84,6 @@ public class FBaseWxuserTypeLabel implements Serializable {
     private Date updateTime;
     //是否删除
     private String isDelWxuser;
-    //简介
-    private String summary;
 
     //t_post_type表
     private String id;
@@ -131,4 +129,43 @@ public class FBaseWxuserTypeLabel implements Serializable {
     private String maxTopNum;
     private String navigationCreateTime;
     private String navigationIsDel;
+
+    //t_user_collection表
+    //收藏表Id
+    private String collectionId;
+    //收藏者Id
+    private String collectionUserId;
+    //收藏哪个帖子
+    private String collectionPostId;
+    private String collectionIsDel;
+    //创建时间
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date collectionCreateTime;
+    //排序时间，用来排序使用
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date collectionSortTime;
+
+    //t_user_follow表
+    //关注表Id
+    private String followId;
+    //被关注者Id
+    private String followUserId;
+    //粉丝Id
+    private String followFanId;
+    //创建时间
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date followCreateTime;
+    private String followIsDel;
+
+    //t_sys_template表
+    private String templateId;
+    private String templateTitle;
+    private String templateContent;
+    private String templateIsNotGuide;
+
+    //t_sys_information表
+    private String sysInformationId;
+    private String sysInformationTargetId;
+    private String sysInformationContent;
+    private String sysInformationCreateTime;
 }
