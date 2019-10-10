@@ -55,7 +55,7 @@ export const asyncRouterMap = [
     children: [
       {
         path: 'user',
-        component: _import('article/article'),
+        component: _import('user/listWxUser'),
         meta: {title: '用户管理', icon: 'user'},
         menu: 'user'
       },
