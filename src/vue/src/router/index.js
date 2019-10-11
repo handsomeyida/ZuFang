@@ -115,12 +115,12 @@ export const asyncRouterMap = [
         meta: {title: '帖子管理', icon: 'contract'},
         menu: 'posts'
       },
-      {
-        path: 'collection',
-        component: _import('posts/collection'),
-        meta: {title: '收藏的帖', icon: 'contract'},
-        menu: 'collection'
-      },
+      // {
+      //   path: 'collection',
+      //   component: _import('posts/collection'),
+      //   meta: {title: '收藏的帖', icon: 'contract'},
+      //   menu: 'collection'
+      // },
     ]
   },
   {
