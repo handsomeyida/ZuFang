@@ -12,8 +12,10 @@ import {default as api} from './utils/api'
 import {hasPermission} from "./utils/hasPermission";
 import axios from 'axios'
 import echarts from 'echarts' //引入echarts
-Vue.prototype.$echarts = echarts //引入组件
+import areaName from './utils/area-ch'
 
+Vue.prototype.areaName = areaName//引入全球中文地名
+Vue.prototype.$echarts = echarts //引入组件
 Vue.prototype.$reqs = axios
 Vue.use(ElementUI, {locale})
 Vue.prototype.api = api

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jc.springboot.dao.FWxUserMapper">
+    <resultMap id="FWxUserResultMap" type="com.jc.springboot.entity.FBaseWxuserTypeLabel">
+        <result column="CONTENT" property="content" jdbcType="VARCHAR"/>
+
+        <result column="ID" property="collectionId" jdbcType="INTEGER"/>
+        <result column="USER_ID" property="collectionUserId" jdbcType="VARCHAR"/>
+        <result column="POST_ID" property="collectionPostId" jdbcType="INTEGER"/>
+        <result column="IS_DEL" property="collectionIsDel" jdbcType="TINYINT"/>
+        <result column="CREATE_TIME" property="collectionCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="SORT_TIME" property="collectionSortTime" jdbcType="TIMESTAMP"/>
+
+        <result column="ID" property="followId" jdbcType="INTEGER"/>
+        <result column="FOLLOW_ID" property="followUserId" jdbcType="VARCHAR"/>
+        <result column="FAN_ID" property="followFanId" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="followCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="IS_DEL" property="followIsDel" jdbcType="TINYINT"/>
+
+        <result column="USER_ID" property="wxuserId" jdbcType="VARCHAR"/>
+        <result column="OPEN_ID" property="openId" jdbcType="VARCHAR"/>
+        <result column="UNION_ID" property="unionId" jdbcType="VARCHAR"/>
+        <result column="WX_AVATAR_URL" property="wxAvatarUrl" jdbcType="VARCHAR"/>
+        <result column="WX_NICK_NAME" property="wxNickName" jdbcType="VARCHAR"/>
+        <result column="WX_GENDER" property="wxGender" jdbcType="INTEGER"/>
+        <result column="WX_CITY" property="wxCity" jdbcType="VARCHAR"/>
+        <result column="WX_PROVINCE" property="wxProvince" jdbcType="VARCHAR"/>
+        <result column="WX_COUNTRY" property="wxCountry" jdbcType="VARCHAR"/>
+        <result column="DEV_FANS" property="devFans" jdbcType="INTEGER"/>
+        <result column="CREATE_TIME" property="wxuserCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="IS_DEL" property="isDelWxuser" jdbcType="TINYINT"/>
+        <result column="SUMMARY" property="summary" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="listWxUserF" parameterType="map" resultType="com.jc.springboot.entity.FBaseWxuserTypeLabel">
+        SELECT
+        twu.USER_ID             wxuserId,              twu.OPEN_ID               openId,
+        twu.UNION_ID            unionId,               twu.WX_AVATAR_URL         wxAvatarUrl,
+        twu.WX_NICK_NAME        wxNickName,            twu.WX_GENDER             wxGender,
+        twu.WX_CITY             wxCity,                twu.WX_PROVINCE           wxProvince,
+        twu.WX_COUNTRY          wxCountry,             twu.DEV_FANS              devFans,
+        twu.CREATE_TIME         wxuserCreateTime,      twu.UPDATE_TIME           updateTime,
+        twu.IS_DEL              isDelWxuser,           twu.SUMMARY               summary
+        FROM t_wx_user twu
+        LEFT JOIN sys_user su ON su.id = twu.USER_ID
+        WHERE 1=1
+        <if test="wxuserCreateTime!=null and ''!=wxuserCreateTime">
+            AND twu.CREATE_TIME LIKE CONCAT(#{wxuserCreateTime},'%')
+        </if>
+        <if test="wxGender!=null and ''!=wxGender">
+            AND twu.WX_GENDER = #{wxGender}
+        </if>
+        <if test="wxCountry!=null and ''!=wxCountry">
+            AND twu.WX_COUNTRY = #{wxCountry}
+        </if>
+        <if test="wxNickName!=null and ''!=wxNickName">
+            AND twu.WX_NICK_NAME LIKE CONCAT(#{wxNickName},'%')
+        </if>
+        ORDER BY twu.UPDATE_TIME DESC
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+    <!--统计数据条数-->
+    <select id="countWxUserF" parameterType="map" resultType="Integer">
+        SELECT COUNT(1)
+        FROM t_wx_user twu
+        LEFT JOIN sys_user su ON su.id = twu.USER_ID
+        WHERE 1=1
+        <if test="wxuserCreateTime!=null and ''!=wxuserCreateTime">
+            AND twu.CREATE_TIME LIKE CONCAT(#{wxuserCreateTime},'%')
+        </if>
+        <if test="wxGender!=null and ''!=wxGender">
+            AND twu.WX_GENDER = #{wxGender}
+        </if>
+        <if test="wxCountry!=null and ''!=wxCountry">
+            AND twu.WX_COUNTRY = #{wxCountry}
+        </if>
+        <if test="wxNickName!=null and ''!=wxNickName">
+            AND twu.WX_NICK_NAME LIKE CONCAT(#{wxNickName},'%')
+        </if>
+    </select>
+    <!--某用户的收藏列表-->
+    <select id="listCollectionF" parameterType="map" resultType="com.jc.springboot.entity.FBaseWxuserTypeLabel">
+        SELECT
+        tuc.ID                 collectionId,              tuc.USER_ID        collectionUserId,
+        tuc.POST_ID            collectionPostId,          tuc.IS_DEL         collectionIsDel,
+        tuc.CREATE_TIME        collectionCreateTime,      tuc.SORT_TIME      collectionSortTime,
+
+        tpb.CONTENT            content
+        FROM t_user_collection tuc
+        LEFT JOIN t_post_base tpb ON tpb.ID = tuc.POST_ID
+        WHERE tuc.USER_ID = #{collectionUserId}
+        ORDER BY tuc.SORT_TIME DESC
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+    <!--统计数据条数-->
+    <select id="countCollectionF" parameterType="map" resultType="Integer">
+        SELECT COUNT(1)
+        FROM t_user_collection tuc
+        LEFT JOIN t_post_base tpb ON tpb.ID = tuc.POST_ID
+        WHERE tuc.USER_ID = #{collectionUserId}
+    </select>
+
+    <!--某用户的关注列表-->
+    <select id="listFollowF" parameterType="map" resultType="com.jc.springboot.entity.FBaseWxuserTypeLabel">
+        SELECT
+        tuf.ID              followId,             tuf.FOLLOW_ID        followUserId,
+        tuf.FAN_ID          followFanId,          tuf.CREATE_TIME      followCreateTime,
+        tuf.IS_DEL          followIsDel,
+
+        twu.WX_NICK_NAME    wxNickName
+        FROM t_user_follow tuf
+        LEFT JOIN t_wx_user twu ON twu.USER_ID = tuf.FOLLOW_ID
+        WHERE tuf.FAN_ID = #{followFanId}
+        limit #{start,jdbcType=DECIMAL},#{end,jdbcType=DECIMAL}
+    </select>
+    <!--统计数据条数-->
+    <select id="countFollowF" parameterType="map" resultType="Integer">
+        SELECT COUNT(1)
+        FROM t_user_follow tuf
+        LEFT JOIN t_wx_user twu ON twu.USER_ID = tuf.FOLLOW_ID
+        WHERE tuf.FAN_ID = #{followFanId}
+    </select>
+    <!--微信用户表的修改-->
+    <update id="updateWxUserF">
+        UPDATE t_wx_user twu
+        SET
+        twu.WX_AVATAR_URL = #{wxAvatarUrl},       twu.WX_NICK_NAME = #{wxNickName},
+        twu.WX_GENDER = #{wxGender},              twu.WX_COUNTRY = #{wxCountry},
+        twu.WX_PROVINCE = #{wxProvince},          twu.WX_CITY = #{wxCity},
+        twu.DEV_FANS = #{devFans},                twu.CREATE_TIME = #{wxuserCreateTime},
+        twu.UPDATE_TIME = #{updateTime},          twu.IS_DEL = #{isDelWxuser}
+        WHERE twu.USER_ID = #{wxuserId}
+    </update>
+
+    <!--限制微信用户，修改t_wx_user表的isDelWxuser-->
+    <update id="updateIsDelWxuserF">
+        UPDATE t_wx_user twu SET twu.IS_DEL = 1  WHERE twu.USER_ID = #{wxuserId}
+    </update>
+    <!--取消限制微信用户-->
+    <update id="updateIsDelWxuser0F">
+        UPDATE t_wx_user twu SET twu.IS_DEL = 0  WHERE twu.USER_ID = #{wxuserId}
+    </update>
+
+    <!--查询所有消息模板的信息-->
+    <select id="listTemplateF" resultType="com.jc.springboot.entity.FBaseWxuserTypeLabel">
+        SELECT
+        t_sys_template.ID templateId,
+        t_sys_template.TITLE templateTitle,
+        t_sys_template.CONTENT templateContent,
+        t_sys_template.IS_NOT_GUIDE templateIsNotGuide
+        FROM t_sys_template
+    </select>
+    <!--t_sys_information表的添加-->
+    <insert id="insertSysInformationF" parameterType="java.lang.String">
+        INSERT INTO t_sys_information(TARGET_ID,CONTENT,CREATE_TIME)
+        VALUES (#{wxuserId},#{sysInformationContent},#{sysInformationCreateTime})
+    </insert>
+</mapper>
