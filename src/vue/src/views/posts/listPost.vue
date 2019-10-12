@@ -53,8 +53,8 @@
       <el-table-column align="center" label="真实点赞量" prop="totalResonate"></el-table-column>
       <el-table-column align="center" label="偏移浏览量" prop="devBrowse"></el-table-column>
       <el-table-column align="center" label="偏移点赞量" prop="devResonate"></el-table-column>
-      <el-table-column align="center" label="活跃时间" prop="activeTime"></el-table-column>
-      <el-table-column align="center" label="创建时间" prop="baseCreateTime"></el-table-column>
+      <el-table-column align="center" label="活跃时间" prop="activeTime" width="200"></el-table-column>
+      <el-table-column align="center" label="创建时间" prop="baseCreateTime" width="200"></el-table-column>
       <el-table-column align="center" label="是否下架" prop="isLowerShelf">
         <template slot-scope="scope">
           <p v-if="list[scope.$index].isLowerShelf == 0">
