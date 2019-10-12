@@ -44,7 +44,7 @@
       <el-table-column align="center" label="地址" prop="address"></el-table-column>
       <el-table-column align="center" label="标签" prop="labels">
         <template slot-scope="scope">
-          <el-tag v-for="(item) in list[scope.$index].labels.split(',').slice(0, list[scope.$index].labels.split(',').length-1)" :key="index" type="success">
+          <el-tag v-for="(item,index) in list[scope.$index].labels.split(',').slice(0, list[scope.$index].labels.split(',').length-1)" :key="index" type="success">
             {{item}}
           </el-tag>
         </template>
