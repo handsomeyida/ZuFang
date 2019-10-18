@@ -2,7 +2,7 @@
   <div class="dashboard-container">
     <div class="tx">
       <a href="https://user.qzone.qq.com/867256260/infocenter" target="_blank"><img class="tximg"
-                                                                                    src="http://pic85.nipic.com/file/20151218/17926741_084024242000_2.jpg">
+                                                                                    src="../../image/5ab4cd33bee228.03839097.jpg">
       </a>
     </div>
   </div>

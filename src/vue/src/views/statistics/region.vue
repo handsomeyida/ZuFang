@@ -67,7 +67,11 @@
                 let year = this.months.getFullYear();
                 let month = this.months.getMonth();
                 let moths = month+1;
-                this.months = year+'年0'+moths+'月';
+                if (moths < 10) {
+                    this.months = year+'年0'+moths+'月';
+                } else {
+                    this.months = year+'年'+moths+'月';
+                }
                 this.themonths();
             },
             checkoption() {
